@@ -2,8 +2,10 @@ package graph
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"log/slog"
+	"maps"
 	"strings"
 	"sync"
 
@@ -12,16 +14,26 @@ import (
 	"k8s.io/client-go/kubernetes"
 )
 
+// NetworkAttachmentStatus represents an interface attachment entry from Multus network-status.
+type NetworkAttachmentStatus struct {
+	Name      string   `json:"name"`
+	Interface string   `json:"interface,omitempty"`
+	IPs       []string `json:"ips,omitempty"`
+	Mac       string   `json:"mac,omitempty"`
+	Default   bool     `json:"default,omitempty"`
+}
+
 // WorkloadInfo represents enriched Kubernetes workload identity for an LSP.
 type WorkloadInfo struct {
-	Kind              string // "VirtualMachine", "Pod", "Deployment", "DaemonSet", "StatefulSet"
-	WorkloadName      string
-	PodName           string
-	Namespace         string
-	Owner             string // e.g. "VirtualMachine/vm-onewater", "Deployment/coredns"
-	VMI               string // VirtualMachineInstance name for KubeVirt
-	NetworkAttachment string // NetworkAttachmentDefinition for multi-NIC interfaces
-	Node              string
+	Kind               string // "VirtualMachine", "Pod", "Deployment", "DaemonSet", "StatefulSet"
+	WorkloadName       string
+	PodName            string
+	Namespace          string
+	Owner              string // e.g. "VirtualMachine/vm-onewater", "Deployment/coredns"
+	VMI                string // VirtualMachineInstance name for KubeVirt
+	NetworkAttachment  string // NetworkAttachmentDefinition for multi-NIC interfaces
+	Attachments        []NetworkAttachmentStatus
+	Node               string
 }
 
 // WorkloadResolver resolves Pod and KubeVirt VM metadata.
@@ -124,26 +136,61 @@ func (r *KubeWorkloadResolver) Sync(ctx context.Context) error {
 		return fmt.Errorf("failed to list pods for workload resolution: %w", err)
 	}
 
-	r.mu.Lock()
-	defer r.mu.Unlock()
-
-	r.workloads = make(map[string]*WorkloadInfo, len(pods.Items)*2)
-
+	ptrs := make([]*corev1.Pod, len(pods.Items))
 	for i := range pods.Items {
-		pod := &pods.Items[i]
+		ptrs[i] = &pods.Items[i]
+	}
+	r.SetPods(ptrs)
+	return nil
+}
+
+// SetPods replaces the workload index from a full pod list and reports whether any
+// workload identity changed.
+func (r *KubeWorkloadResolver) SetPods(pods []*corev1.Pod) bool {
+	workloads := make(map[string]*WorkloadInfo, len(pods)*2)
+	for _, pod := range pods {
 		info := extractWorkloadFromPod(pod)
 
 		key := fmt.Sprintf("%s/%s", info.Namespace, info.PodName)
-		r.workloads[key] = info
-		r.workloads[info.PodName] = info
+		workloads[key] = info
+		workloads[info.PodName] = info
 		if info.WorkloadName != "" {
 			vmKey := fmt.Sprintf("%s/%s", info.Namespace, info.WorkloadName)
-			r.workloads[vmKey] = info
-			r.workloads[info.WorkloadName] = info
+			workloads[vmKey] = info
+			workloads[info.WorkloadName] = info
 		}
 	}
 
-	return nil
+	r.mu.Lock()
+	defer r.mu.Unlock()
+	changed := !maps.EqualFunc(r.workloads, workloads, equalWorkloadInfo)
+	r.workloads = workloads
+	return changed
+}
+
+func equalWorkloadInfo(a, b *WorkloadInfo) bool {
+	if a == b {
+		return true
+	}
+	if a == nil || b == nil {
+		return false
+	}
+	if a.Kind != b.Kind || a.WorkloadName != b.WorkloadName || a.PodName != b.PodName ||
+		a.Namespace != b.Namespace || a.Owner != b.Owner || a.VMI != b.VMI ||
+		a.NetworkAttachment != b.NetworkAttachment || a.Node != b.Node {
+		return false
+	}
+	if len(a.Attachments) != len(b.Attachments) {
+		return false
+	}
+	for i := range a.Attachments {
+		if a.Attachments[i].Name != b.Attachments[i].Name ||
+			a.Attachments[i].Mac != b.Attachments[i].Mac ||
+			a.Attachments[i].Default != b.Attachments[i].Default {
+			return false
+		}
+	}
+	return true
 }
 
 func extractWorkloadFromPod(pod *corev1.Pod) *WorkloadInfo {
@@ -172,45 +219,107 @@ func extractWorkloadFromPod(pod *corev1.Pod) *WorkloadInfo {
 			info.VMI = vmName
 		}
 		info.Owner = fmt.Sprintf("VirtualMachine/%s", vmName)
-		return info
-	}
-
-	// 2. Check OwnerReferences
-	for _, owner := range pod.OwnerReferences {
-		switch owner.Kind {
-		case "VirtualMachineInstance":
-			info.Kind = "VirtualMachine"
-			info.WorkloadName = owner.Name
-			info.VMI = owner.Name
-			info.Owner = fmt.Sprintf("VirtualMachine/%s", owner.Name)
-			return info
-		case "ReplicaSet":
-			// Strip template hash to get Deployment name: e.g. coredns-5596665f84 -> coredns
-			depName := owner.Name
-			if idx := strings.LastIndex(owner.Name, "-"); idx > 0 {
-				depName = owner.Name[:idx]
+	} else if len(pod.OwnerReferences) > 0 {
+		// 2. Check OwnerReferences
+		for _, owner := range pod.OwnerReferences {
+			switch owner.Kind {
+			case "VirtualMachineInstance":
+				info.Kind = "VirtualMachine"
+				info.WorkloadName = owner.Name
+				info.VMI = owner.Name
+				info.Owner = fmt.Sprintf("VirtualMachine/%s", owner.Name)
+			case "ReplicaSet":
+				// Strip template hash to get Deployment name: e.g. coredns-5596665f84 -> coredns
+				depName := owner.Name
+				if idx := strings.LastIndex(owner.Name, "-"); idx > 0 {
+					depName = owner.Name[:idx]
+				}
+				info.Kind = "Deployment"
+				info.WorkloadName = depName
+				info.Owner = fmt.Sprintf("Deployment/%s", depName)
+			case "DaemonSet", "StatefulSet", "Job":
+				info.Kind = owner.Kind
+				info.WorkloadName = owner.Name
+				info.Owner = fmt.Sprintf("%s/%s", owner.Kind, owner.Name)
 			}
-			info.Kind = "Deployment"
-			info.WorkloadName = depName
-			info.Owner = fmt.Sprintf("Deployment/%s", depName)
-			return info
-		case "DaemonSet", "StatefulSet", "Job":
-			info.Kind = owner.Kind
-			info.WorkloadName = owner.Name
-			info.Owner = fmt.Sprintf("%s/%s", owner.Kind, owner.Name)
-			return info
+			if info.Kind != "" {
+				break
+			}
 		}
 	}
 
 	// 3. Fallback: standalone Pod
-	info.Kind = "Pod"
-	info.WorkloadName = pod.Name
-	info.Owner = fmt.Sprintf("Pod/%s", pod.Name)
+	if info.Kind == "" {
+		info.Kind = "Pod"
+		info.WorkloadName = pod.Name
+		info.Owner = fmt.Sprintf("Pod/%s", pod.Name)
+	}
 
 	// Check multi-NIC NetworkAttachmentDefinition
 	if netStatus, ok := pod.Annotations["k8s.v1.cni.cncf.io/network-status"]; ok && netStatus != "" {
-		info.NetworkAttachment = netStatus
+		var attachments []NetworkAttachmentStatus
+		if err := json.Unmarshal([]byte(netStatus), &attachments); err == nil && len(attachments) > 0 {
+			info.Attachments = attachments
+			for _, att := range attachments {
+				if !att.Default && att.Name != "" {
+					info.NetworkAttachment = att.Name
+					break
+				}
+			}
+			if info.NetworkAttachment == "" && len(attachments) > 0 {
+				info.NetworkAttachment = attachments[0].Name
+			}
+		} else {
+			info.NetworkAttachment = netStatus
+		}
 	}
 
 	return info
+}
+
+// MatchAttachment finds the matching network attachment name for an LSP based on MAC, IPs, or subnet.
+func (w *WorkloadInfo) MatchAttachment(mac string, ips []string, subnet string) string {
+	if w == nil {
+		return ""
+	}
+	if len(w.Attachments) == 0 {
+		return w.NetworkAttachment
+	}
+
+	// 1. Match by MAC address (case-insensitive)
+	if mac != "" {
+		macLower := strings.ToLower(mac)
+		for _, att := range w.Attachments {
+			if strings.ToLower(att.Mac) == macLower {
+				return att.Name
+			}
+		}
+	}
+
+	// 2. Match by IP address
+	for _, ip := range ips {
+		for _, att := range w.Attachments {
+			for _, attIP := range att.IPs {
+				if attIP == ip {
+					return att.Name
+				}
+			}
+		}
+	}
+
+	// 3. Match by subnet/network name suffix (e.g. subnet "subnet-onewater" matches attachment "onewater/onewater")
+	if subnet != "" {
+		subClean := strings.TrimPrefix(subnet, "subnet-")
+		for _, att := range w.Attachments {
+			attClean := att.Name
+			if idx := strings.Index(attClean, "/"); idx >= 0 {
+				attClean = attClean[idx+1:]
+			}
+			if attClean == subClean || att.Name == subnet {
+				return att.Name
+			}
+		}
+	}
+
+	return w.NetworkAttachment
 }

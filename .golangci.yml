@@ -12,7 +12,13 @@ linters:
     - depguard
   settings:
     forbidigo:
+      # Type-aware so that the Kubernetes-only patterns below can be scoped to
+      # client-go: graph.Store.Apply is a local, legitimate method.
+      analyze-types: true
       forbid:
+        - pattern: '.*\.(Patch|Apply|ApplyStatus|ApplyScale|Evict|EvictV1|EvictV1beta1|DeleteCollection)$'
+          pkg: '^k8s\.io/client-go/'
+          msg: "write operations to Kubernetes are forbidden: repo is read-only"
         - pattern: '.*\.Create'
           msg: "write operations to OVSDB or Kubernetes are forbidden: repo is read-only"
         - pattern: '.*\.Update'
@@ -31,11 +37,16 @@ linters:
             - "**/pkg/graph/**"
             - "**/pkg/server/**"
             - "**/pkg/ovsdb/**"
+            - "**/pkg/mcp/**"
           deny:
             - pkg: "github.com/coulof/ovn-topology/pkg/diag"
-              desc: "ADR-0001: pkg/diag is strictly restricted to cmd/ovn-topo and must not be imported by the daemon"
+              desc: "ADR-0001: pkg/diag is strictly restricted to cmd/ovn-topo and must not be imported by the daemon or pkg/mcp"
             - pkg: "k8s.io/client-go/tools/remotecommand"
-              desc: "ADR-0001: remotecommand is strictly restricted to cmd/ovn-topo and must not be imported by the daemon"
+              desc: "ADR-0001: remotecommand is strictly restricted to cmd/ovn-topo and must not be imported by the daemon or pkg/mcp"
   exclusions:
-    paths:
-      - ui
+    rules:
+      # Event-handler struct fields (client-go ResourceEventHandlerFuncs, libovsdb
+      # cache.EventHandlerFuncs) are callbacks, not writes; analyze-types reports
+      # them against the Update/Delete prefixes. Exact names only.
+      - linters: [forbidigo]
+        text: "^use of `(AddFunc|UpdateFunc|DeleteFunc)` forbidden"

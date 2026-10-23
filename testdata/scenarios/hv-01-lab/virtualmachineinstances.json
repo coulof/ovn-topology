@@ -1,0 +1,505 @@
+[
+ {
+  "metadata": {
+   "annotations": {
+    "kubevirt.io/latest-observed-api-version": "v1",
+    "kubevirt.io/pci-topology-version": "v3",
+    "kubevirt.io/storage-observed-api-version": "v1",
+    "kubevirt.io/vm-generation": "1"
+   },
+   "labels": {
+    "harvesterhci.io/vmName": "coriolis-win-minion",
+    "kubevirt.io/nodeName": "hv-02"
+   },
+   "name": "coriolis-win-minion",
+   "namespace": "default",
+   "ownerReferences": [
+    {
+     "apiVersion": "kubevirt.io/v1",
+     "kind": "VirtualMachine",
+     "name": "coriolis-win-minion",
+     "uid": "799f389a-b08f-40f9-9a42-6830b3c8ac3b"
+    }
+   ]
+  },
+  "spec": {
+   "domain": {
+    "devices": {
+     "interfaces": [
+      {
+       "bridge": {},
+       "macAddress": "66:a6:d0:bf:2b:4a",
+       "model": "e1000",
+       "name": "default"
+      }
+     ]
+    }
+   },
+   "networks": [
+    {
+     "multus": {
+      "networkName": "default/default"
+     },
+     "name": "default"
+    }
+   ],
+   "nodeName": ""
+  },
+  "status": {
+   "interfaces": [
+    {
+     "infoSource": "domain, multus-status",
+     "linkState": "up",
+     "mac": "66:a6:d0:bf:2b:4a",
+     "name": "default",
+     "podInterfaceName": "pod37a8eec1ce1",
+     "queueCount": 1
+    }
+   ],
+   "nodeName": "hv-02",
+   "phase": "Running"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "kubevirt.io/latest-observed-api-version": "v1",
+    "kubevirt.io/pci-topology-version": "v3",
+    "kubevirt.io/storage-observed-api-version": "v1",
+    "kubevirt.io/vm-generation": "2",
+    "vm.kubevirt.io/os": "linux"
+   },
+   "labels": {
+    "harvesterhci.io/vmName": "spike-it",
+    "kubevirt.io/nodeName": "hv-02"
+   },
+   "name": "spike-it",
+   "namespace": "default",
+   "ownerReferences": [
+    {
+     "apiVersion": "kubevirt.io/v1",
+     "kind": "VirtualMachine",
+     "name": "spike-it",
+     "uid": "857cf058-a819-4340-bd2a-f3d8d60de988"
+    }
+   ]
+  },
+  "spec": {
+   "domain": {
+    "devices": {
+     "interfaces": [
+      {
+       "bridge": {},
+       "macAddress": "ae:24:2a:cc:e7:c6",
+       "model": "virtio",
+       "name": "default"
+      }
+     ]
+    }
+   },
+   "networks": [
+    {
+     "multus": {
+      "networkName": "default/default"
+     },
+     "name": "default"
+    }
+   ],
+   "nodeName": ""
+  },
+  "status": {
+   "interfaces": [
+    {
+     "infoSource": "domain, guest-agent, multus-status",
+     "interfaceName": "enp1s0",
+     "ipAddress": "10.144.97.201",
+     "ipAddresses": [
+      "10.144.97.201",
+      "fe80::ac24:2aff:fecc:e7c6"
+     ],
+     "linkState": "up",
+     "mac": "ae:24:2a:cc:e7:c6",
+     "name": "default",
+     "podInterfaceName": "pod37a8eec1ce1",
+     "queueCount": 1
+    }
+   ],
+   "nodeName": "hv-02",
+   "phase": "Running"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "harvesterhci.io/sshNames": "[\"default/flo\"]",
+    "kubevirt.io/latest-observed-api-version": "v1",
+    "kubevirt.io/pci-topology-version": "v3",
+    "kubevirt.io/storage-observed-api-version": "v1",
+    "kubevirt.io/vm-generation": "1"
+   },
+   "labels": {
+    "harvesterhci.io/vmName": "test-2-nics-2-vpc",
+    "kubevirt.io/nodeName": "hv-01"
+   },
+   "name": "test-2-nics-2-vpc",
+   "namespace": "default",
+   "ownerReferences": [
+    {
+     "apiVersion": "kubevirt.io/v1",
+     "kind": "VirtualMachine",
+     "name": "test-2-nics-2-vpc",
+     "uid": "d6d2ede4-f1bb-4bb2-b417-cef1401f8e47"
+    }
+   ]
+  },
+  "spec": {
+   "domain": {
+    "devices": {
+     "interfaces": [
+      {
+       "binding": {
+        "name": "managedtap"
+       },
+       "macAddress": "32:36:ab:92:a9:0a",
+       "model": "virtio",
+       "name": "default"
+      },
+      {
+       "binding": {
+        "name": "managedtap"
+       },
+       "macAddress": "be:91:0e:cd:33:71",
+       "model": "virtio",
+       "name": "nic-1"
+      }
+     ]
+    }
+   },
+   "networks": [
+    {
+     "multus": {
+      "networkName": "onewater/onewater"
+     },
+     "name": "default"
+    },
+    {
+     "multus": {
+      "networkName": "twowater/twowater"
+     },
+     "name": "nic-1"
+    }
+   ],
+   "nodeName": ""
+  },
+  "status": {
+   "interfaces": [
+    {
+     "infoSource": "domain, guest-agent, multus-status",
+     "interfaceName": "enp1s0",
+     "ipAddress": "192.168.54.37",
+     "ipAddresses": [
+      "192.168.54.37",
+      "fe80::3036:abff:fe92:a90a"
+     ],
+     "linkState": "up",
+     "mac": "32:36:ab:92:a9:0a",
+     "name": "default",
+     "podInterfaceName": "pod37a8eec1ce1",
+     "queueCount": 1
+    },
+    {
+     "infoSource": "domain, guest-agent, multus-status",
+     "interfaceName": "enp2s0",
+     "ipAddress": "192.168.55.51",
+     "ipAddresses": [
+      "192.168.55.51",
+      "fe80::bc91:eff:fecd:3371"
+     ],
+     "linkState": "up",
+     "mac": "be:91:0e:cd:33:71",
+     "name": "nic-1",
+     "podInterfaceName": "pod8fe0d3f1ac5",
+     "queueCount": 1
+    }
+   ],
+   "nodeName": "hv-01",
+   "phase": "Running"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "kubevirt.io/latest-observed-api-version": "v1",
+    "kubevirt.io/pci-topology-version": "v3",
+    "kubevirt.io/storage-observed-api-version": "v1",
+    "kubevirt.io/vm-generation": "1",
+    "vm.kubevirt.io/os": "linux"
+   },
+   "labels": {
+    "harvesterhci.io/vmName": "tumbleweed-flint-florian",
+    "kubevirt.io/nodeName": "hv-02"
+   },
+   "name": "tumbleweed-flint-florian",
+   "namespace": "default",
+   "ownerReferences": [
+    {
+     "apiVersion": "kubevirt.io/v1",
+     "kind": "VirtualMachine",
+     "name": "tumbleweed-flint-florian",
+     "uid": "bb680983-3249-4c1f-bc38-5d66fd153648"
+    }
+   ]
+  },
+  "spec": {
+   "domain": {
+    "devices": {
+     "interfaces": [
+      {
+       "bridge": {},
+       "macAddress": "56:57:0f:bd:a5:4e",
+       "model": "virtio",
+       "name": "default"
+      }
+     ]
+    }
+   },
+   "networks": [
+    {
+     "multus": {
+      "networkName": "default/default"
+     },
+     "name": "default"
+    }
+   ],
+   "nodeName": ""
+  },
+  "status": {
+   "interfaces": [
+    {
+     "infoSource": "domain, guest-agent, multus-status",
+     "interfaceName": "enp1s0",
+     "ipAddress": "10.144.103.10",
+     "ipAddresses": [
+      "10.144.103.10",
+      "fe80::5457:fff:febd:a54e"
+     ],
+     "linkState": "up",
+     "mac": "56:57:0f:bd:a5:4e",
+     "name": "default",
+     "podInterfaceName": "pod37a8eec1ce1",
+     "queueCount": 1
+    }
+   ],
+   "nodeName": "hv-02",
+   "phase": "Running"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "kubevirt.io/latest-observed-api-version": "v1",
+    "kubevirt.io/pci-topology-version": "v3",
+    "kubevirt.io/storage-observed-api-version": "v1",
+    "kubevirt.io/vm-generation": "1"
+   },
+   "labels": {
+    "harvesterhci.io/vmName": "vm-2",
+    "kubevirt.io/nodeName": "hv-04"
+   },
+   "name": "vm-2",
+   "namespace": "onewater",
+   "ownerReferences": [
+    {
+     "apiVersion": "kubevirt.io/v1",
+     "kind": "VirtualMachine",
+     "name": "vm-2",
+     "uid": "0521ff23-fb4b-455a-b92b-06d583eb635c"
+    }
+   ]
+  },
+  "spec": {
+   "domain": {
+    "devices": {
+     "interfaces": [
+      {
+       "binding": {
+        "name": "managedtap"
+       },
+       "macAddress": "d6:c4:54:0b:7b:5b",
+       "model": "virtio",
+       "name": "default"
+      }
+     ]
+    }
+   },
+   "networks": [
+    {
+     "multus": {
+      "networkName": "onewater/onewater"
+     },
+     "name": "default"
+    }
+   ],
+   "nodeName": ""
+  },
+  "status": {
+   "interfaces": [
+    {
+     "infoSource": "domain, guest-agent, multus-status",
+     "interfaceName": "enp1s0",
+     "ipAddress": "192.168.54.36",
+     "ipAddresses": [
+      "192.168.54.36",
+      "fe80::d4c4:54ff:fe0b:7b5b"
+     ],
+     "linkState": "up",
+     "mac": "d6:c4:54:0b:7b:5b",
+     "name": "default",
+     "podInterfaceName": "pod37a8eec1ce1",
+     "queueCount": 1
+    }
+   ],
+   "nodeName": "hv-04",
+   "phase": "Running"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "kubevirt.io/latest-observed-api-version": "v1",
+    "kubevirt.io/pci-topology-version": "v3",
+    "kubevirt.io/storage-observed-api-version": "v1",
+    "kubevirt.io/vm-generation": "1"
+   },
+   "labels": {
+    "harvesterhci.io/vmName": "vm-onewater",
+    "kubevirt.io/nodeName": "hv-03"
+   },
+   "name": "vm-onewater",
+   "namespace": "onewater",
+   "ownerReferences": [
+    {
+     "apiVersion": "kubevirt.io/v1",
+     "kind": "VirtualMachine",
+     "name": "vm-onewater",
+     "uid": "ad80f31e-021a-498c-a96d-8d005ccd3504"
+    }
+   ]
+  },
+  "spec": {
+   "domain": {
+    "devices": {
+     "interfaces": [
+      {
+       "binding": {
+        "name": "managedtap"
+       },
+       "macAddress": "e6:10:52:5b:4f:fd",
+       "model": "virtio",
+       "name": "default"
+      }
+     ]
+    }
+   },
+   "networks": [
+    {
+     "multus": {
+      "networkName": "onewater/onewater"
+     },
+     "name": "default"
+    }
+   ],
+   "nodeName": ""
+  },
+  "status": {
+   "interfaces": [
+    {
+     "infoSource": "domain, guest-agent, multus-status",
+     "interfaceName": "enp1s0",
+     "ipAddress": "192.168.54.35",
+     "ipAddresses": [
+      "192.168.54.35",
+      "fe80::e410:52ff:fe5b:4ffd"
+     ],
+     "linkState": "up",
+     "mac": "e6:10:52:5b:4f:fd",
+     "name": "default",
+     "podInterfaceName": "pod37a8eec1ce1",
+     "queueCount": 1
+    }
+   ],
+   "nodeName": "hv-03",
+   "phase": "Running"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "kubevirt.io/latest-observed-api-version": "v1",
+    "kubevirt.io/nonroot": "true",
+    "kubevirt.io/pci-topology-version": "v3",
+    "kubevirt.io/storage-observed-api-version": "v1",
+    "kubevirt.io/vm-generation": "1"
+   },
+   "labels": {
+    "harvesterhci.io/vmName": "vm-twowater",
+    "kubevirt.io/nodeName": "hv-02"
+   },
+   "name": "vm-twowater",
+   "namespace": "twowater",
+   "ownerReferences": [
+    {
+     "apiVersion": "kubevirt.io/v1",
+     "kind": "VirtualMachine",
+     "name": "vm-twowater",
+     "uid": "a553c602-8199-434f-8877-39621bf9ebe0"
+    }
+   ]
+  },
+  "spec": {
+   "domain": {
+    "devices": {
+     "interfaces": [
+      {
+       "binding": {
+        "name": "managedtap"
+       },
+       "macAddress": "12:07:c5:da:e1:dd",
+       "model": "virtio",
+       "name": "default"
+      }
+     ]
+    }
+   },
+   "networks": [
+    {
+     "multus": {
+      "networkName": "twowater/twowater"
+     },
+     "name": "default"
+    }
+   ],
+   "nodeName": ""
+  },
+  "status": {
+   "interfaces": [
+    {
+     "infoSource": "domain, guest-agent, multus-status",
+     "interfaceName": "enp1s0",
+     "ipAddress": "192.168.55.50",
+     "ipAddresses": [
+      "192.168.55.50",
+      "fe80::1007:c5ff:feda:e1dd"
+     ],
+     "linkState": "up",
+     "mac": "12:07:c5:da:e1:dd",
+     "name": "default",
+     "podInterfaceName": "pod37a8eec1ce1",
+     "queueCount": 1
+    }
+   ],
+   "nodeName": "hv-02",
+   "phase": "Running"
+  }
+ }
+]

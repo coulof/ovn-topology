@@ -19,19 +19,11 @@ lint:
 	golangci-lint run ./...
 	@echo "==> Running ADR-0001 dependency check..."
 	./hack/check-deps.sh
-	@if [ -d "ui/node_modules" ] && grep -q '"lint"' ui/package.json; then \
-		echo "==> Running eslint in ui..."; \
-		(cd ui && yarn lint); \
-	fi
 
 .PHONY: test
 test:
 	@echo "==> Running Go unit and in-memory tests..."
 	go test -v -race ./pkg/... ./cmd/...
-	@if [ -d "ui/node_modules" ]; then \
-		echo "==> Running UI unit tests..."; \
-		(cd ui && yarn test); \
-	fi
 
 .PHONY: build
 build:
@@ -48,22 +40,6 @@ image:
 		--build-arg GIT_COMMIT=$(GIT_COMMIT) \
 		--build-arg BUILD_DATE=$(BUILD_DATE) \
 		-t ghcr.io/coulof/ovn-topologyd:$(VERSION) .
-
-.PHONY: ui-dev
-ui-dev:
-	@echo "==> Starting UI development app against Rancher..."
-	@API_URL="$${RANCHER_API:-$${RANCHER_URL:-https://10.144.98.13.sslip.io/}}"; \
-	cd ui && NODE_TLS_REJECT_UNAUTHORIZED=0 API="$$API_URL" yarn dev
-
-.PHONY: ui-build
-ui-build:
-	@echo "==> Building Rancher UI extension package..."
-	cd ui && yarn build-pkg ovn-topology
-
-.PHONY: ui-serve
-ui-serve:
-	@echo "==> Serving UI extension packages locally (port 4500)..."
-	cd ui && yarn serve-pkgs
 
 .PHONY: dev-cluster
 dev-cluster:

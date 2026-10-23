@@ -1,0 +1,3023 @@
+{
+ "OVN_Southbound": {
+  "BFD": {},
+  "Chassis": {
+   "29066f73-4be9-4d98-b2e7-683ccfd5c091": {
+    "encaps": [
+     "uuid",
+     "2b4e0e28-f009-42d9-92d9-69da893b4583"
+    ],
+    "external_ids": [
+     "map",
+     [
+      [
+       "vendor",
+       "kube-ovn"
+      ]
+     ]
+    ],
+    "hostname": "hv-03",
+    "name": "a5e5d41a-75b3-4b11-bd7c-8ddc695db969",
+    "nb_cfg": 0,
+    "other_config": [
+     "map",
+     [
+      [
+       "ct-commit-nat-v2",
+       "true"
+      ],
+      [
+       "ct-commit-to-zone",
+       "true"
+      ],
+      [
+       "ct-label-flush",
+       "true"
+      ],
+      [
+       "ct-next-zone",
+       "true"
+      ],
+      [
+       "ct-no-masked-label",
+       "true"
+      ],
+      [
+       "ct-state-save",
+       "true"
+      ],
+      [
+       "datapath-type",
+       "system"
+      ],
+      [
+       "fdb-timestamp",
+       "true"
+      ],
+      [
+       "iface-types",
+       "bareudp,erspan,geneve,gre,gtpu,internal,ip6erspan,ip6gre,lisp,patch,srv6,stt,system,tap,vxlan"
+      ],
+      [
+       "is-interconn",
+       "false"
+      ],
+      [
+       "ls-dpg-column",
+       "true"
+      ],
+      [
+       "mac-binding-timestamp",
+       "true"
+      ],
+      [
+       "ovn-bridge-mappings",
+       "external:br-external"
+      ],
+      [
+       "ovn-chassis-mac-mappings",
+       "external:8e:89:6e:04:42:38"
+      ],
+      [
+       "ovn-cms-options",
+       ""
+      ],
+      [
+       "ovn-ct-lb-related",
+       "true"
+      ],
+      [
+       "ovn-enable-lflow-cache",
+       "true"
+      ],
+      [
+       "ovn-limit-lflow-cache",
+       ""
+      ],
+      [
+       "ovn-memlimit-lflow-cache-kb",
+       ""
+      ],
+      [
+       "ovn-monitor-all",
+       "false"
+      ],
+      [
+       "ovn-sample-with-registers",
+       "true"
+      ],
+      [
+       "ovn-trim-limit-lflow-cache",
+       ""
+      ],
+      [
+       "ovn-trim-timeout-ms",
+       ""
+      ],
+      [
+       "ovn-trim-wmark-perc-lflow-cache",
+       ""
+      ],
+      [
+       "port-up-notif",
+       "true"
+      ]
+     ]
+    ],
+    "transport_zones": [
+     "set",
+     []
+    ],
+    "vtep_logical_switches": [
+     "set",
+     []
+    ]
+   },
+   "99991a3f-1220-4479-8dcb-129c074a705f": {
+    "encaps": [
+     "uuid",
+     "7f5788f5-d3d8-44f3-a34c-ac27a5b5fe14"
+    ],
+    "external_ids": [
+     "map",
+     [
+      [
+       "vendor",
+       "kube-ovn"
+      ]
+     ]
+    ],
+    "hostname": "hv-04",
+    "name": "b31870eb-31b2-420c-b2b2-a98af839670c",
+    "nb_cfg": 0,
+    "other_config": [
+     "map",
+     [
+      [
+       "ct-commit-nat-v2",
+       "true"
+      ],
+      [
+       "ct-commit-to-zone",
+       "true"
+      ],
+      [
+       "ct-label-flush",
+       "true"
+      ],
+      [
+       "ct-next-zone",
+       "true"
+      ],
+      [
+       "ct-no-masked-label",
+       "true"
+      ],
+      [
+       "ct-state-save",
+       "true"
+      ],
+      [
+       "datapath-type",
+       "system"
+      ],
+      [
+       "fdb-timestamp",
+       "true"
+      ],
+      [
+       "iface-types",
+       "bareudp,erspan,geneve,gre,gtpu,internal,ip6erspan,ip6gre,lisp,patch,srv6,stt,system,tap,vxlan"
+      ],
+      [
+       "is-interconn",
+       "false"
+      ],
+      [
+       "ls-dpg-column",
+       "true"
+      ],
+      [
+       "mac-binding-timestamp",
+       "true"
+      ],
+      [
+       "ovn-bridge-mappings",
+       "external:br-external"
+      ],
+      [
+       "ovn-chassis-mac-mappings",
+       "external:d2:e6:18:a8:51:ed"
+      ],
+      [
+       "ovn-cms-options",
+       ""
+      ],
+      [
+       "ovn-ct-lb-related",
+       "true"
+      ],
+      [
+       "ovn-enable-lflow-cache",
+       "true"
+      ],
+      [
+       "ovn-limit-lflow-cache",
+       ""
+      ],
+      [
+       "ovn-memlimit-lflow-cache-kb",
+       ""
+      ],
+      [
+       "ovn-monitor-all",
+       "false"
+      ],
+      [
+       "ovn-sample-with-registers",
+       "true"
+      ],
+      [
+       "ovn-trim-limit-lflow-cache",
+       ""
+      ],
+      [
+       "ovn-trim-timeout-ms",
+       ""
+      ],
+      [
+       "ovn-trim-wmark-perc-lflow-cache",
+       ""
+      ],
+      [
+       "port-up-notif",
+       "true"
+      ]
+     ]
+    ],
+    "transport_zones": [
+     "set",
+     []
+    ],
+    "vtep_logical_switches": [
+     "set",
+     []
+    ]
+   },
+   "c1cba3aa-c70b-4918-9a8e-fe4472d6b95c": {
+    "encaps": [
+     "uuid",
+     "749bb8b3-b5fd-4354-82a2-f653b459527a"
+    ],
+    "external_ids": [
+     "map",
+     [
+      [
+       "vendor",
+       "kube-ovn"
+      ]
+     ]
+    ],
+    "hostname": "hv-02",
+    "name": "e89b2726-abaf-4f21-a107-2d6a23c7619a",
+    "nb_cfg": 0,
+    "other_config": [
+     "map",
+     [
+      [
+       "ct-commit-nat-v2",
+       "true"
+      ],
+      [
+       "ct-commit-to-zone",
+       "true"
+      ],
+      [
+       "ct-label-flush",
+       "true"
+      ],
+      [
+       "ct-next-zone",
+       "true"
+      ],
+      [
+       "ct-no-masked-label",
+       "true"
+      ],
+      [
+       "ct-state-save",
+       "true"
+      ],
+      [
+       "datapath-type",
+       "system"
+      ],
+      [
+       "fdb-timestamp",
+       "true"
+      ],
+      [
+       "iface-types",
+       "bareudp,erspan,geneve,gre,gtpu,internal,ip6erspan,ip6gre,lisp,patch,srv6,stt,system,tap,vxlan"
+      ],
+      [
+       "is-interconn",
+       "false"
+      ],
+      [
+       "ls-dpg-column",
+       "true"
+      ],
+      [
+       "mac-binding-timestamp",
+       "true"
+      ],
+      [
+       "ovn-bridge-mappings",
+       "external:br-external"
+      ],
+      [
+       "ovn-chassis-mac-mappings",
+       "external:a6:05:b6:3b:5f:46"
+      ],
+      [
+       "ovn-cms-options",
+       ""
+      ],
+      [
+       "ovn-ct-lb-related",
+       "true"
+      ],
+      [
+       "ovn-enable-lflow-cache",
+       "true"
+      ],
+      [
+       "ovn-limit-lflow-cache",
+       ""
+      ],
+      [
+       "ovn-memlimit-lflow-cache-kb",
+       ""
+      ],
+      [
+       "ovn-monitor-all",
+       "false"
+      ],
+      [
+       "ovn-sample-with-registers",
+       "true"
+      ],
+      [
+       "ovn-trim-limit-lflow-cache",
+       ""
+      ],
+      [
+       "ovn-trim-timeout-ms",
+       ""
+      ],
+      [
+       "ovn-trim-wmark-perc-lflow-cache",
+       ""
+      ],
+      [
+       "port-up-notif",
+       "true"
+      ]
+     ]
+    ],
+    "transport_zones": [
+     "set",
+     []
+    ],
+    "vtep_logical_switches": [
+     "set",
+     []
+    ]
+   },
+   "ddbfec73-3751-43f3-b9ef-b5bdec1eedc2": {
+    "encaps": [
+     "uuid",
+     "bcf93073-f760-4437-a2dd-460fdae541be"
+    ],
+    "external_ids": [
+     "map",
+     [
+      [
+       "vendor",
+       "kube-ovn"
+      ]
+     ]
+    ],
+    "hostname": "hv-01",
+    "name": "43519f69-444f-4b57-8fa0-be222c9fc4e7",
+    "nb_cfg": 0,
+    "other_config": [
+     "map",
+     [
+      [
+       "ct-commit-nat-v2",
+       "true"
+      ],
+      [
+       "ct-commit-to-zone",
+       "true"
+      ],
+      [
+       "ct-label-flush",
+       "true"
+      ],
+      [
+       "ct-next-zone",
+       "true"
+      ],
+      [
+       "ct-no-masked-label",
+       "true"
+      ],
+      [
+       "ct-state-save",
+       "true"
+      ],
+      [
+       "datapath-type",
+       "system"
+      ],
+      [
+       "fdb-timestamp",
+       "true"
+      ],
+      [
+       "iface-types",
+       "bareudp,erspan,geneve,gre,gtpu,internal,ip6erspan,ip6gre,lisp,patch,srv6,stt,system,tap,vxlan"
+      ],
+      [
+       "is-interconn",
+       "false"
+      ],
+      [
+       "ls-dpg-column",
+       "true"
+      ],
+      [
+       "mac-binding-timestamp",
+       "true"
+      ],
+      [
+       "ovn-bridge-mappings",
+       "external:br-external"
+      ],
+      [
+       "ovn-chassis-mac-mappings",
+       "external:5a:da:3e:c2:e8:32"
+      ],
+      [
+       "ovn-cms-options",
+       ""
+      ],
+      [
+       "ovn-ct-lb-related",
+       "true"
+      ],
+      [
+       "ovn-enable-lflow-cache",
+       "true"
+      ],
+      [
+       "ovn-limit-lflow-cache",
+       ""
+      ],
+      [
+       "ovn-memlimit-lflow-cache-kb",
+       ""
+      ],
+      [
+       "ovn-monitor-all",
+       "false"
+      ],
+      [
+       "ovn-sample-with-registers",
+       "true"
+      ],
+      [
+       "ovn-trim-limit-lflow-cache",
+       ""
+      ],
+      [
+       "ovn-trim-timeout-ms",
+       ""
+      ],
+      [
+       "ovn-trim-wmark-perc-lflow-cache",
+       ""
+      ],
+      [
+       "port-up-notif",
+       "true"
+      ]
+     ]
+    ],
+    "transport_zones": [
+     "set",
+     []
+    ],
+    "vtep_logical_switches": [
+     "set",
+     []
+    ]
+   }
+  },
+  "Datapath_Binding": {
+   "00fb81ad-b520-434e-a8cd-ef4872533b3e": {
+    "external_ids": [
+     "map",
+     [
+      [
+       "logical-switch",
+       "4a5f8013-b78c-45eb-bf22-846d9b503d6d"
+      ],
+      [
+       "name",
+       "subnet-twowater"
+      ]
+     ]
+    ],
+    "load_balancers": [
+     "set",
+     []
+    ],
+    "tunnel_key": 6
+   },
+   "1f34f30d-7079-49c5-a817-88b39c95b0c5": {
+    "external_ids": [
+     "map",
+     [
+      [
+       "disable_garp_rarp",
+       "false"
+      ],
+      [
+       "logical-router",
+       "28981b5a-1e3a-45a3-a388-8f986c0e3ffc"
+      ],
+      [
+       "mac_binding_age_threshold",
+       "300"
+      ],
+      [
+       "name",
+       "vpc-twowater"
+      ]
+     ]
+    ],
+    "load_balancers": [
+     "set",
+     []
+    ],
+    "tunnel_key": 8
+   },
+   "2c990bc2-4fd7-404a-a3b5-fdf0a0ac386c": {
+    "external_ids": [
+     "map",
+     [
+      [
+       "logical-switch",
+       "57386a16-5084-4188-b376-ef826d828be5"
+      ],
+      [
+       "name",
+       "external"
+      ]
+     ]
+    ],
+    "load_balancers": [
+     "set",
+     []
+    ],
+    "tunnel_key": 3
+   },
+   "3d39eb54-d706-4623-a468-fc23d87a694c": {
+    "external_ids": [
+     "map",
+     [
+      [
+       "disable_garp_rarp",
+       "false"
+      ],
+      [
+       "logical-router",
+       "56000bdc-a830-4879-833a-2e504cdd67ed"
+      ],
+      [
+       "mac_binding_age_threshold",
+       "300"
+      ],
+      [
+       "name",
+       "vpc-onewater"
+      ]
+     ]
+    ],
+    "load_balancers": [
+     "set",
+     []
+    ],
+    "tunnel_key": 2
+   },
+   "44f9c3f8-e6c8-4e41-bc9e-9acb9caa02fb": {
+    "external_ids": [
+     "map",
+     [
+      [
+       "logical-switch",
+       "16805dfb-1658-44d4-b724-ccedaad81ee0"
+      ],
+      [
+       "name",
+       "subnet-onewater"
+      ]
+     ]
+    ],
+    "load_balancers": [
+     "set",
+     []
+    ],
+    "tunnel_key": 7
+   },
+   "6985533f-b139-4f31-8c9d-87c02fcb4178": {
+    "external_ids": [
+     "map",
+     [
+      [
+       "logical-switch",
+       "ac3f1945-f4ef-4437-bb09-b13c4f3db3ee"
+      ],
+      [
+       "name",
+       "join"
+      ]
+     ]
+    ],
+    "load_balancers": [
+     "set",
+     []
+    ],
+    "tunnel_key": 5
+   },
+   "70a6840c-2fe5-41b3-a3cb-002547c3ebeb": {
+    "external_ids": [
+     "map",
+     [
+      [
+       "always_learn_from_arp_request",
+       "false"
+      ],
+      [
+       "disable_garp_rarp",
+       "false"
+      ],
+      [
+       "logical-router",
+       "db212758-da7a-4e7e-9707-2ac6d1cbe60a"
+      ],
+      [
+       "mac_binding_age_threshold",
+       "300"
+      ],
+      [
+       "name",
+       "ovn-cluster"
+      ]
+     ]
+    ],
+    "load_balancers": [
+     "set",
+     []
+    ],
+    "tunnel_key": 1
+   },
+   "aa8d79f9-2073-43a9-a29f-8dd4597fe9bd": {
+    "external_ids": [
+     "map",
+     [
+      [
+       "logical-switch",
+       "833c1bc9-8109-4829-86cf-5e0f39855dba"
+      ],
+      [
+       "name",
+       "ovn-default"
+      ]
+     ]
+    ],
+    "load_balancers": [
+     "set",
+     []
+    ],
+    "tunnel_key": 4
+   }
+  },
+  "Encap": {
+   "2b4e0e28-f009-42d9-92d9-69da893b4583": {
+    "chassis_name": "a5e5d41a-75b3-4b11-bd7c-8ddc695db969",
+    "ip": "10.144.98.244",
+    "options": [
+     "map",
+     [
+      [
+       "csum",
+       "true"
+      ],
+      [
+       "is_default",
+       "true"
+      ]
+     ]
+    ],
+    "type": "vxlan"
+   },
+   "749bb8b3-b5fd-4354-82a2-f653b459527a": {
+    "chassis_name": "e89b2726-abaf-4f21-a107-2d6a23c7619a",
+    "ip": "10.144.98.7",
+    "options": [
+     "map",
+     [
+      [
+       "csum",
+       "true"
+      ],
+      [
+       "is_default",
+       "true"
+      ]
+     ]
+    ],
+    "type": "vxlan"
+   },
+   "7f5788f5-d3d8-44f3-a34c-ac27a5b5fe14": {
+    "chassis_name": "b31870eb-31b2-420c-b2b2-a98af839670c",
+    "ip": "10.144.98.201",
+    "options": [
+     "map",
+     [
+      [
+       "csum",
+       "true"
+      ],
+      [
+       "is_default",
+       "true"
+      ]
+     ]
+    ],
+    "type": "vxlan"
+   },
+   "bcf93073-f760-4437-a2dd-460fdae541be": {
+    "chassis_name": "43519f69-444f-4b57-8fa0-be222c9fc4e7",
+    "ip": "10.144.98.249",
+    "options": [
+     "map",
+     [
+      [
+       "csum",
+       "true"
+      ],
+      [
+       "is_default",
+       "true"
+      ]
+     ]
+    ],
+    "type": "vxlan"
+   }
+  },
+  "Port_Binding": {
+   "0b43d9d5-f43b-4f8f-8dc4-a90d8ab9d375": {
+    "additional_chassis": [
+     "set",
+     []
+    ],
+    "additional_encap": [
+     "set",
+     []
+    ],
+    "chassis": [
+     "uuid",
+     "29066f73-4be9-4d98-b2e7-683ccfd5c091"
+    ],
+    "datapath": [
+     "uuid",
+     "6985533f-b139-4f31-8c9d-87c02fcb4178"
+    ],
+    "encap": [
+     "set",
+     []
+    ],
+    "external_ids": [
+     "map",
+     [
+      [
+       "ls",
+       "join"
+      ],
+      [
+       "vendor",
+       "kube-ovn"
+      ]
+     ]
+    ],
+    "gateway_chassis": [
+     "set",
+     []
+    ],
+    "ha_chassis_group": [
+     "set",
+     []
+    ],
+    "logical_port": "node-hv-03",
+    "mac": "66:06:46:9e:92:42 100.64.0.4",
+    "mirror_rules": [
+     "set",
+     []
+    ],
+    "nat_addresses": [
+     "set",
+     []
+    ],
+    "options": [
+     "map",
+     []
+    ],
+    "parent_port": [
+     "set",
+     []
+    ],
+    "port_security": [
+     "set",
+     []
+    ],
+    "requested_additional_chassis": [
+     "set",
+     []
+    ],
+    "requested_chassis": [
+     "set",
+     []
+    ],
+    "tag": [
+     "set",
+     []
+    ],
+    "tunnel_key": 5,
+    "type": "",
+    "up": true,
+    "virtual_parent": [
+     "set",
+     []
+    ]
+   },
+   "0b4e4c5b-3bc5-4837-a143-c817529be90c": {
+    "additional_chassis": [
+     "set",
+     []
+    ],
+    "additional_encap": [
+     "set",
+     []
+    ],
+    "chassis": [
+     "set",
+     []
+    ],
+    "datapath": [
+     "uuid",
+     "3d39eb54-d706-4623-a468-fc23d87a694c"
+    ],
+    "encap": [
+     "set",
+     []
+    ],
+    "external_ids": [
+     "map",
+     [
+      [
+       "lr",
+       "vpc-onewater"
+      ],
+      [
+       "vendor",
+       "kube-ovn"
+      ]
+     ]
+    ],
+    "gateway_chassis": [
+     "set",
+     []
+    ],
+    "ha_chassis_group": [
+     "set",
+     []
+    ],
+    "logical_port": "vpc-onewater-subnet-onewater",
+    "mac": "4a:73:ae:a4:54:b3 192.168.54.33/28",
+    "mirror_rules": [
+     "set",
+     []
+    ],
+    "nat_addresses": [
+     "set",
+     []
+    ],
+    "options": [
+     "map",
+     [
+      [
+       "peer",
+       "subnet-onewater-vpc-onewater"
+      ]
+     ]
+    ],
+    "parent_port": [
+     "set",
+     []
+    ],
+    "port_security": [
+     "set",
+     []
+    ],
+    "requested_additional_chassis": [
+     "set",
+     []
+    ],
+    "requested_chassis": [
+     "set",
+     []
+    ],
+    "tag": [
+     "set",
+     []
+    ],
+    "tunnel_key": 1,
+    "type": "patch",
+    "up": false,
+    "virtual_parent": [
+     "set",
+     []
+    ]
+   },
+   "122ff123-11cd-4eff-8dbb-47eff856b6b2": {
+    "additional_chassis": [
+     "set",
+     []
+    ],
+    "additional_encap": [
+     "set",
+     []
+    ],
+    "chassis": [
+     "uuid",
+     "ddbfec73-3751-43f3-b9ef-b5bdec1eedc2"
+    ],
+    "datapath": [
+     "uuid",
+     "3d39eb54-d706-4623-a468-fc23d87a694c"
+    ],
+    "encap": [
+     "set",
+     []
+    ],
+    "external_ids": [
+     "map",
+     [
+      [
+       "lr",
+       "vpc-onewater"
+      ],
+      [
+       "vendor",
+       "kube-ovn"
+      ]
+     ]
+    ],
+    "gateway_chassis": [
+     "set",
+     []
+    ],
+    "ha_chassis_group": [
+     "uuid",
+     "bc776438-fade-4eef-a5de-be6245d54f75"
+    ],
+    "logical_port": "cr-vpc-onewater-external",
+    "mac": "2a:81:fd:2e:41:f3 10.144.124.13/27",
+    "mirror_rules": [
+     "set",
+     []
+    ],
+    "nat_addresses": [
+     "set",
+     []
+    ],
+    "options": [
+     "map",
+     [
+      [
+       "always-redirect",
+       "true"
+      ],
+      [
+       "distributed-port",
+       "vpc-onewater-external"
+      ]
+     ]
+    ],
+    "parent_port": [
+     "set",
+     []
+    ],
+    "port_security": [
+     "set",
+     []
+    ],
+    "requested_additional_chassis": [
+     "set",
+     []
+    ],
+    "requested_chassis": [
+     "set",
+     []
+    ],
+    "tag": [
+     "set",
+     []
+    ],
+    "tunnel_key": 3,
+    "type": "chassisredirect",
+    "up": true,
+    "virtual_parent": [
+     "set",
+     []
+    ]
+   },
+   "12d732bf-119b-487a-b273-6a520ec44a19": {
+    "additional_chassis": [
+     "set",
+     []
+    ],
+    "additional_encap": [
+     "set",
+     []
+    ],
+    "chassis": [
+     "set",
+     []
+    ],
+    "datapath": [
+     "uuid",
+     "2c990bc2-4fd7-404a-a3b5-fdf0a0ac386c"
+    ],
+    "encap": [
+     "set",
+     []
+    ],
+    "external_ids": [
+     "map",
+     [
+      [
+       "ls",
+       "external"
+      ],
+      [
+       "vendor",
+       "kube-ovn"
+      ]
+     ]
+    ],
+    "gateway_chassis": [
+     "set",
+     []
+    ],
+    "ha_chassis_group": [
+     "set",
+     []
+    ],
+    "logical_port": "external-vpc-twowater",
+    "mac": "router",
+    "mirror_rules": [
+     "set",
+     []
+    ],
+    "nat_addresses": "c6:cf:b9:36:50:f0 10.144.124.14 is_chassis_resident(\"cr-vpc-twowater-external\")",
+    "options": [
+     "map",
+     [
+      [
+       "peer",
+       "vpc-twowater-external"
+      ]
+     ]
+    ],
+    "parent_port": [
+     "set",
+     []
+    ],
+    "port_security": [
+     "set",
+     []
+    ],
+    "requested_additional_chassis": [
+     "set",
+     []
+    ],
+    "requested_chassis": [
+     "set",
+     []
+    ],
+    "tag": [
+     "set",
+     []
+    ],
+    "tunnel_key": 4,
+    "type": "patch",
+    "up": false,
+    "virtual_parent": [
+     "set",
+     []
+    ]
+   },
+   "12e3d215-bbe7-4d69-90f2-15b119ea5e69": {
+    "additional_chassis": [
+     "set",
+     []
+    ],
+    "additional_encap": [
+     "set",
+     []
+    ],
+    "chassis": [
+     "set",
+     []
+    ],
+    "datapath": [
+     "uuid",
+     "1f34f30d-7079-49c5-a817-88b39c95b0c5"
+    ],
+    "encap": [
+     "set",
+     []
+    ],
+    "external_ids": [
+     "map",
+     [
+      [
+       "lr",
+       "vpc-twowater"
+      ],
+      [
+       "vendor",
+       "kube-ovn"
+      ]
+     ]
+    ],
+    "gateway_chassis": [
+     "set",
+     []
+    ],
+    "ha_chassis_group": [
+     "set",
+     []
+    ],
+    "logical_port": "vpc-twowater-subnet-twowater",
+    "mac": "36:6d:5e:c1:a0:2d 192.168.55.49/28",
+    "mirror_rules": [
+     "set",
+     []
+    ],
+    "nat_addresses": [
+     "set",
+     []
+    ],
+    "options": [
+     "map",
+     [
+      [
+       "peer",
+       "subnet-twowater-vpc-twowater"
+      ]
+     ]
+    ],
+    "parent_port": [
+     "set",
+     []
+    ],
+    "port_security": [
+     "set",
+     []
+    ],
+    "requested_additional_chassis": [
+     "set",
+     []
+    ],
+    "requested_chassis": [
+     "set",
+     []
+    ],
+    "tag": [
+     "set",
+     []
+    ],
+    "tunnel_key": 1,
+    "type": "patch",
+    "up": false,
+    "virtual_parent": [
+     "set",
+     []
+    ]
+   },
+   "280c4f86-6068-4526-8b0b-0728569fa4e2": {
+    "additional_chassis": [
+     "set",
+     []
+    ],
+    "additional_encap": [
+     "set",
+     []
+    ],
+    "chassis": [
+     "uuid",
+     "99991a3f-1220-4479-8dcb-129c074a705f"
+    ],
+    "datapath": [
+     "uuid",
+     "44f9c3f8-e6c8-4e41-bc9e-9acb9caa02fb"
+    ],
+    "encap": [
+     "set",
+     []
+    ],
+    "external_ids": [
+     "map",
+     [
+      [
+       "associated_sg_default-securitygroup",
+       "false"
+      ],
+      [
+       "ls",
+       "subnet-onewater"
+      ],
+      [
+       "pod",
+       "onewater/vm-2"
+      ],
+      [
+       "vendor",
+       "kube-ovn"
+      ]
+     ]
+    ],
+    "gateway_chassis": [
+     "set",
+     []
+    ],
+    "ha_chassis_group": [
+     "set",
+     []
+    ],
+    "logical_port": "vm-2.onewater.onewater.onewater.ovn",
+    "mac": "d6:c4:54:0b:7b:5b 192.168.54.36",
+    "mirror_rules": [
+     "set",
+     []
+    ],
+    "nat_addresses": [
+     "set",
+     []
+    ],
+    "options": [
+     "map",
+     []
+    ],
+    "parent_port": [
+     "set",
+     []
+    ],
+    "port_security": [
+     "set",
+     []
+    ],
+    "requested_additional_chassis": [
+     "set",
+     []
+    ],
+    "requested_chassis": [
+     "set",
+     []
+    ],
+    "tag": [
+     "set",
+     []
+    ],
+    "tunnel_key": 4,
+    "type": "",
+    "up": true,
+    "virtual_parent": [
+     "set",
+     []
+    ]
+   },
+   "325796e0-b8d3-4b1e-a6d7-e3ad288112b1": {
+    "additional_chassis": [
+     "set",
+     []
+    ],
+    "additional_encap": [
+     "set",
+     []
+    ],
+    "chassis": [
+     "uuid",
+     "99991a3f-1220-4479-8dcb-129c074a705f"
+    ],
+    "datapath": [
+     "uuid",
+     "6985533f-b139-4f31-8c9d-87c02fcb4178"
+    ],
+    "encap": [
+     "set",
+     []
+    ],
+    "external_ids": [
+     "map",
+     [
+      [
+       "ls",
+       "join"
+      ],
+      [
+       "vendor",
+       "kube-ovn"
+      ]
+     ]
+    ],
+    "gateway_chassis": [
+     "set",
+     []
+    ],
+    "ha_chassis_group": [
+     "set",
+     []
+    ],
+    "logical_port": "node-hv-04",
+    "mac": "16:3b:16:e1:a6:e1 100.64.0.5",
+    "mirror_rules": [
+     "set",
+     []
+    ],
+    "nat_addresses": [
+     "set",
+     []
+    ],
+    "options": [
+     "map",
+     []
+    ],
+    "parent_port": [
+     "set",
+     []
+    ],
+    "port_security": [
+     "set",
+     []
+    ],
+    "requested_additional_chassis": [
+     "set",
+     []
+    ],
+    "requested_chassis": [
+     "set",
+     []
+    ],
+    "tag": [
+     "set",
+     []
+    ],
+    "tunnel_key": 4,
+    "type": "",
+    "up": true,
+    "virtual_parent": [
+     "set",
+     []
+    ]
+   },
+   "325adc4e-8508-4108-9e31-2b7e6d52f301": {
+    "additional_chassis": [
+     "set",
+     []
+    ],
+    "additional_encap": [
+     "set",
+     []
+    ],
+    "chassis": [
+     "set",
+     []
+    ],
+    "datapath": [
+     "uuid",
+     "6985533f-b139-4f31-8c9d-87c02fcb4178"
+    ],
+    "encap": [
+     "set",
+     []
+    ],
+    "external_ids": [
+     "map",
+     [
+      [
+       "ls",
+       "join"
+      ],
+      [
+       "vendor",
+       "kube-ovn"
+      ]
+     ]
+    ],
+    "gateway_chassis": [
+     "set",
+     []
+    ],
+    "ha_chassis_group": [
+     "set",
+     []
+    ],
+    "logical_port": "join-ovn-cluster",
+    "mac": "router",
+    "mirror_rules": [
+     "set",
+     []
+    ],
+    "nat_addresses": [
+     "set",
+     []
+    ],
+    "options": [
+     "map",
+     [
+      [
+       "peer",
+       "ovn-cluster-join"
+      ]
+     ]
+    ],
+    "parent_port": [
+     "set",
+     []
+    ],
+    "port_security": [
+     "set",
+     []
+    ],
+    "requested_additional_chassis": [
+     "set",
+     []
+    ],
+    "requested_chassis": [
+     "set",
+     []
+    ],
+    "tag": [
+     "set",
+     []
+    ],
+    "tunnel_key": 1,
+    "type": "patch",
+    "up": false,
+    "virtual_parent": [
+     "set",
+     []
+    ]
+   },
+   "3d3136e3-1b8a-4634-85a0-214bb1c27c35": {
+    "additional_chassis": [
+     "set",
+     []
+    ],
+    "additional_encap": [
+     "set",
+     []
+    ],
+    "chassis": [
+     "set",
+     []
+    ],
+    "datapath": [
+     "uuid",
+     "2c990bc2-4fd7-404a-a3b5-fdf0a0ac386c"
+    ],
+    "encap": [
+     "set",
+     []
+    ],
+    "external_ids": [
+     "map",
+     [
+      [
+       "ipv4_network",
+       "10.144.124.0/27"
+      ],
+      [
+       "ls",
+       "external"
+      ],
+      [
+       "vendor",
+       "kube-ovn"
+      ]
+     ]
+    ],
+    "gateway_chassis": [
+     "set",
+     []
+    ],
+    "ha_chassis_group": [
+     "set",
+     []
+    ],
+    "logical_port": "localnet.external",
+    "mac": "unknown",
+    "mirror_rules": [
+     "set",
+     []
+    ],
+    "nat_addresses": [
+     "set",
+     []
+    ],
+    "options": [
+     "map",
+     [
+      [
+       "network_name",
+       "external"
+      ]
+     ]
+    ],
+    "parent_port": [
+     "set",
+     []
+    ],
+    "port_security": [
+     "set",
+     []
+    ],
+    "requested_additional_chassis": [
+     "set",
+     []
+    ],
+    "requested_chassis": [
+     "set",
+     []
+    ],
+    "tag": [
+     "set",
+     []
+    ],
+    "tunnel_key": 1,
+    "type": "localnet",
+    "up": false,
+    "virtual_parent": [
+     "set",
+     []
+    ]
+   },
+   "3f56ba41-eb74-4715-8f4d-1d03b5efa187": {
+    "additional_chassis": [
+     "set",
+     []
+    ],
+    "additional_encap": [
+     "set",
+     []
+    ],
+    "chassis": [
+     "uuid",
+     "ddbfec73-3751-43f3-b9ef-b5bdec1eedc2"
+    ],
+    "datapath": [
+     "uuid",
+     "44f9c3f8-e6c8-4e41-bc9e-9acb9caa02fb"
+    ],
+    "encap": [
+     "set",
+     []
+    ],
+    "external_ids": [
+     "map",
+     [
+      [
+       "associated_sg_default-securitygroup",
+       "false"
+      ],
+      [
+       "ls",
+       "subnet-onewater"
+      ],
+      [
+       "pod",
+       "default/test-2-nics-2-vpc"
+      ],
+      [
+       "vendor",
+       "kube-ovn"
+      ]
+     ]
+    ],
+    "gateway_chassis": [
+     "set",
+     []
+    ],
+    "ha_chassis_group": [
+     "set",
+     []
+    ],
+    "logical_port": "test-2-nics-2-vpc.default.onewater.onewater.ovn",
+    "mac": "32:36:ab:92:a9:0a 192.168.54.37",
+    "mirror_rules": [
+     "set",
+     []
+    ],
+    "nat_addresses": [
+     "set",
+     []
+    ],
+    "options": [
+     "map",
+     []
+    ],
+    "parent_port": [
+     "set",
+     []
+    ],
+    "port_security": [
+     "set",
+     []
+    ],
+    "requested_additional_chassis": [
+     "set",
+     []
+    ],
+    "requested_chassis": [
+     "set",
+     []
+    ],
+    "tag": [
+     "set",
+     []
+    ],
+    "tunnel_key": 5,
+    "type": "",
+    "up": true,
+    "virtual_parent": [
+     "set",
+     []
+    ]
+   },
+   "43c5b077-04a9-4059-829a-3d179e517402": {
+    "additional_chassis": [
+     "set",
+     []
+    ],
+    "additional_encap": [
+     "set",
+     []
+    ],
+    "chassis": [
+     "uuid",
+     "ddbfec73-3751-43f3-b9ef-b5bdec1eedc2"
+    ],
+    "datapath": [
+     "uuid",
+     "1f34f30d-7079-49c5-a817-88b39c95b0c5"
+    ],
+    "encap": [
+     "set",
+     []
+    ],
+    "external_ids": [
+     "map",
+     [
+      [
+       "lr",
+       "vpc-twowater"
+      ],
+      [
+       "vendor",
+       "kube-ovn"
+      ]
+     ]
+    ],
+    "gateway_chassis": [
+     "set",
+     []
+    ],
+    "ha_chassis_group": [
+     "uuid",
+     "7233c213-fa44-45dd-b6f2-0bcb53afc9f5"
+    ],
+    "logical_port": "cr-vpc-twowater-external",
+    "mac": "c6:cf:b9:36:50:f0 10.144.124.14/27",
+    "mirror_rules": [
+     "set",
+     []
+    ],
+    "nat_addresses": [
+     "set",
+     []
+    ],
+    "options": [
+     "map",
+     [
+      [
+       "always-redirect",
+       "true"
+      ],
+      [
+       "distributed-port",
+       "vpc-twowater-external"
+      ]
+     ]
+    ],
+    "parent_port": [
+     "set",
+     []
+    ],
+    "port_security": [
+     "set",
+     []
+    ],
+    "requested_additional_chassis": [
+     "set",
+     []
+    ],
+    "requested_chassis": [
+     "set",
+     []
+    ],
+    "tag": [
+     "set",
+     []
+    ],
+    "tunnel_key": 3,
+    "type": "chassisredirect",
+    "up": true,
+    "virtual_parent": [
+     "set",
+     []
+    ]
+   },
+   "50fe5cc5-d428-497b-adf8-66ed7b6a98f8": {
+    "additional_chassis": [
+     "set",
+     []
+    ],
+    "additional_encap": [
+     "set",
+     []
+    ],
+    "chassis": [
+     "uuid",
+     "ddbfec73-3751-43f3-b9ef-b5bdec1eedc2"
+    ],
+    "datapath": [
+     "uuid",
+     "6985533f-b139-4f31-8c9d-87c02fcb4178"
+    ],
+    "encap": [
+     "set",
+     []
+    ],
+    "external_ids": [
+     "map",
+     [
+      [
+       "ls",
+       "join"
+      ],
+      [
+       "vendor",
+       "kube-ovn"
+      ]
+     ]
+    ],
+    "gateway_chassis": [
+     "set",
+     []
+    ],
+    "ha_chassis_group": [
+     "set",
+     []
+    ],
+    "logical_port": "node-hv-01",
+    "mac": "12:7e:e2:de:70:77 100.64.0.2",
+    "mirror_rules": [
+     "set",
+     []
+    ],
+    "nat_addresses": [
+     "set",
+     []
+    ],
+    "options": [
+     "map",
+     []
+    ],
+    "parent_port": [
+     "set",
+     []
+    ],
+    "port_security": [
+     "set",
+     []
+    ],
+    "requested_additional_chassis": [
+     "set",
+     []
+    ],
+    "requested_chassis": [
+     "set",
+     []
+    ],
+    "tag": [
+     "set",
+     []
+    ],
+    "tunnel_key": 2,
+    "type": "",
+    "up": true,
+    "virtual_parent": [
+     "set",
+     []
+    ]
+   },
+   "6371d320-3776-461e-99ea-c61d7b26eb0b": {
+    "additional_chassis": [
+     "set",
+     []
+    ],
+    "additional_encap": [
+     "set",
+     []
+    ],
+    "chassis": [
+     "uuid",
+     "c1cba3aa-c70b-4918-9a8e-fe4472d6b95c"
+    ],
+    "datapath": [
+     "uuid",
+     "6985533f-b139-4f31-8c9d-87c02fcb4178"
+    ],
+    "encap": [
+     "set",
+     []
+    ],
+    "external_ids": [
+     "map",
+     [
+      [
+       "ls",
+       "join"
+      ],
+      [
+       "vendor",
+       "kube-ovn"
+      ]
+     ]
+    ],
+    "gateway_chassis": [
+     "set",
+     []
+    ],
+    "ha_chassis_group": [
+     "set",
+     []
+    ],
+    "logical_port": "node-hv-02",
+    "mac": "b6:49:2e:44:fc:dc 100.64.0.3",
+    "mirror_rules": [
+     "set",
+     []
+    ],
+    "nat_addresses": [
+     "set",
+     []
+    ],
+    "options": [
+     "map",
+     []
+    ],
+    "parent_port": [
+     "set",
+     []
+    ],
+    "port_security": [
+     "set",
+     []
+    ],
+    "requested_additional_chassis": [
+     "set",
+     []
+    ],
+    "requested_chassis": [
+     "set",
+     []
+    ],
+    "tag": [
+     "set",
+     []
+    ],
+    "tunnel_key": 3,
+    "type": "",
+    "up": true,
+    "virtual_parent": [
+     "set",
+     []
+    ]
+   },
+   "65d4ebbb-7c44-4204-bfa1-53d85ef5364f": {
+    "additional_chassis": [
+     "set",
+     []
+    ],
+    "additional_encap": [
+     "set",
+     []
+    ],
+    "chassis": [
+     "uuid",
+     "ddbfec73-3751-43f3-b9ef-b5bdec1eedc2"
+    ],
+    "datapath": [
+     "uuid",
+     "00fb81ad-b520-434e-a8cd-ef4872533b3e"
+    ],
+    "encap": [
+     "set",
+     []
+    ],
+    "external_ids": [
+     "map",
+     [
+      [
+       "associated_sg_default-securitygroup",
+       "false"
+      ],
+      [
+       "ls",
+       "subnet-twowater"
+      ],
+      [
+       "pod",
+       "default/test-2-nics-2-vpc"
+      ],
+      [
+       "vendor",
+       "kube-ovn"
+      ]
+     ]
+    ],
+    "gateway_chassis": [
+     "set",
+     []
+    ],
+    "ha_chassis_group": [
+     "set",
+     []
+    ],
+    "logical_port": "test-2-nics-2-vpc.default.twowater.twowater.ovn",
+    "mac": "be:91:0e:cd:33:71 192.168.55.51",
+    "mirror_rules": [
+     "set",
+     []
+    ],
+    "nat_addresses": [
+     "set",
+     []
+    ],
+    "options": [
+     "map",
+     []
+    ],
+    "parent_port": [
+     "set",
+     []
+    ],
+    "port_security": [
+     "set",
+     []
+    ],
+    "requested_additional_chassis": [
+     "set",
+     []
+    ],
+    "requested_chassis": [
+     "set",
+     []
+    ],
+    "tag": [
+     "set",
+     []
+    ],
+    "tunnel_key": 3,
+    "type": "",
+    "up": true,
+    "virtual_parent": [
+     "set",
+     []
+    ]
+   },
+   "6f93d018-8672-4017-81b8-476656c0e0c3": {
+    "additional_chassis": [
+     "set",
+     []
+    ],
+    "additional_encap": [
+     "set",
+     []
+    ],
+    "chassis": [
+     "set",
+     []
+    ],
+    "datapath": [
+     "uuid",
+     "70a6840c-2fe5-41b3-a3cb-002547c3ebeb"
+    ],
+    "encap": [
+     "set",
+     []
+    ],
+    "external_ids": [
+     "map",
+     [
+      [
+       "lr",
+       "ovn-cluster"
+      ],
+      [
+       "vendor",
+       "kube-ovn"
+      ]
+     ]
+    ],
+    "gateway_chassis": [
+     "set",
+     []
+    ],
+    "ha_chassis_group": [
+     "set",
+     []
+    ],
+    "logical_port": "ovn-cluster-ovn-default",
+    "mac": "32:35:2f:aa:e2:5f 10.54.0.1/16",
+    "mirror_rules": [
+     "set",
+     []
+    ],
+    "nat_addresses": [
+     "set",
+     []
+    ],
+    "options": [
+     "map",
+     [
+      [
+       "peer",
+       "ovn-default-ovn-cluster"
+      ]
+     ]
+    ],
+    "parent_port": [
+     "set",
+     []
+    ],
+    "port_security": [
+     "set",
+     []
+    ],
+    "requested_additional_chassis": [
+     "set",
+     []
+    ],
+    "requested_chassis": [
+     "set",
+     []
+    ],
+    "tag": [
+     "set",
+     []
+    ],
+    "tunnel_key": 1,
+    "type": "patch",
+    "up": false,
+    "virtual_parent": [
+     "set",
+     []
+    ]
+   },
+   "809d80a2-a439-49f5-920d-83f1dc499253": {
+    "additional_chassis": [
+     "set",
+     []
+    ],
+    "additional_encap": [
+     "set",
+     []
+    ],
+    "chassis": [
+     "set",
+     []
+    ],
+    "datapath": [
+     "uuid",
+     "00fb81ad-b520-434e-a8cd-ef4872533b3e"
+    ],
+    "encap": [
+     "set",
+     []
+    ],
+    "external_ids": [
+     "map",
+     [
+      [
+       "ls",
+       "subnet-twowater"
+      ],
+      [
+       "vendor",
+       "kube-ovn"
+      ]
+     ]
+    ],
+    "gateway_chassis": [
+     "set",
+     []
+    ],
+    "ha_chassis_group": [
+     "set",
+     []
+    ],
+    "logical_port": "subnet-twowater-vpc-twowater",
+    "mac": "router",
+    "mirror_rules": [
+     "set",
+     []
+    ],
+    "nat_addresses": [
+     "set",
+     []
+    ],
+    "options": [
+     "map",
+     [
+      [
+       "peer",
+       "vpc-twowater-subnet-twowater"
+      ]
+     ]
+    ],
+    "parent_port": [
+     "set",
+     []
+    ],
+    "port_security": [
+     "set",
+     []
+    ],
+    "requested_additional_chassis": [
+     "set",
+     []
+    ],
+    "requested_chassis": [
+     "set",
+     []
+    ],
+    "tag": [
+     "set",
+     []
+    ],
+    "tunnel_key": 1,
+    "type": "patch",
+    "up": false,
+    "virtual_parent": [
+     "set",
+     []
+    ]
+   },
+   "c4104738-837f-4132-9c0c-68719ab8164d": {
+    "additional_chassis": [
+     "set",
+     []
+    ],
+    "additional_encap": [
+     "set",
+     []
+    ],
+    "chassis": [
+     "set",
+     []
+    ],
+    "datapath": [
+     "uuid",
+     "1f34f30d-7079-49c5-a817-88b39c95b0c5"
+    ],
+    "encap": [
+     "set",
+     []
+    ],
+    "external_ids": [
+     "map",
+     [
+      [
+       "lr",
+       "vpc-twowater"
+      ],
+      [
+       "vendor",
+       "kube-ovn"
+      ]
+     ]
+    ],
+    "gateway_chassis": [
+     "set",
+     []
+    ],
+    "ha_chassis_group": [
+     "set",
+     []
+    ],
+    "logical_port": "vpc-twowater-external",
+    "mac": "c6:cf:b9:36:50:f0 10.144.124.14/27",
+    "mirror_rules": [
+     "set",
+     []
+    ],
+    "nat_addresses": [
+     "set",
+     []
+    ],
+    "options": [
+     "map",
+     [
+      [
+       "chassis-redirect-port",
+       "cr-vpc-twowater-external"
+      ],
+      [
+       "peer",
+       "external-vpc-twowater"
+      ]
+     ]
+    ],
+    "parent_port": [
+     "set",
+     []
+    ],
+    "port_security": [
+     "set",
+     []
+    ],
+    "requested_additional_chassis": [
+     "set",
+     []
+    ],
+    "requested_chassis": [
+     "set",
+     []
+    ],
+    "tag": [
+     "set",
+     []
+    ],
+    "tunnel_key": 2,
+    "type": "patch",
+    "up": false,
+    "virtual_parent": [
+     "set",
+     []
+    ]
+   },
+   "cf738506-9ae5-4e9d-bf08-43973dc9a3f2": {
+    "additional_chassis": [
+     "set",
+     []
+    ],
+    "additional_encap": [
+     "set",
+     []
+    ],
+    "chassis": [
+     "uuid",
+     "29066f73-4be9-4d98-b2e7-683ccfd5c091"
+    ],
+    "datapath": [
+     "uuid",
+     "44f9c3f8-e6c8-4e41-bc9e-9acb9caa02fb"
+    ],
+    "encap": [
+     "set",
+     []
+    ],
+    "external_ids": [
+     "map",
+     [
+      [
+       "associated_sg_default-securitygroup",
+       "false"
+      ],
+      [
+       "ls",
+       "subnet-onewater"
+      ],
+      [
+       "pod",
+       "onewater/vm-onewater"
+      ],
+      [
+       "vendor",
+       "kube-ovn"
+      ]
+     ]
+    ],
+    "gateway_chassis": [
+     "set",
+     []
+    ],
+    "ha_chassis_group": [
+     "set",
+     []
+    ],
+    "logical_port": "vm-onewater.onewater.onewater.onewater.ovn",
+    "mac": "e6:10:52:5b:4f:fd 192.168.54.35",
+    "mirror_rules": [
+     "set",
+     []
+    ],
+    "nat_addresses": [
+     "set",
+     []
+    ],
+    "options": [
+     "map",
+     []
+    ],
+    "parent_port": [
+     "set",
+     []
+    ],
+    "port_security": [
+     "set",
+     []
+    ],
+    "requested_additional_chassis": [
+     "set",
+     []
+    ],
+    "requested_chassis": [
+     "set",
+     []
+    ],
+    "tag": [
+     "set",
+     []
+    ],
+    "tunnel_key": 3,
+    "type": "",
+    "up": true,
+    "virtual_parent": [
+     "set",
+     []
+    ]
+   },
+   "cfb9ca32-7997-43d1-b88d-964e5b0050d8": {
+    "additional_chassis": [
+     "set",
+     []
+    ],
+    "additional_encap": [
+     "set",
+     []
+    ],
+    "chassis": [
+     "set",
+     []
+    ],
+    "datapath": [
+     "uuid",
+     "3d39eb54-d706-4623-a468-fc23d87a694c"
+    ],
+    "encap": [
+     "set",
+     []
+    ],
+    "external_ids": [
+     "map",
+     [
+      [
+       "lr",
+       "vpc-onewater"
+      ],
+      [
+       "vendor",
+       "kube-ovn"
+      ]
+     ]
+    ],
+    "gateway_chassis": [
+     "set",
+     []
+    ],
+    "ha_chassis_group": [
+     "set",
+     []
+    ],
+    "logical_port": "vpc-onewater-external",
+    "mac": "2a:81:fd:2e:41:f3 10.144.124.13/27",
+    "mirror_rules": [
+     "set",
+     []
+    ],
+    "nat_addresses": [
+     "set",
+     []
+    ],
+    "options": [
+     "map",
+     [
+      [
+       "chassis-redirect-port",
+       "cr-vpc-onewater-external"
+      ],
+      [
+       "peer",
+       "external-vpc-onewater"
+      ]
+     ]
+    ],
+    "parent_port": [
+     "set",
+     []
+    ],
+    "port_security": [
+     "set",
+     []
+    ],
+    "requested_additional_chassis": [
+     "set",
+     []
+    ],
+    "requested_chassis": [
+     "set",
+     []
+    ],
+    "tag": [
+     "set",
+     []
+    ],
+    "tunnel_key": 2,
+    "type": "patch",
+    "up": false,
+    "virtual_parent": [
+     "set",
+     []
+    ]
+   },
+   "d2f2c1e2-2fc3-4782-be8d-0ec8ce0d071a": {
+    "additional_chassis": [
+     "set",
+     []
+    ],
+    "additional_encap": [
+     "set",
+     []
+    ],
+    "chassis": [
+     "set",
+     []
+    ],
+    "datapath": [
+     "uuid",
+     "70a6840c-2fe5-41b3-a3cb-002547c3ebeb"
+    ],
+    "encap": [
+     "set",
+     []
+    ],
+    "external_ids": [
+     "map",
+     [
+      [
+       "lr",
+       "ovn-cluster"
+      ],
+      [
+       "vendor",
+       "kube-ovn"
+      ]
+     ]
+    ],
+    "gateway_chassis": [
+     "set",
+     []
+    ],
+    "ha_chassis_group": [
+     "set",
+     []
+    ],
+    "logical_port": "ovn-cluster-join",
+    "mac": "ee:f7:a0:23:68:a1 100.64.0.1/16",
+    "mirror_rules": [
+     "set",
+     []
+    ],
+    "nat_addresses": [
+     "set",
+     []
+    ],
+    "options": [
+     "map",
+     [
+      [
+       "peer",
+       "join-ovn-cluster"
+      ]
+     ]
+    ],
+    "parent_port": [
+     "set",
+     []
+    ],
+    "port_security": [
+     "set",
+     []
+    ],
+    "requested_additional_chassis": [
+     "set",
+     []
+    ],
+    "requested_chassis": [
+     "set",
+     []
+    ],
+    "tag": [
+     "set",
+     []
+    ],
+    "tunnel_key": 2,
+    "type": "patch",
+    "up": false,
+    "virtual_parent": [
+     "set",
+     []
+    ]
+   },
+   "e05a7141-282e-4284-b8cd-56de2ddc722a": {
+    "additional_chassis": [
+     "set",
+     []
+    ],
+    "additional_encap": [
+     "set",
+     []
+    ],
+    "chassis": [
+     "set",
+     []
+    ],
+    "datapath": [
+     "uuid",
+     "aa8d79f9-2073-43a9-a29f-8dd4597fe9bd"
+    ],
+    "encap": [
+     "set",
+     []
+    ],
+    "external_ids": [
+     "map",
+     [
+      [
+       "ls",
+       "ovn-default"
+      ],
+      [
+       "vendor",
+       "kube-ovn"
+      ]
+     ]
+    ],
+    "gateway_chassis": [
+     "set",
+     []
+    ],
+    "ha_chassis_group": [
+     "set",
+     []
+    ],
+    "logical_port": "ovn-default-ovn-cluster",
+    "mac": "router",
+    "mirror_rules": [
+     "set",
+     []
+    ],
+    "nat_addresses": [
+     "set",
+     []
+    ],
+    "options": [
+     "map",
+     [
+      [
+       "peer",
+       "ovn-cluster-ovn-default"
+      ]
+     ]
+    ],
+    "parent_port": [
+     "set",
+     []
+    ],
+    "port_security": [
+     "set",
+     []
+    ],
+    "requested_additional_chassis": [
+     "set",
+     []
+    ],
+    "requested_chassis": [
+     "set",
+     []
+    ],
+    "tag": [
+     "set",
+     []
+    ],
+    "tunnel_key": 1,
+    "type": "patch",
+    "up": false,
+    "virtual_parent": [
+     "set",
+     []
+    ]
+   },
+   "e20a1bd9-b53e-42e7-a677-04de095fc734": {
+    "additional_chassis": [
+     "set",
+     []
+    ],
+    "additional_encap": [
+     "set",
+     []
+    ],
+    "chassis": [
+     "set",
+     []
+    ],
+    "datapath": [
+     "uuid",
+     "2c990bc2-4fd7-404a-a3b5-fdf0a0ac386c"
+    ],
+    "encap": [
+     "set",
+     []
+    ],
+    "external_ids": [
+     "map",
+     [
+      [
+       "ls",
+       "external"
+      ],
+      [
+       "vendor",
+       "kube-ovn"
+      ]
+     ]
+    ],
+    "gateway_chassis": [
+     "set",
+     []
+    ],
+    "ha_chassis_group": [
+     "set",
+     []
+    ],
+    "logical_port": "external-vpc-onewater",
+    "mac": "router",
+    "mirror_rules": [
+     "set",
+     []
+    ],
+    "nat_addresses": "2a:81:fd:2e:41:f3 10.144.124.13 is_chassis_resident(\"cr-vpc-onewater-external\")",
+    "options": [
+     "map",
+     [
+      [
+       "peer",
+       "vpc-onewater-external"
+      ]
+     ]
+    ],
+    "parent_port": [
+     "set",
+     []
+    ],
+    "port_security": [
+     "set",
+     []
+    ],
+    "requested_additional_chassis": [
+     "set",
+     []
+    ],
+    "requested_chassis": [
+     "set",
+     []
+    ],
+    "tag": [
+     "set",
+     []
+    ],
+    "tunnel_key": 3,
+    "type": "patch",
+    "up": false,
+    "virtual_parent": [
+     "set",
+     []
+    ]
+   },
+   "e6e84ee7-8ccd-49b8-b218-9607748c67b5": {
+    "additional_chassis": [
+     "set",
+     []
+    ],
+    "additional_encap": [
+     "set",
+     []
+    ],
+    "chassis": [
+     "uuid",
+     "c1cba3aa-c70b-4918-9a8e-fe4472d6b95c"
+    ],
+    "datapath": [
+     "uuid",
+     "00fb81ad-b520-434e-a8cd-ef4872533b3e"
+    ],
+    "encap": [
+     "set",
+     []
+    ],
+    "external_ids": [
+     "map",
+     [
+      [
+       "associated_sg_default-securitygroup",
+       "false"
+      ],
+      [
+       "ls",
+       "subnet-twowater"
+      ],
+      [
+       "pod",
+       "twowater/vm-twowater"
+      ],
+      [
+       "vendor",
+       "kube-ovn"
+      ]
+     ]
+    ],
+    "gateway_chassis": [
+     "set",
+     []
+    ],
+    "ha_chassis_group": [
+     "set",
+     []
+    ],
+    "logical_port": "vm-twowater.twowater.twowater.twowater.ovn",
+    "mac": "12:07:c5:da:e1:dd 192.168.55.50",
+    "mirror_rules": [
+     "set",
+     []
+    ],
+    "nat_addresses": [
+     "set",
+     []
+    ],
+    "options": [
+     "map",
+     [
+      [
+       "requested-chassis",
+       "hv-02"
+      ]
+     ]
+    ],
+    "parent_port": [
+     "set",
+     []
+    ],
+    "port_security": [
+     "set",
+     []
+    ],
+    "requested_additional_chassis": [
+     "set",
+     []
+    ],
+    "requested_chassis": [
+     "uuid",
+     "c1cba3aa-c70b-4918-9a8e-fe4472d6b95c"
+    ],
+    "tag": [
+     "set",
+     []
+    ],
+    "tunnel_key": 2,
+    "type": "",
+    "up": true,
+    "virtual_parent": [
+     "set",
+     []
+    ]
+   },
+   "e7af5b0d-d7ca-4975-bd61-fa834d783365": {
+    "additional_chassis": [
+     "set",
+     []
+    ],
+    "additional_encap": [
+     "set",
+     []
+    ],
+    "chassis": [
+     "set",
+     []
+    ],
+    "datapath": [
+     "uuid",
+     "44f9c3f8-e6c8-4e41-bc9e-9acb9caa02fb"
+    ],
+    "encap": [
+     "set",
+     []
+    ],
+    "external_ids": [
+     "map",
+     [
+      [
+       "ls",
+       "subnet-onewater"
+      ],
+      [
+       "vendor",
+       "kube-ovn"
+      ]
+     ]
+    ],
+    "gateway_chassis": [
+     "set",
+     []
+    ],
+    "ha_chassis_group": [
+     "set",
+     []
+    ],
+    "logical_port": "subnet-onewater-vpc-onewater",
+    "mac": "router",
+    "mirror_rules": [
+     "set",
+     []
+    ],
+    "nat_addresses": [
+     "set",
+     []
+    ],
+    "options": [
+     "map",
+     [
+      [
+       "peer",
+       "vpc-onewater-subnet-onewater"
+      ]
+     ]
+    ],
+    "parent_port": [
+     "set",
+     []
+    ],
+    "port_security": [
+     "set",
+     []
+    ],
+    "requested_additional_chassis": [
+     "set",
+     []
+    ],
+    "requested_chassis": [
+     "set",
+     []
+    ],
+    "tag": [
+     "set",
+     []
+    ],
+    "tunnel_key": 1,
+    "type": "patch",
+    "up": false,
+    "virtual_parent": [
+     "set",
+     []
+    ]
+   }
+  },
+  "SB_Global": {
+   "2fe6d847-f774-4422-ab27-e7a84dc1356e": {
+    "connections": [
+     "set",
+     []
+    ],
+    "external_ids": [
+     "map",
+     []
+    ],
+    "ipsec": false,
+    "nb_cfg": 0,
+    "options": [
+     "map",
+     [
+      [
+       "arp_ns_explicit_output",
+       "true"
+      ],
+      [
+       "inactivity_probe",
+       "180000"
+      ],
+      [
+       "ls_ct_skip_dst_lport_ips",
+       "true"
+      ],
+      [
+       "ls_dnat_mod_dl_dst",
+       "true"
+      ],
+      [
+       "mac_prefix",
+       "42:fc:a4"
+      ],
+      [
+       "max_tunid",
+       "4095"
+      ],
+      [
+       "northd_internal_version",
+       "25.03.4-20.41.0-78.9"
+      ],
+      [
+       "northd_probe_interval",
+       "5000"
+      ],
+      [
+       "register_consolidation",
+       "true"
+      ],
+      [
+       "svc_monitor_mac",
+       "2a:41:c5:8b:d8:4b"
+      ],
+      [
+       "use_ct_inv_match",
+       "false"
+      ],
+      [
+       "use_logical_dp_groups",
+       "true"
+      ],
+      [
+       "version_compatibility",
+       "24.03"
+      ]
+     ]
+    ],
+    "ssl": [
+     "set",
+     []
+    ]
+   }
+  }
+ },
+ "_date": 1792740669
+}

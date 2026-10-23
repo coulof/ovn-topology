@@ -2,6 +2,7 @@ package diag
 
 import (
 	"context"
+	"errors"
 	"strings"
 	"testing"
 
@@ -136,7 +137,7 @@ func TestParseTraceOutput(t *testing.T) {
  8. ls_out_port_sec_l2 (ovn-northd.c:7531): outport == "pod2.default", priority 100, uuid c12fbc90
     output("pod2.default");
 `
-	res := ParseTraceOutput(deliveredSample)
+	res := ParseTraceOutput(deliveredSample, TraceExpect{Port: "pod2.default"})
 	if res.Verdict != "delivered" {
 		t.Errorf("expected verdict delivered, got %s", res.Verdict)
 	}
@@ -152,9 +153,70 @@ func TestParseTraceOutput(t *testing.T) {
  2. ls_in_acl: ip4 && tcp.dst == 22, priority 2000, uuid abc
     drop;
 `
-	dropRes := ParseTraceOutput(dropSample)
+	dropRes := ParseTraceOutput(dropSample, TraceExpect{})
 	if dropRes.Verdict != "dropped" {
 		t.Errorf("expected verdict dropped, got %s", dropRes.Verdict)
+	}
+}
+
+// A cross-switch trace in ovn-trace's detailed format: the packet crosses two patch
+// ports (switch → router → switch) and ends on the destination VIF.
+const crossSwitchTrace = `
+ingress(dp="ls-a", inport="pod1.default")
+-----------------------------------------
+24. ls_in_l2_lkup (northd.c:7930): eth.dst == 00:00:00:00:00:01, priority 50, uuid 2f4b1a5f
+    outport = "ls-a-lr";
+    output;
+
+egress(dp="ls-a", inport="pod1.default", outport="ls-a-lr")
+-----------------------------------------------------------
+ 9. ls_out_port_sec_l2 (northd.c:5704): outport == "ls-a-lr", priority 50, uuid 0c1e
+    output;
+    /* output to "ls-a-lr", type "patch" */
+
+ingress(dp="lr", inport="lr-ls-a")
+----------------------------------
+13. lr_in_ip_routing (northd.c:9200): ip4.dst == 10.0.2.0/24, priority 49, uuid 5c3a
+    outport = "lr-ls-b";
+    next;
+EGRESS
+
+egress(dp="ls-b", inport="ls-b-lr", outport="pod2.default")
+-----------------------------------------------------------
+ 9. ls_out_port_sec_l2 (northd.c:5704): outport == "pod2.default", priority 50, uuid 1d2f
+    output;
+    /* output to "pod2.default", type "" */
+`
+
+// TestTraceVerdictChecksDestination: the verdict is about reaching the chosen
+// destination, not about reaching some port.
+func TestTraceVerdictChecksDestination(t *testing.T) {
+	routerDrop := strings.Replace(crossSwitchTrace, `    outport = "lr-ls-b";
+    next;
+EGRESS`, "    drop;", 1)
+	routerDrop = routerDrop[:strings.Index(routerDrop, "\negress(dp=\"ls-b\"")]
+	delivered := strings.Replace(crossSwitchTrace, "EGRESS\n", "", 1)
+
+	cases := []struct {
+		name, raw, verdict, final string
+		expect                    TraceExpect
+	}{
+		{"reaches the destination across a router", delivered, "delivered", "pod2.default", TraceExpect{Port: "pod2.default"}},
+		{"reaches another port", delivered, "misrouted", "pod2.default", TraceExpect{Port: "vm1.ns"}},
+		{"patch hop then dropped by the router", routerDrop, "dropped", "", TraceExpect{Port: "pod2.default"}},
+		{"patch hop then dropped, unchecked", routerDrop, "dropped", "", TraceExpect{}},
+		{"unchecked destination", delivered, "delivered", "pod2.default", TraceExpect{}},
+		{"external leaves via localnet", `/* output to "localnet.external", type "localnet" */`, "delivered", "localnet.external", TraceExpect{Egress: true}},
+		{"external leaves via a node ovn0", `/* output to "node-hv-01", type "" */`, "delivered", "node-hv-01", TraceExpect{Egress: true}},
+		{"external reaches a pod", `/* output to "pod2.default", type "" */`, "misrouted", "pod2.default", TraceExpect{Egress: true}},
+	}
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			res := ParseTraceOutput(c.raw, c.expect)
+			if res.Verdict != c.verdict || res.FinalPort != c.final {
+				t.Errorf("verdict %q final %q, want %q %q (%s)", res.Verdict, res.FinalPort, c.verdict, c.final, res.Summary)
+			}
+		})
 	}
 }
 
@@ -355,5 +417,46 @@ func TestMockExecutor(t *testing.T) {
 	}
 	if mock.Calls[0].Cmd[0] != "ovn-trace" {
 		t.Errorf("expected cmd ovn-trace, got %s", mock.Calls[0].Cmd[0])
+	}
+}
+
+func TestFindOVSInterfaceNeverGuesses(t *testing.T) {
+	ctx := context.Background()
+	client := fake.NewSimpleClientset(
+		&corev1.Pod{
+			ObjectMeta: metav1.ObjectMeta{Name: "ovs-ovn-a", Namespace: "kube-system", Labels: map[string]string{"app": "ovs-ovn"}},
+			Spec:       corev1.PodSpec{NodeName: "node-a"},
+			Status:     corev1.PodStatus{Phase: corev1.PodRunning},
+		},
+		&corev1.Pod{
+			ObjectMeta: metav1.ObjectMeta{Name: "ovs-ovn-b", Namespace: "kube-system", Labels: map[string]string{"app": "ovs-ovn"}},
+			Spec:       corev1.PodSpec{NodeName: "node-b"},
+			Status:     corev1.PodStatus{Phase: corev1.PodRunning},
+		},
+	)
+	locator := NewPodLocator(client, "kube-system")
+	exec := NewMockExecutor()
+	exec.StdoutMap["ovs-vsctl"] = []byte("4f2a_h\n")
+
+	iface, err := locator.FindOVSInterface(ctx, exec, "node-b", "app-1.default")
+	if err != nil || iface != "4f2a_h" {
+		t.Fatalf("expected the iface-id match, got %q %v", iface, err)
+	}
+	c := exec.Calls[len(exec.Calls)-1]
+	if c.Pod.Name != "ovs-ovn-b" || strings.Join(c.Cmd, " ") != "ovs-vsctl --bare --columns=name find interface external_ids:iface-id=app-1.default" {
+		t.Errorf("lookup must run on the port's node with the typed command, got %s %v", c.Pod.Name, c.Cmd)
+	}
+
+	exec.StdoutMap["ovs-vsctl"] = []byte("")
+	if _, err := locator.FindOVSInterface(ctx, exec, "node-b", "gw-external"); !errors.Is(err, ErrIfaceNotFound) {
+		t.Errorf("a port without interface must be ErrIfaceNotFound (no ovn0/br-external guess), got %v", err)
+	}
+	if _, err := locator.FindOVSInterface(ctx, exec, "", "app-1.default"); err == nil {
+		t.Errorf("an unknown node must be an error, not the first node of the cluster")
+	}
+	for _, bad := range []string{"", "a;rm -rf /", "x y", "p$(id)"} {
+		if _, err := BuildFindIfaceByIfaceIDCommand(bad); err == nil {
+			t.Errorf("port name %q must be rejected", bad)
+		}
 	}
 }

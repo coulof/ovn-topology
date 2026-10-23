@@ -1,0 +1,108 @@
+edges:
+- id: edge:ls:4a5f8013-b78c-45eb-bf22-846d9b503d6d-lsp:73abcc99-30c2-4888-80a8-d2a581ecdfe0-contains
+  source: ls:4a5f8013-b78c-45eb-bf22-846d9b503d6d
+  target: lsp:73abcc99-30c2-4888-80a8-d2a581ecdfe0
+  type: contains
+- id: edge:ls:4a5f8013-b78c-45eb-bf22-846d9b503d6d-lsp:b0baa84d-11b4-4733-a0aa-ba56a4b8cb7e-contains
+  source: ls:4a5f8013-b78c-45eb-bf22-846d9b503d6d
+  target: lsp:b0baa84d-11b4-4733-a0aa-ba56a4b8cb7e
+  type: contains
+- id: edge:lsp:b0baa84d-11b4-4733-a0aa-ba56a4b8cb7e-chassis:ddbfec73-3751-43f3-b9ef-b5bdec1eedc2-bound-on
+  source: lsp:b0baa84d-11b4-4733-a0aa-ba56a4b8cb7e
+  target: chassis:ddbfec73-3751-43f3-b9ef-b5bdec1eedc2
+  type: bound-on
+- id: edge:ls:4a5f8013-b78c-45eb-bf22-846d9b503d6d-lsp:cb452200-3d95-423d-89cb-58aa51d32789-contains
+  source: ls:4a5f8013-b78c-45eb-bf22-846d9b503d6d
+  target: lsp:cb452200-3d95-423d-89cb-58aa51d32789
+  type: contains
+- id: edge:lsp:cb452200-3d95-423d-89cb-58aa51d32789-chassis:c1cba3aa-c70b-4918-9a8e-fe4472d6b95c-bound-on
+  source: lsp:cb452200-3d95-423d-89cb-58aa51d32789
+  target: chassis:c1cba3aa-c70b-4918-9a8e-fe4472d6b95c
+  type: bound-on
+nodes:
+- id: ls:4a5f8013-b78c-45eb-bf22-846d9b503d6d
+  k8s:
+    vendor: kube-ovn
+  name: subnet-twowater
+  properties:
+    portCount: 3
+  type: LS
+- id: lsp:73abcc99-30c2-4888-80a8-d2a581ecdfe0
+  k8s:
+    subnet: subnet-twowater
+    vendor: kube-ovn
+  name: subnet-twowater-vpc-twowater
+  properties:
+    addresses:
+    - router
+    boundChassis: ""
+    boundState: unbound
+    enabled: true
+    type: router
+    up: true
+  type: LSP
+- id: lsp:b0baa84d-11b4-4733-a0aa-ba56a4b8cb7e
+  k8s:
+    namespace: default
+    networkAttachment: twowater/twowater
+    node: hv-01
+    owner: VirtualMachine/test-2-nics-2-vpc
+    pod: test-2-nics-2-vpc
+    subnet: subnet-twowater
+    vendor: kube-ovn
+    vmi: test-2-nics-2-vpc
+    workloadKind: VirtualMachine
+    workloadName: test-2-nics-2-vpc
+  name: test-2-nics-2-vpc.default.twowater.twowater.ovn
+  properties:
+    addresses:
+    - be:91:0e:cd:33:71 192.168.55.51
+    boundChassis: ddbfec73-3751-43f3-b9ef-b5bdec1eedc2
+    boundState: bound
+    enabled: true
+    type: ""
+    up: true
+  type: LSP
+- id: lsp:cb452200-3d95-423d-89cb-58aa51d32789
+  k8s:
+    namespace: twowater
+    networkAttachment: twowater/twowater
+    node: hv-02
+    owner: VirtualMachine/vm-twowater
+    pod: vm-twowater
+    subnet: subnet-twowater
+    vendor: kube-ovn
+    vmi: vm-twowater
+    workloadKind: VirtualMachine
+    workloadName: vm-twowater
+  name: vm-twowater.twowater.twowater.twowater.ovn
+  properties:
+    addresses:
+    - 12:07:c5:da:e1:dd 192.168.55.50
+    boundChassis: c1cba3aa-c70b-4918-9a8e-fe4472d6b95c
+    boundState: bound
+    enabled: true
+    type: ""
+    up: true
+  type: LSP
+- id: chassis:c1cba3aa-c70b-4918-9a8e-fe4472d6b95c
+  name: hv-02
+  properties:
+    chassis: c1cba3aa-c70b-4918-9a8e-fe4472d6b95c
+    hostname: hv-02
+    nodeName: hv-02
+  type: Chassis
+- id: chassis:ddbfec73-3751-43f3-b9ef-b5bdec1eedc2
+  name: hv-01
+  properties:
+    chassis: ddbfec73-3751-43f3-b9ef-b5bdec1eedc2
+    hostname: hv-01
+    nodeName: hv-01
+  type: Chassis
+pagination:
+  page: 1
+  pageSize: 1000
+  totalItems: 3
+  totalPages: 1
+revision: 1
+view: l2

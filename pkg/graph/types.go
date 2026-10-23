@@ -1,6 +1,7 @@
 package graph
 
 import (
+	"strings"
 	"time"
 
 	"github.com/coulof/ovn-topology/pkg/api"
@@ -11,6 +12,11 @@ import (
 // NodeMapper maps a Chassis hostname/name to a Kubernetes node name.
 type NodeMapper interface {
 	NodeForChassis(hostname string, chassisID string) string
+	// MatchChassis also reports how the node was found: "annotation" (node annotation
+	// ovn.kubernetes.io/chassis == Chassis.name, the authoritative link), "override",
+	// "hostname" (a Kubernetes node matches Chassis.hostname) or "fallback-hostname" /
+	// "fallback-name" (no Kubernetes match; the chassis' own value is shown).
+	MatchChassis(hostname string, chassisID string) (node string, how string)
 }
 
 // StaticNodeMapper is a simple NodeMapper returning hostname or configured overrides.
@@ -20,15 +26,21 @@ type StaticNodeMapper struct {
 
 // NodeForChassis returns mapped node or hostname as fallback.
 func (s *StaticNodeMapper) NodeForChassis(hostname string, chassisID string) string {
+	node, _ := s.MatchChassis(hostname, chassisID)
+	return node
+}
+
+// MatchChassis returns the override for the chassis (by name, then hostname), else its hostname.
+func (s *StaticNodeMapper) MatchChassis(hostname string, chassisID string) (string, string) {
 	if s.Overrides != nil {
 		if node, ok := s.Overrides[chassisID]; ok && node != "" {
-			return node
+			return node, "override"
 		}
 		if node, ok := s.Overrides[hostname]; ok && node != "" {
-			return node
+			return node, "override"
 		}
 	}
-	return hostname
+	return hostname, "fallback-hostname"
 }
 
 // Snapshot is an immutable point-in-time state of the joined OVN NB and SB databases.
@@ -201,6 +213,15 @@ func ExtractK8sMetadata(extIds map[string]string) *api.K8sMetadata {
 	} else if pod, ok := extIds["k8s.ovn.org/pod"]; ok && pod != "" {
 		k8s.Pod = &pod
 		hasAny = true
+	}
+
+	// Handle "namespace/pod" format commonly set by Kube-OVN in the "pod" field
+	if k8s.Namespace == nil && k8s.Pod != nil && strings.Contains(*k8s.Pod, "/") {
+		parts := strings.SplitN(*k8s.Pod, "/", 2)
+		ns := parts[0]
+		k8s.Namespace = &ns
+		pod := parts[1]
+		k8s.Pod = &pod
 	}
 
 	if node, ok := extIds["node"]; ok && node != "" {

@@ -22,11 +22,3 @@ vendor/
 
 # OS
 .DS_Store
-
-# UI build artifacts
-ui/node_modules/
-ui/dist/
-ui/dist-pkg/
-ui/.yarn/cache/
-ui/.yarn/unplugged/
-ui/.pnp.*

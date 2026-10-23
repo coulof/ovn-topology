@@ -8,46 +8,61 @@ import (
 
 // Theme defines the color palette for the terminal UI.
 type Theme struct {
-	Name       string
-	TitleBg    lipgloss.Color
-	TitleFg    lipgloss.Color
-	Primary    lipgloss.Color // Main selection, active tab & borders
-	Header     lipgloss.Color // Section headers
-	Text       lipgloss.Color // Primary text
-	Muted      lipgloss.Color // Subtitle & secondary info
-	Border     lipgloss.Color // Box borders & lines
-	BoxBg      lipgloss.Color // Background for panels and pills
-	Success    lipgloss.Color // Bound ports
-	Error      lipgloss.Color // Unbound ports
-	Warning    lipgloss.Color // Gateways & EIPs (persimmon #fe7c3f)
-	CIDR       lipgloss.Color // Network IP addresses
-	PortBadge  lipgloss.Color // Port name badge
+	Name      string
+	TitleBg   lipgloss.Color
+	TitleFg   lipgloss.Color
+	Primary   lipgloss.Color // Main selection, active tab & borders
+	Header    lipgloss.Color // Section headers
+	Text      lipgloss.Color // Primary text
+	Muted     lipgloss.Color // Subtitle & secondary info
+	Border    lipgloss.Color // Box borders & lines
+	BoxBg     lipgloss.Color // Background for panels and pills
+	Success   lipgloss.Color // Bound ports
+	Error     lipgloss.Color // Unbound ports
+	Warning   lipgloss.Color // Gateways & EIPs (persimmon #fe7c3f)
+	CIDR      lipgloss.Color // Network IP addresses
+	PortBadge lipgloss.Color // Port name badge
 }
 
 // ThemeStyles contains the compiled Lip Gloss styles derived from a Theme.
 type ThemeStyles struct {
-	Title            lipgloss.Style
-	TabActive        lipgloss.Style
-	TabInactive      lipgloss.Style
-	Header           lipgloss.Style
-	VPCBox           lipgloss.Style
-	DetailBox        lipgloss.Style
-	InspectorBox     lipgloss.Style
-	Node             lipgloss.Style
-	SelectedNode     lipgloss.Style
-	EdgeLine         lipgloss.Style
-	CIDR             lipgloss.Style
-	PortBadge        lipgloss.Style
-	BadgeBound       lipgloss.Style
-	BadgeUnbound     lipgloss.Style
-	ActiveGateway    lipgloss.Style
-	TableHeader      lipgloss.Style
-	TableRow         lipgloss.Style
-	TableRowSelected lipgloss.Style
-	MutedText        lipgloss.Style
-	DiagBadgeActive  lipgloss.Style
+	Title             lipgloss.Style
+	TabActive         lipgloss.Style
+	TabInactive       lipgloss.Style
+	Header            lipgloss.Style
+	VPCBox            lipgloss.Style
+	DetailBox         lipgloss.Style
+	InspectorBox      lipgloss.Style
+	Node              lipgloss.Style
+	SelectedNode      lipgloss.Style
+	EdgeLine          lipgloss.Style
+	CIDR              lipgloss.Style
+	PortBadge         lipgloss.Style
+	BadgeBound        lipgloss.Style
+	BadgeUnbound      lipgloss.Style
+	ActiveGateway     lipgloss.Style
+	TableHeader       lipgloss.Style
+	TableRow          lipgloss.Style
+	TableRowSelected  lipgloss.Style
+	MutedText         lipgloss.Style
+	DiagBadgeActive   lipgloss.Style
 	DiagBadgeDisabled lipgloss.Style
-	ModalBox         lipgloss.Style
+	ModalBox          lipgloss.Style
+
+	// k9s-style shell (xray / tables)
+	Border   lipgloss.Style
+	Selected lipgloss.Style
+	Flash    lipgloss.Style
+	Key      lipgloss.Style
+	Label    lipgloss.Style
+	Value    lipgloss.Style
+	Faint    lipgloss.Style
+	Ok       lipgloss.Style
+	Warn     lipgloss.Style
+	Bad      lipgloss.Style
+	Kind     map[string]lipgloss.Style
+	Pill     lipgloss.Style
+	PillAlt  lipgloss.Style
 }
 
 // Built-in color themes
@@ -178,6 +193,36 @@ func GetThemeByName(name string) (Theme, int) {
 
 // CompileStyles generates Lip Gloss styles from a Theme palette.
 func CompileStyles(t Theme) ThemeStyles {
+	fg := func(c lipgloss.Color) lipgloss.Style { return lipgloss.NewStyle().Foreground(c) }
+	s := baseStyles(t)
+	s.Border = fg(t.Primary)
+	s.Selected = lipgloss.NewStyle().Bold(true).Foreground(t.TitleFg).Background(t.Primary)
+	s.Flash = lipgloss.NewStyle().Foreground(t.TitleFg).Background(t.Header)
+	s.Key = fg(t.PortBadge).Bold(true)
+	s.Label = fg(t.Warning).Bold(true)
+	s.Value = fg(t.Text).Bold(true)
+	s.Faint = fg(t.Border)
+	s.Ok = fg(t.Success)
+	s.Warn = fg(t.Warning)
+	s.Bad = fg(t.Error)
+	s.Pill = lipgloss.NewStyle().Bold(true).Foreground(t.TitleFg).Background(t.Warning)
+	s.PillAlt = lipgloss.NewStyle().Bold(true).Foreground(t.TitleFg).Background(t.Primary)
+	s.Kind = map[string]lipgloss.Style{
+		kGroup:   fg(t.Text).Bold(true),
+		kVPC:     fg(t.Primary).Bold(true),
+		kLR:      fg(t.Primary),
+		kLRP:     fg(t.PortBadge),
+		kLS:      fg(t.CIDR),
+		kLSP:     fg(t.Text),
+		kChassis: fg(t.Warning),
+		kExt:     fg(t.Error),
+		kNS:      fg(t.Muted),
+		kWL:      fg(t.Success),
+	}
+	return s
+}
+
+func baseStyles(t Theme) ThemeStyles {
 	return ThemeStyles{
 		Title: lipgloss.NewStyle().
 			Bold(true).

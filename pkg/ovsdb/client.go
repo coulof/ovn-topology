@@ -64,7 +64,13 @@ func createClient(_ context.Context, dbModel model.ClientDBModel, cfg Config) (c
 	if reconnectTimeout <= 0 {
 		reconnectTimeout = 10 * time.Second
 	}
-	opts = append(opts, client.WithReconnect(reconnectTimeout, b))
+	if cfg.InactivityCheck > reconnectTimeout {
+		// Echo probes detect half-open connections (a raft member rebooted without
+		// a TCP reset) and force a reconnect; it implies WithReconnect.
+		opts = append(opts, client.WithInactivityCheck(cfg.InactivityCheck, reconnectTimeout, b))
+	} else {
+		opts = append(opts, client.WithReconnect(reconnectTimeout, b))
+	}
 
 	ovsClient, err := client.NewOVSDBClient(dbModel, opts...)
 	if err != nil {

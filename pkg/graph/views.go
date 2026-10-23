@@ -3,6 +3,7 @@ package graph
 import (
 	"encoding/json"
 	"fmt"
+	"reflect"
 	"sort"
 	"strings"
 
@@ -362,71 +363,7 @@ func (s *Snapshot) BuildL2View(focusLS string, page int, pageSize int) (*api.Gra
 			"up":           lsp.Up != nil && *lsp.Up,
 		}
 
-		k8sMeta := ExtractK8sMetadata(lsp.ExternalIDs)
-		if boundChassis != "" {
-			if k8sMeta == nil {
-				k8sMeta = &api.K8sMetadata{}
-			}
-			if k8sMeta.Node == nil {
-				hostname := ""
-				if ch, ok := s.Chassis[boundChassis]; ok {
-					hostname = ch.Hostname
-				}
-				mappedNode := s.NodeMapper.NodeForChassis(hostname, boundChassis)
-				if mappedNode != "" {
-					k8sMeta.Node = &mappedNode
-				} else if hostname != "" {
-					k8sMeta.Node = &hostname
-				}
-			}
-		}
-
-		// Node join port resolution (node-<hostname>)
-		if strings.HasPrefix(lsp.Name, "node-") {
-			if k8sMeta == nil {
-				k8sMeta = &api.K8sMetadata{}
-			}
-			nodeName := strings.TrimPrefix(lsp.Name, "node-")
-			k8sMeta.Node = &nodeName
-			kind := "Node"
-			k8sMeta.WorkloadKind = &kind
-			k8sMeta.WorkloadName = &nodeName
-			owner := "Node/" + nodeName
-			k8sMeta.Owner = &owner
-		} else if s.WorkloadResolver != nil && k8sMeta != nil {
-			ns := ""
-			if k8sMeta.Namespace != nil {
-				ns = *k8sMeta.Namespace
-			}
-			pod := ""
-			if k8sMeta.Pod != nil {
-				pod = *k8sMeta.Pod
-			} else {
-				pod = lsp.Name
-			}
-			if strings.Contains(pod, "/") {
-				parts := strings.SplitN(pod, "/", 2)
-				if ns == "" {
-					ns = parts[0]
-				}
-				pod = parts[1]
-			}
-
-			if wl := s.WorkloadResolver.Resolve(ns, pod); wl != nil {
-				k8sMeta.WorkloadKind = &wl.Kind
-				k8sMeta.WorkloadName = &wl.WorkloadName
-				k8sMeta.Owner = &wl.Owner
-				if wl.VMI != "" {
-					k8sMeta.Vmi = &wl.VMI
-				}
-				if wl.NetworkAttachment != "" {
-					k8sMeta.NetworkAttachment = &wl.NetworkAttachment
-				}
-				if wl.Node != "" && k8sMeta.Node == nil {
-					k8sMeta.Node = &wl.Node
-				}
-			}
-		}
+		k8sMeta := s.enrichLSPK8s(lsp, boundChassis)
 
 		nodes = append(nodes, api.GraphNode{
 			Id:         lspID,
@@ -458,8 +395,14 @@ func (s *Snapshot) BuildL2View(focusLS string, page int, pageSize int) (*api.Gra
 		}
 	}
 
-	// Include referenced Chassis nodes
-	for chassisName := range chassisReferenced {
+	// Include referenced Chassis nodes, in a stable order (map iteration is random;
+	// it made the L2 golden test flaky and reordered rows between responses).
+	referenced := make([]string, 0, len(chassisReferenced))
+	for name := range chassisReferenced {
+		referenced = append(referenced, name)
+	}
+	sort.Strings(referenced)
+	for _, chassisName := range referenced {
 		chassisID := PrefixChassis + chassisName
 		hostname := chassisName
 		if ch, ok := s.Chassis[chassisName]; ok {
@@ -504,7 +447,13 @@ func (s *Snapshot) BuildChassisView(focus string, depth int) *api.GraphResponse 
 		seenChassis[ch.Name] = struct{}{}
 
 		chassisID := PrefixChassis + ch.Name
-		nodeName := s.NodeMapper.NodeForChassis(ch.Hostname, ch.Name)
+		nodeName, nodeMatch := s.NodeMapper.MatchChassis(ch.Hostname, ch.Name)
+		hostnameShared := 0
+		for _, other := range s.Chassis {
+			if other.Hostname == ch.Hostname {
+				hostnameShared++
+			}
+		}
 
 		// Count bindings
 		bindingCount := 0
@@ -525,11 +474,15 @@ func (s *Snapshot) BuildChassisView(focus string, depth int) *api.GraphResponse 
 		}
 
 		props := map[string]interface{}{
-			"hostname":     ch.Hostname,
-			"nodeName":     nodeName,
-			"bindingCount": bindingCount,
-			"encaps":       encapList,
-			"uuid":         ch.UUID,
+			"hostname":       ch.Hostname,
+			"name":           ch.Name, // the OVS system-id: the chassis identity
+			"nodeName":       nodeName,
+			"nodeMatch":      nodeMatch,
+			"hostnameShared": hostnameShared,
+			"isInterconn":    ch.OtherConfig["is-interconn"] == "true",
+			"bindingCount":   bindingCount,
+			"encaps":         encapList,
+			"uuid":           ch.UUID,
 		}
 
 		nodes = append(nodes, api.GraphNode{
@@ -618,6 +571,100 @@ func filterGraphByFocus(nodes map[string]api.GraphNode, edges map[string]api.Gra
 	return filteredNodes, filteredEdges
 }
 
+func (s *Snapshot) enrichLSPK8s(lsp *nbmodel.LogicalSwitchPort, boundChassis string) *api.K8sMetadata {
+	k8sMeta := ExtractK8sMetadata(lsp.ExternalIDs)
+	if boundChassis != "" {
+		if k8sMeta == nil {
+			k8sMeta = &api.K8sMetadata{}
+		}
+		if k8sMeta.Node == nil {
+			hostname := ""
+			if ch, ok := s.Chassis[boundChassis]; ok {
+				hostname = ch.Hostname
+			}
+			mappedNode := s.NodeMapper.NodeForChassis(hostname, boundChassis)
+			if mappedNode != "" {
+				k8sMeta.Node = &mappedNode
+			} else if hostname != "" {
+				k8sMeta.Node = &hostname
+			}
+		}
+	}
+
+	// Node join port resolution (node-<hostname>)
+	if strings.HasPrefix(lsp.Name, "node-") {
+		if k8sMeta == nil {
+			k8sMeta = &api.K8sMetadata{}
+		}
+		nodeName := strings.TrimPrefix(lsp.Name, "node-")
+		k8sMeta.Node = &nodeName
+		kind := "Node"
+		k8sMeta.WorkloadKind = &kind
+		k8sMeta.WorkloadName = &nodeName
+		owner := "Node/" + nodeName
+		k8sMeta.Owner = &owner
+	} else if s.WorkloadResolver != nil {
+		ns := ""
+		pod := ""
+		if k8sMeta != nil {
+			if k8sMeta.Namespace != nil {
+				ns = *k8sMeta.Namespace
+			}
+			if k8sMeta.Pod != nil {
+				pod = *k8sMeta.Pod
+			}
+		}
+		if pod == "" {
+			pod = lsp.Name
+		}
+		if strings.Contains(pod, "/") {
+			parts := strings.SplitN(pod, "/", 2)
+			if ns == "" {
+				ns = parts[0]
+			}
+			pod = parts[1]
+		}
+
+		if wl := s.WorkloadResolver.Resolve(ns, pod); wl != nil {
+			if k8sMeta == nil {
+				k8sMeta = &api.K8sMetadata{}
+			}
+			k8sMeta.WorkloadKind = &wl.Kind
+			k8sMeta.WorkloadName = &wl.WorkloadName
+			k8sMeta.Owner = &wl.Owner
+			if wl.VMI != "" {
+				k8sMeta.Vmi = &wl.VMI
+			}
+			if k8sMeta.Namespace == nil && wl.Namespace != "" {
+				k8sMeta.Namespace = &wl.Namespace
+			}
+			var lspMAC string
+			var lspIPs []string
+			for _, addr := range lsp.Addresses {
+				parts := strings.Fields(addr)
+				if len(parts) >= 1 && strings.Contains(parts[0], ":") {
+					lspMAC = parts[0]
+				}
+				if len(parts) >= 2 {
+					lspIPs = append(lspIPs, parts[1:]...)
+				}
+			}
+			subnetName := ""
+			if k8sMeta.Subnet != nil {
+				subnetName = *k8sMeta.Subnet
+			}
+			attName := wl.MatchAttachment(lspMAC, lspIPs, subnetName)
+			if attName != "" {
+				k8sMeta.NetworkAttachment = &attName
+			}
+			if wl.Node != "" && k8sMeta.Node == nil {
+				k8sMeta.Node = &wl.Node
+			}
+		}
+	}
+	return k8sMeta
+}
+
 // GetNodeDetail returns the full details for a single node.
 func (s *Snapshot) GetNodeDetail(id string) (*api.NodeDetail, error) {
 	var rawObj interface{}
@@ -625,6 +672,7 @@ func (s *Snapshot) GetNodeDetail(id string) (*api.NodeDetail, error) {
 	var nodeType string
 	var nodeName string
 	var related []api.RelatedObject
+	var detailK8s *api.K8sMetadata
 
 	switch {
 	case strings.HasPrefix(id, PrefixLR):
@@ -722,7 +770,9 @@ func (s *Snapshot) GetNodeDetail(id string) (*api.NodeDetail, error) {
 		nodeType = "LSP"
 		nodeName = lsp.Name
 
+		boundChassis := ""
 		if pb, ok := s.PortBindingByPort[lsp.Name]; ok && pb.Chassis != nil {
+			boundChassis = *pb.Chassis
 			chassisID := PrefixChassis + *pb.Chassis
 			related = append(related, api.RelatedObject{
 				Id:           chassisID,
@@ -731,6 +781,7 @@ func (s *Snapshot) GetNodeDetail(id string) (*api.NodeDetail, error) {
 				Name:         pb.Chassis,
 			})
 		}
+		detailK8s = s.enrichLSPK8s(lsp, boundChassis)
 
 	case strings.HasPrefix(id, PrefixLRP):
 		uuid := strings.TrimPrefix(id, PrefixLRP)
@@ -793,13 +844,17 @@ func (s *Snapshot) GetNodeDetail(id string) (*api.NodeDetail, error) {
 
 	rawMap := toMap(rawObj)
 
+	if detailK8s == nil {
+		detailK8s = ExtractK8sMetadata(extIds)
+	}
+
 	detail := &api.NodeDetail{
 		Id:          id,
 		Type:        nodeType,
 		Name:        nodeName,
 		Raw:         rawMap,
 		ExternalIds: extIds,
-		K8s:         ExtractK8sMetadata(extIds),
+		K8s:         detailK8s,
 		Related:     &related,
 	}
 
@@ -925,15 +980,31 @@ func (s *Snapshot) resolveChassisName(chassisID string) string {
 	return name
 }
 
+// toMap returns an OVSDB model row keyed by its OVSDB column names (the
+// `ovsdb:"…"` struct tags, e.g. _uuid, other_config), as NodeDetail.raw promises,
+// with JSON-plain values. Values that are not tagged structs keep their JSON keys.
 func toMap(v interface{}) map[string]interface{} {
+	res := make(map[string]interface{})
 	if v == nil {
-		return make(map[string]interface{})
+		return res
 	}
-	data, err := json.Marshal(v)
+	src := v
+	rv := reflect.Indirect(reflect.ValueOf(v))
+	if rv.Kind() == reflect.Struct {
+		cols := make(map[string]interface{})
+		for i := 0; i < rv.NumField(); i++ {
+			if col := strings.Split(rv.Type().Field(i).Tag.Get("ovsdb"), ",")[0]; col != "" {
+				cols[col] = rv.Field(i).Interface()
+			}
+		}
+		if len(cols) > 0 {
+			src = cols
+		}
+	}
+	data, err := json.Marshal(src)
 	if err != nil {
-		return make(map[string]interface{})
+		return res
 	}
-	var res map[string]interface{}
 	_ = json.Unmarshal(data, &res)
 	if res == nil {
 		res = make(map[string]interface{})

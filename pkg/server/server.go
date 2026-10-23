@@ -30,6 +30,9 @@ type Server struct {
 	version VersionConfig
 	logger  *slog.Logger
 	mux     *http.ServeMux
+	// heartbeat is how often an idle SSE stream gets a comment line, so proxies
+	// (the Rancher service proxy) do not close it between graph changes.
+	heartbeat time.Duration
 }
 
 // NewServer creates a new HTTP server routing all topology API endpoints.
@@ -42,6 +45,8 @@ func NewServer(store *graph.Store, version VersionConfig, logger *slog.Logger) *
 		version: version,
 		logger:  logger,
 		mux:     http.NewServeMux(),
+
+		heartbeat: 15 * time.Second,
 	}
 	s.registerRoutes()
 	return s
@@ -64,16 +69,6 @@ func (s *Server) registerRoutes() {
 }
 
 func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	// Add CORS headers for web/dev UI access
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Methods", "GET, OPTIONS")
-	w.Header().Set("Access-Control-Allow-Headers", "Content-Type, If-None-Match")
-
-	if r.Method == http.MethodOptions {
-		w.WriteHeader(http.StatusOK)
-		return
-	}
-
 	start := time.Now()
 	s.mux.ServeHTTP(w, r)
 	s.logger.Debug("http request completed",
@@ -179,11 +174,19 @@ func (s *Server) handleEvents(w http.ResponseWriter, r *http.Request) {
 	}
 	flusher.Flush()
 
+	heartbeat := time.NewTicker(s.heartbeat)
+	defer heartbeat.Stop()
+
 	notify := r.Context().Done()
 	for {
 		select {
 		case <-notify:
 			return
+		case <-heartbeat.C:
+			if _, err := fmt.Fprint(w, ": keepalive\n\n"); err != nil {
+				return
+			}
+			flusher.Flush()
 		case ev, ok := <-eventCh:
 			if !ok {
 				return

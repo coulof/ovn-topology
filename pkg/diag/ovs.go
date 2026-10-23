@@ -30,6 +30,18 @@ func BuildOvsIfaceDetailCommand(iface string) ([]string, error) {
 	}, nil
 }
 
+// portNameRe is the character set of OVN logical port names (e.g. "app-1.ns", "vm.ns.provider", "node-hv-01").
+var portNameRe = regexp.MustCompile(`^[A-Za-z0-9._:-]+$`)
+
+// BuildFindIfaceByIfaceIDCommand returns the typed command that finds the OVS interface
+// bound to an OVN logical port (external_ids:iface-id == port name).
+func BuildFindIfaceByIfaceIDCommand(port string) ([]string, error) {
+	if !portNameRe.MatchString(port) {
+		return nil, fmt.Errorf("invalid logical port name: %q", port)
+	}
+	return []string{"ovs-vsctl", "--bare", "--columns=name", "find", "interface", "external_ids:iface-id=" + port}, nil
+}
+
 // BuildOvsVsctlShowCommand returns the typed command for ovs-vsctl show.
 func BuildOvsVsctlShowCommand() []string {
 	return []string{"ovs-vsctl", "show"}

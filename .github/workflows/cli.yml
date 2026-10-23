@@ -1,0 +1,76 @@
+name: CLI (macOS & Windows)
+
+# Builds and tests the ovn-topo TUI natively on macOS and Windows, and uploads
+# the binaries (amd64 + arm64) as workflow artifacts. Linux is covered by go.yml.
+
+on:
+  push:
+    paths:
+      - 'cmd/ovn-topo/**'
+      - 'pkg/**'
+      - 'go.mod'
+      - 'go.sum'
+      - '.github/workflows/cli.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'cmd/ovn-topo/**'
+      - 'pkg/**'
+      - 'go.mod'
+      - 'go.sum'
+      - '.github/workflows/cli.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-latest
+            goos: darwin
+            ext: ''
+          - os: windows-latest
+            goos: windows
+            ext: '.exe'
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Test TUI
+        run: go test ./cmd/ovn-topo
+
+      - name: Build amd64 and arm64
+        env:
+          CGO_ENABLED: '0'
+          GOOS: ${{ matrix.goos }}
+        run: |
+          mkdir -p dist
+          LDFLAGS="-w -s -X main.version=dev-${GITHUB_SHA::7} -X main.gitCommit=${GITHUB_SHA} -X main.buildDate=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          for ARCH in amd64 arm64; do
+            GOARCH=${ARCH} go build -ldflags="${LDFLAGS}" -o dist/ovn-topo_${GOOS}_${ARCH}${{ matrix.ext }} ./cmd/ovn-topo
+          done
+
+      - name: Smoke test native binary
+        run: |
+          BIN=$(ls dist/ovn-topo_${{ matrix.goos }}_$(go env GOARCH)*)
+          "$BIN" --fixture --view l3 -o json > /dev/null
+
+      - name: Upload binaries
+        uses: actions/upload-artifact@v4
+        with:
+          name: ovn-topo-${{ matrix.goos }}
+          path: dist/*

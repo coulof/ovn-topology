@@ -1,0 +1,482 @@
+[
+ {
+  "metadata": {
+   "annotations": {
+    "harvesterhci.io/mac-address": "{\"default\":\"66:a6:d0:bf:2b:4a\"}",
+    "harvesterhci.io/reservedMemory": "256Mi",
+    "harvesterhci.io/timestamp": "2026-10-15T10:56:40Z",
+    "harvesterhci.io/vmRunStrategy": "RerunOnFailure",
+    "harvesterhci.io/volumeClaimTemplates": "[{\n  \"metadata\": {\n    \"name\": \"coriolis-win-minion-cdrom\",\n    \"annotations\": {\n      \"harvesterhci.io/imageId\": \"default/image-hvbwd\"\n    }\n  },\n  \"spec\": {\n    \"accessModes\": [\"ReadWriteMany\"],\n    \"resources\": { \"requests\": { \"storage\": \"20Gi\" } },\n    \"volumeMode\": \"Block\",\n    \"storageClassName\": \"lh-073f60ec-2eaa-4402-a9e1-79717e14beb2\"\n  }\n},\n{\n  \"metadata\": {\n    \"name\": \"coriolis-win-minion-rootdisk\"\n  },\n  \"spec\": {\n    \"accessModes\": [\"ReadWriteMany\"],\n    \"resources\": { \"requests\": { \"storage\": \"64Gi\" } },\n    \"volumeMode\": \"Block\",\n    \"storageClassName\": \"harvester-longhorn\"\n  }\n}]",
+    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"kubevirt.io/v1\",\"kind\":\"VirtualMachine\",\"metadata\":{\"annotations\":{\"harvesterhci.io/reservedMemory\":\"256Mi\",\"harvesterhci.io/volumeClaimTemplates\":\"[{\\n  \\\"metadata\\\": {\\n    \\\"name\\\": \\\"coriolis-win-minion-cdrom\\\",\\n    \\\"annotations\\\": {\\n      \\\"harvesterhci.io/imageId\\\": \\\"default/image-hvbwd\\\"\\n    }\\n  },\\n  \\\"spec\\\": {\\n    \\\"accessModes\\\": [\\\"ReadWriteMany\\\"],\\n    \\\"resources\\\": { \\\"requests\\\": { \\\"storage\\\": \\\"20Gi\\\" } },\\n    \\\"volumeMode\\\": \\\"Block\\\",\\n    \\\"storageClassName\\\": \\\"lh-073f60ec-2eaa-4402-a9e1-79717e14beb2\\\"\\n  }\\n},\\n{\\n  \\\"metadata\\\": {\\n    \\\"name\\\": \\\"coriolis-win-minion-rootdisk\\\"\\n  },\\n  \\\"spec\\\": {\\n    \\\"accessModes\\\": [\\\"ReadWriteMany\\\"],\\n    \\\"resources\\\": { \\\"requests\\\": { \\\"storage\\\": \\\"64Gi\\\" } },\\n    \\\"volumeMode\\\": \\\"Block\\\",\\n    \\\"storageClassName\\\": \\\"harvester-longhorn\\\"\\n  }\\n}]\"},\"labels\":{\"harvesterhci.io/creator\":\"harvester\",\"harvesterhci.io/os\":\"windows\"},\"name\":\"coriolis-win-minion\",\"namespace\":\"default\"},\"spec\":{\"runStrategy\":\"RerunOnFailure\",\"template\":{\"metadata\":{\"labels\":{\"harvesterhci.io/vmName\":\"coriolis-win-minion\"}},\"spec\":{\"domain\":{\"clock\":{\"timer\":{\"hpet\":{\"present\":false},\"hyperv\":{\"present\":true},\"pit\":{\"tickPolicy\":\"delay\"},\"rtc\":{\"tickPolicy\":\"catchup\"}},\"utc\":{}},\"cpu\":{\"cores\":4,\"model\":\"host-model\"},\"devices\":{\"disks\":[{\"bootOrder\":1,\"cdrom\":{\"bus\":\"sata\"},\"name\":\"cdrom-disk\"},{\"bootOrder\":2,\"disk\":{\"bus\":\"virtio\"},\"name\":\"rootdisk\"},{\"cdrom\":{\"bus\":\"sata\"},\"name\":\"virtio-container-disk\"},{\"cdrom\":{\"bus\":\"sata\"},\"name\":\"sysprep\"}],\"inputs\":[{\"bus\":\"usb\",\"name\":\"tablet\",\"type\":\"tablet\"}],\"interfaces\":[{\"bridge\":{},\"model\":\"e1000\",\"name\":\"default\"}],\"tpm\":{}},\"features\":{\"acpi\":{\"enabled\":true},\"apic\":{\"enabled\":true},\"hyperv\":{\"ipi\":{\"enabled\":true},\"relaxed\":{\"enabled\":true},\"reset\":{\"enabled\":true},\"runtime\":{\"enabled\":true},\"spinlocks\":{\"enabled\":true,\"spinlocks\":8191},\"synic\":{\"enabled\":true},\"synictimer\":{\"direct\":{\"enabled\":true},\"enabled\":true},\"vapic\":{\"enabled\":true},\"vpindex\":{\"enabled\":true}},\"smm\":{\"enabled\":true}},\"firmware\":{\"bootloader\":{\"efi\":{\"secureBoot\":true}}},\"memory\":{\"guest\":\"8Gi\"},\"resources\":{\"limits\":{\"cpu\":\"4\",\"memory\":\"8Gi\"}}},\"evictionStrategy\":\"LiveMigrateIfPossible\",\"networks\":[{\"multus\":{\"networkName\":\"default/default\"},\"name\":\"default\"}],\"volumes\":[{\"name\":\"cdrom-disk\",\"persistentVolumeClaim\":{\"claimName\":\"coriolis-win-minion-cdrom\"}},{\"name\":\"rootdisk\",\"persistentVolumeClaim\":{\"claimName\":\"coriolis-win-minion-rootdisk\"}},{\"containerDisk\":{\"image\":\"registry.suse.com/suse/vmdp/vmdp:2.5.5\",\"imagePullPolicy\":\"IfNotPresent\"},\"name\":\"virtio-container-disk\"},{\"name\":\"sysprep\",\"sysprep\":{\"secret\":{\"name\":\"coriolis-win-sysprep\"}}}]}}}}\n",
+    "kubevirt.io/latest-observed-api-version": "v1",
+    "kubevirt.io/storage-observed-api-version": "v1"
+   },
+   "labels": {
+    "harvesterhci.io/creator": "harvester",
+    "harvesterhci.io/os": "windows"
+   },
+   "name": "coriolis-win-minion",
+   "namespace": "default"
+  },
+  "spec": {
+   "runStrategy": "RerunOnFailure",
+   "running": null,
+   "template": {
+    "spec": {
+     "domain": {
+      "devices": {
+       "interfaces": [
+        {
+         "bridge": {},
+         "macAddress": "66:a6:d0:bf:2b:4a",
+         "model": "e1000",
+         "name": "default"
+        }
+       ]
+      }
+     },
+     "networks": [
+      {
+       "multus": {
+        "networkName": "default/default"
+       },
+       "name": "default"
+      }
+     ]
+    }
+   }
+  },
+  "status": {
+   "printableStatus": "Running",
+   "ready": true
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "harvesterhci.io/mac-address": "{\"default\":\"ae:24:2a:cc:e7:c6\"}",
+    "harvesterhci.io/timestamp": "2026-10-15T10:56:40Z",
+    "harvesterhci.io/vmRunStrategy": "RerunOnFailure",
+    "harvesterhci.io/volumeClaimTemplates": "[{\"metadata\":{\"name\":\"spike-it-disk-0\",\"annotations\":{\"harvesterhci.io/imageId\":\"default/image-zntlb\"}},\"spec\":{\"accessModes\":[\"ReadWriteMany\"],\"resources\":{\"requests\":{\"storage\":\"10Gi\"}},\"volumeMode\":\"Block\",\"storageClassName\":\"lh-a626e40b-68ad-404f-ad8a-f83355e23ed8\"}}]",
+    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"kubevirt.io/v1\",\"kind\":\"VirtualMachine\",\"metadata\":{\"annotations\":{\"harvesterhci.io/mac-address\":\"{\\\"default\\\":\\\"ae:24:2a:cc:e7:c6\\\"}\",\"harvesterhci.io/timestamp\":\"2026-09-24T10:20:22Z\",\"harvesterhci.io/vmRunStrategy\":\"RerunOnFailure\",\"harvesterhci.io/volumeClaimTemplates\":\"[{\\\"metadata\\\":{\\\"name\\\":\\\"spike-it-disk-0\\\",\\\"annotations\\\":{\\\"harvesterhci.io/imageId\\\":\\\"default/image-zntlb\\\"}},\\\"spec\\\":{\\\"accessModes\\\":[\\\"ReadWriteMany\\\"],\\\"resources\\\":{\\\"requests\\\":{\\\"storage\\\":\\\"10Gi\\\"}},\\\"volumeMode\\\":\\\"Block\\\",\\\"storageClassName\\\":\\\"lh-a626e40b-68ad-404f-ad8a-f83355e23ed8\\\"}}]\",\"kubevirt.io/latest-observed-api-version\":\"v1\",\"kubevirt.io/storage-observed-api-version\":\"v1\"},\"creationTimestamp\":\"2026-09-24T10:17:40Z\",\"finalizers\":[\"wrangler.cattle.io/harvester-lb-vm-controller\",\"wrangler.cattle.io/VMController.CleanupPVCAndSnapshot\",\"wrangler.cattle.io/VMController.ReconcileBackendStorageClone\",\"kubevirt.io/virtualMachineControllerFinalize\"],\"generation\":1,\"labels\":{\"harvesterhci.io/creator\":\"harvester\",\"harvesterhci.io/os\":\"SLEs\"},\"name\":\"spike-it\",\"namespace\":\"default\"},\"spec\":{\"runStrategy\":\"RerunOnFailure\",\"template\":{\"metadata\":{\"annotations\":{\"kubevirt.io/pci-topology-version\":\"v3\",\"vm.kubevirt.io/os\":\"linux\"},\"labels\":{\"harvesterhci.io/vmName\":\"spike-it\"}},\"spec\":{\"affinity\":{\"nodeAffinity\":{\"requiredDuringSchedulingIgnoredDuringExecution\":{\"nodeSelectorTerms\":[{\"matchExpressions\":[{\"key\":\"network.harvesterhci.io/mgmt\",\"operator\":\"In\",\"values\":[\"true\"]}]}]}}},\"architecture\":\"amd64\",\"domain\":{\"cpu\":{\"cores\":1,\"maxSockets\":2,\"sockets\":2,\"threads\":1},\"devices\":{\"disks\":[{\"bootOrder\":1,\"disk\":{\"bus\":\"virtio\"},\"name\":\"disk-0\"},{\"disk\":{\"bus\":\"virtio\"},\"name\":\"cloudinitdisk\"}],\"inputs\":[{\"bus\":\"usb\",\"name\":\"tablet\",\"type\":\"tablet\"}],\"interfaces\":[{\"bridge\":{},\"macAddress\":\"ae:24:2a:cc:e7:c6\",\"model\":\"virtio\",\"name\":\"default\"}],\"rng\":{}},\"features\":{\"acpi\":{\"enabled\":true}},\"firmware\":{\"bootloader\":{\"efi\":{\"secureBoot\":false}},\"serial\":\"6e17f56b-ddbc-4a70-bbd5-c1aeb868f2ea\",\"uuid\":\"657f7ae8-887d-4441-b241-9f0fd3be1cd8\"},\"machine\":{\"type\":\"q35\"},\"memory\":{\"guest\":\"8Gi\"},\"resources\":{\"limits\":{\"cpu\":\"2\",\"memory\":\"8Gi\"}}},\"evictionStrategy\":\"LiveMigrateIfPossible\",\"hostname\":\"spike-it\",\"networks\":[{\"multus\":{\"networkName\":\"default/default\"},\"name\":\"default\"}],\"terminationGracePeriodSeconds\":120,\"volumes\":[{\"name\":\"disk-0\",\"persistentVolumeClaim\":{\"claimName\":\"spike-it-disk-0\"}},{\"cloudInitNoCloud\":{\"userData\":\"#cloud-config\\npassword: spike\\nchpasswd: { expire: false }\\nssh_pwauth: true\\n\"},\"name\":\"cloudinitdisk\"}]}}}}\n",
+    "kubevirt.io/latest-observed-api-version": "v1",
+    "kubevirt.io/storage-observed-api-version": "v1"
+   },
+   "labels": {
+    "harvesterhci.io/creator": "harvester",
+    "harvesterhci.io/os": "SLEs"
+   },
+   "name": "spike-it",
+   "namespace": "default"
+  },
+  "spec": {
+   "runStrategy": "RerunOnFailure",
+   "running": null,
+   "template": {
+    "spec": {
+     "domain": {
+      "devices": {
+       "interfaces": [
+        {
+         "bridge": {},
+         "macAddress": "ae:24:2a:cc:e7:c6",
+         "model": "virtio",
+         "name": "default"
+        }
+       ]
+      }
+     },
+     "networks": [
+      {
+       "multus": {
+        "networkName": "default/default"
+       },
+       "name": "default"
+      }
+     ]
+    }
+   }
+  },
+  "status": {
+   "printableStatus": "Running",
+   "ready": true
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "harvesterhci.io/mac-address": "{\"default\":\"02:52:18:7b:e4:72\"}",
+    "harvesterhci.io/timestamp": "2026-09-21T11:48:26Z",
+    "harvesterhci.io/vmRunStrategy": "RerunOnFailure",
+    "harvesterhci.io/volumeClaimTemplates": "[{\"metadata\":{\"name\":\"test-disk-0-upxds\",\"annotations\":{\"harvesterhci.io/imageId\":\"default/image-zntlb\"}},\"spec\":{\"accessModes\":[\"ReadWriteMany\"],\"resources\":{\"requests\":{\"storage\":\"10Gi\"}},\"volumeMode\":\"Block\",\"storageClassName\":\"lh-a626e40b-68ad-404f-ad8a-f83355e23ed8\"}},{\"metadata\":{\"name\":\"test-disk-1-n4ffs\"},\"spec\":{\"accessModes\":[\"ReadWriteMany\"],\"resources\":{\"requests\":{\"storage\":\"30Gi\"}},\"volumeMode\":\"Block\",\"storageClassName\":\"harvester-longhorn\"}}]",
+    "kubevirt.io/latest-observed-api-version": "v1",
+    "kubevirt.io/storage-observed-api-version": "v1",
+    "network.harvesterhci.io/ips": "[]"
+   },
+   "labels": {
+    "harvesterhci.io/creator": "harvester",
+    "harvesterhci.io/os": "SLEs"
+   },
+   "name": "test",
+   "namespace": "default"
+  },
+  "spec": {
+   "runStrategy": "Halted",
+   "running": null,
+   "template": {
+    "spec": {
+     "domain": {
+      "devices": {
+       "interfaces": [
+        {
+         "bridge": {},
+         "macAddress": "02:52:18:7b:e4:72",
+         "model": "virtio",
+         "name": "default"
+        }
+       ]
+      }
+     },
+     "networks": [
+      {
+       "multus": {
+        "networkName": "default/default"
+       },
+       "name": "default"
+      }
+     ]
+    }
+   }
+  },
+  "status": {
+   "printableStatus": "Stopped",
+   "ready": false
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "harvesterhci.io/mac-address": "{\"default\":\"32:36:ab:92:a9:0a\",\"nic-1\":\"be:91:0e:cd:33:71\"}",
+    "harvesterhci.io/vmRunStrategy": "RerunOnFailure",
+    "harvesterhci.io/volumeClaimTemplates": "[{\"metadata\":{\"name\":\"test-2-nics-2-vpc-disk-0-mstt1\",\"annotations\":{\"harvesterhci.io/imageId\":\"default/image-tx9z8\"}},\"spec\":{\"accessModes\":[\"ReadWriteMany\"],\"resources\":{\"requests\":{\"storage\":\"10Gi\"}},\"volumeMode\":\"Block\",\"storageClassName\":\"lh-e1a360ae-abd4-463a-b4f9-372640d11f17\"}}]",
+    "kubevirt.io/latest-observed-api-version": "v1",
+    "kubevirt.io/storage-observed-api-version": "v1",
+    "network.harvesterhci.io/ips": "[]"
+   },
+   "labels": {
+    "harvesterhci.io/creator": "harvester",
+    "harvesterhci.io/os": "openSUSE"
+   },
+   "name": "test-2-nics-2-vpc",
+   "namespace": "default"
+  },
+  "spec": {
+   "runStrategy": "RerunOnFailure",
+   "running": null,
+   "template": {
+    "spec": {
+     "domain": {
+      "devices": {
+       "interfaces": [
+        {
+         "binding": {
+          "name": "managedtap"
+         },
+         "macAddress": "32:36:ab:92:a9:0a",
+         "model": "virtio",
+         "name": "default"
+        },
+        {
+         "binding": {
+          "name": "managedtap"
+         },
+         "macAddress": "be:91:0e:cd:33:71",
+         "model": "virtio",
+         "name": "nic-1"
+        }
+       ]
+      }
+     },
+     "networks": [
+      {
+       "multus": {
+        "networkName": "onewater/onewater"
+       },
+       "name": "default"
+      },
+      {
+       "multus": {
+        "networkName": "twowater/twowater"
+       },
+       "name": "nic-1"
+      }
+     ]
+    }
+   }
+  },
+  "status": {
+   "printableStatus": "Running",
+   "ready": true
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "catalog.harvesterhci.io/image": "default/image-zvwwm",
+    "catalog.harvesterhci.io/instancetype": "u1.medium",
+    "catalog.harvesterhci.io/preference": "opensuse.tumbleweed",
+    "harvesterhci.io/mac-address": "{\"default\":\"56:57:0f:bd:a5:4e\"}",
+    "harvesterhci.io/sshNames": "[\"default/flo\"]",
+    "harvesterhci.io/timestamp": "2026-10-15T09:18:46Z",
+    "harvesterhci.io/vmRunStrategy": "RerunOnFailure",
+    "harvesterhci.io/volumeClaimTemplates": "[{\"metadata\":{\"name\":\"tumbleweed-flint-florian-disk-0-8c4oy\",\"annotations\":{\"harvesterhci.io/imageId\":\"default/image-zvwwm\"}},\"spec\":{\"accessModes\":[\"ReadWriteMany\"],\"resources\":{\"requests\":{\"storage\":\"30Gi\"}},\"volumeMode\":\"Block\",\"storageClassName\":\"lh-5c4dd656-1063-4398-8428-2cf93cddc0e5\"}}]",
+    "kubevirt.io/latest-observed-api-version": "v1",
+    "kubevirt.io/storage-observed-api-version": "v1"
+   },
+   "labels": {
+    "harvesterhci.io/creator": "harvester",
+    "harvesterhci.io/os": "openSUSE"
+   },
+   "name": "tumbleweed-flint-florian",
+   "namespace": "default"
+  },
+  "spec": {
+   "runStrategy": "RerunOnFailure",
+   "running": null,
+   "template": {
+    "spec": {
+     "domain": {
+      "devices": {
+       "interfaces": [
+        {
+         "bridge": {},
+         "macAddress": "56:57:0f:bd:a5:4e",
+         "model": "virtio",
+         "name": "default"
+        }
+       ]
+      }
+     },
+     "networks": [
+      {
+       "multus": {
+        "networkName": "default/default"
+       },
+       "name": "default"
+      }
+     ]
+    }
+   }
+  },
+  "status": {
+   "printableStatus": "Running",
+   "ready": true
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "descheduler.alpha.kubernetes.io/prefer-no-eviction": "true",
+    "harvesterhci.io/mac-address": "{\"default\":\"0a:08:4a:1b:d4:ed\"}",
+    "harvesterhci.io/reservedMemory": "256Mi",
+    "harvesterhci.io/vmRunStrategy": "RerunOnFailure",
+    "harvesterhci.io/volumeClaimTemplates": "[{\"metadata\":{\"annotations\":{\"harvesterhci.io/imageId\":\"default/image-hvbwd\"},\"name\":\"winbuild-tf-iso\"},\"spec\":{\"accessModes\":[\"ReadWriteMany\"],\"resources\":{\"requests\":{\"storage\":\"20Gi\"}},\"storageClassName\":\"lh-073f60ec-2eaa-4402-a9e1-79717e14beb2\",\"volumeMode\":\"Block\"}},{\"metadata\":{\"name\":\"winbuild-tf-rootdisk\"},\"spec\":{\"accessModes\":[\"ReadWriteOnce\"],\"resources\":{\"requests\":{\"storage\":\"36Gi\"}},\"storageClassName\":\"harvester-longhorn\",\"volumeMode\":\"Block\"}}]",
+    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"kubevirt.io/v1\",\"kind\":\"VirtualMachine\",\"metadata\":{\"annotations\":{\"harvesterhci.io/reservedMemory\":\"256Mi\",\"harvesterhci.io/volumeClaimTemplates\":\"[{\\\"metadata\\\":{\\\"annotations\\\":{\\\"harvesterhci.io/imageId\\\":\\\"default/image-hvbwd\\\"},\\\"name\\\":\\\"winbuild-tf-iso\\\"},\\\"spec\\\":{\\\"accessModes\\\":[\\\"ReadWriteMany\\\"],\\\"resources\\\":{\\\"requests\\\":{\\\"storage\\\":\\\"20Gi\\\"}},\\\"storageClassName\\\":\\\"lh-073f60ec-2eaa-4402-a9e1-79717e14beb2\\\",\\\"volumeMode\\\":\\\"Block\\\"}},{\\\"metadata\\\":{\\\"name\\\":\\\"winbuild-tf-rootdisk\\\"},\\\"spec\\\":{\\\"accessModes\\\":[\\\"ReadWriteOnce\\\"],\\\"resources\\\":{\\\"requests\\\":{\\\"storage\\\":\\\"36Gi\\\"}},\\\"storageClassName\\\":\\\"harvester-longhorn\\\",\\\"volumeMode\\\":\\\"Block\\\"}}]\"},\"labels\":{\"harvesterhci.io/creator\":\"harvester\",\"harvesterhci.io/os\":\"windows\"},\"name\":\"winbuild-tf\",\"namespace\":\"default\"},\"spec\":{\"runStrategy\":\"RerunOnFailure\",\"template\":{\"metadata\":{\"labels\":{\"harvesterhci.io/vmName\":\"winbuild-tf\"}},\"spec\":{\"domain\":{\"clock\":{\"timer\":{\"hpet\":{\"present\":false},\"hyperv\":{\"present\":true},\"pit\":{\"tickPolicy\":\"delay\"},\"rtc\":{\"tickPolicy\":\"catchup\"}},\"utc\":{}},\"cpu\":{\"cores\":4},\"devices\":{\"disks\":[{\"bootOrder\":1,\"cdrom\":{\"bus\":\"sata\"},\"name\":\"windows-iso\"},{\"bootOrder\":2,\"disk\":{\"bus\":\"scsi\"},\"name\":\"rootdisk\"},{\"cdrom\":{\"bus\":\"sata\"},\"name\":\"virtio-container-disk\"},{\"cdrom\":{\"bus\":\"sata\"},\"name\":\"sysprep\"}],\"inputs\":[{\"bus\":\"usb\",\"name\":\"tablet\",\"type\":\"tablet\"}],\"interfaces\":[{\"masquerade\":{},\"model\":\"e1000\",\"name\":\"default\"}]},\"features\":{\"acpi\":{\"enabled\":true},\"apic\":{\"enabled\":true},\"hyperv\":{\"ipi\":{\"enabled\":true},\"relaxed\":{\"enabled\":true},\"reset\":{\"enabled\":true},\"runtime\":{\"enabled\":true},\"spinlocks\":{\"enabled\":true,\"spinlocks\":8191},\"synic\":{\"enabled\":true},\"synictimer\":{\"enabled\":true},\"vapic\":{\"enabled\":true},\"vpindex\":{\"enabled\":true}},\"smm\":{\"enabled\":true}},\"resources\":{\"limits\":{\"cpu\":\"4\",\"memory\":\"8Gi\"}}},\"evictionStrategy\":\"LiveMigrateIfPossible\",\"networks\":[{\"name\":\"default\",\"pod\":{}}],\"volumes\":[{\"name\":\"windows-iso\",\"persistentVolumeClaim\":{\"claimName\":\"winbuild-tf-iso\"}},{\"name\":\"rootdisk\",\"persistentVolumeClaim\":{\"claimName\":\"winbuild-tf-rootdisk\"}},{\"containerDisk\":{\"image\":\"registry.suse.com/suse/vmdp/vmdp:2.5.5\",\"imagePullPolicy\":\"IfNotPresent\"},\"name\":\"virtio-container-disk\"},{\"name\":\"sysprep\",\"sysprep\":{\"secret\":{\"name\":\"winbuild-tf-unattend\"}}}]}}}}\n",
+    "kubevirt.io/latest-observed-api-version": "v1",
+    "kubevirt.io/storage-observed-api-version": "v1"
+   },
+   "labels": {
+    "harvesterhci.io/creator": "harvester",
+    "harvesterhci.io/os": "windows"
+   },
+   "name": "winbuild-tf",
+   "namespace": "default"
+  },
+  "spec": {
+   "runStrategy": "RerunOnFailure",
+   "running": null,
+   "template": {
+    "spec": {
+     "domain": {
+      "devices": {
+       "interfaces": [
+        {
+         "macAddress": "0a:08:4a:1b:d4:ed",
+         "masquerade": {},
+         "model": "e1000",
+         "name": "default"
+        }
+       ]
+      }
+     },
+     "networks": [
+      {
+       "name": "default",
+       "pod": {}
+      }
+     ]
+    }
+   }
+  },
+  "status": {
+   "printableStatus": "Stopped",
+   "ready": false
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "harvesterhci.io/mac-address": "{\"default\":\"d6:c4:54:0b:7b:5b\"}",
+    "harvesterhci.io/vmRunStrategy": "RerunOnFailure",
+    "harvesterhci.io/volumeClaimTemplates": "[{\"metadata\":{\"name\":\"vm-2-disk-0-c25d2\",\"namespace\":\"onewater\",\"annotations\":{\"harvesterhci.io/imageId\":\"default/image-zvwwm\"}},\"spec\":{\"accessModes\":[\"ReadWriteMany\"],\"resources\":{\"requests\":{\"storage\":\"10Gi\"}},\"storageClassName\":\"lh-5c4dd656-1063-4398-8428-2cf93cddc0e5\",\"volumeMode\":\"Block\",\"dataSource\":{\"apiGroup\":null,\"kind\":\"PersistentVolumeClaim\",\"name\":\"vm-onewater-disk-0\"}},\"status\":{}}]",
+    "kubevirt.io/latest-observed-api-version": "v1",
+    "kubevirt.io/storage-observed-api-version": "v1"
+   },
+   "labels": {
+    "harvesterhci.io/creator": "harvester",
+    "harvesterhci.io/os": "linux"
+   },
+   "name": "vm-2",
+   "namespace": "onewater"
+  },
+  "spec": {
+   "runStrategy": "RerunOnFailure",
+   "running": null,
+   "template": {
+    "spec": {
+     "domain": {
+      "devices": {
+       "interfaces": [
+        {
+         "binding": {
+          "name": "managedtap"
+         },
+         "macAddress": "d6:c4:54:0b:7b:5b",
+         "model": "virtio",
+         "name": "default"
+        }
+       ]
+      }
+     },
+     "networks": [
+      {
+       "multus": {
+        "networkName": "onewater/onewater"
+       },
+       "name": "default"
+      }
+     ]
+    }
+   }
+  },
+  "status": {
+   "printableStatus": "Running",
+   "ready": true
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "harvesterhci.io/mac-address": "{\"default\":\"e6:10:52:5b:4f:fd\"}",
+    "harvesterhci.io/vmRunStrategy": "RerunOnFailure",
+    "harvesterhci.io/volumeClaimTemplates": "[\n  {\n    \"metadata\": {\n      \"name\": \"vm-onewater-disk-0\",\n      \"annotations\": {\n        \"harvesterhci.io/imageId\": \"default/image-zvwwm\"\n      }\n    },\n    \"spec\": {\n      \"accessModes\": [\"ReadWriteMany\"],\n      \"resources\": {\n        \"requests\": {\n          \"storage\": \"10Gi\"\n        }\n      },\n      \"volumeMode\": \"Block\",\n      \"storageClassName\": \"lh-5c4dd656-1063-4398-8428-2cf93cddc0e5\"\n    }\n  }\n]\n",
+    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"kubevirt.io/v1\",\"kind\":\"VirtualMachine\",\"metadata\":{\"annotations\":{\"harvesterhci.io/vmRunStrategy\":\"RerunOnFailure\",\"harvesterhci.io/volumeClaimTemplates\":\"[\\n  {\\n    \\\"metadata\\\": {\\n      \\\"name\\\": \\\"vm-onewater-disk-0\\\",\\n      \\\"annotations\\\": {\\n        \\\"harvesterhci.io/imageId\\\": \\\"default/image-zvwwm\\\"\\n      }\\n    },\\n    \\\"spec\\\": {\\n      \\\"accessModes\\\": [\\\"ReadWriteMany\\\"],\\n      \\\"resources\\\": {\\n        \\\"requests\\\": {\\n          \\\"storage\\\": \\\"10Gi\\\"\\n        }\\n      },\\n      \\\"volumeMode\\\": \\\"Block\\\",\\n      \\\"storageClassName\\\": \\\"lh-5c4dd656-1063-4398-8428-2cf93cddc0e5\\\"\\n    }\\n  }\\n]\\n\"},\"labels\":{\"harvesterhci.io/creator\":\"harvester\",\"harvesterhci.io/os\":\"linux\"},\"name\":\"vm-onewater\",\"namespace\":\"onewater\"},\"spec\":{\"runStrategy\":\"RerunOnFailure\",\"template\":{\"metadata\":{\"labels\":{\"harvesterhci.io/vmName\":\"vm-onewater\"}},\"spec\":{\"architecture\":\"amd64\",\"domain\":{\"cpu\":{\"cores\":1,\"sockets\":1,\"threads\":1},\"devices\":{\"disks\":[{\"bootOrder\":1,\"disk\":{\"bus\":\"virtio\"},\"name\":\"disk-0\"},{\"disk\":{\"bus\":\"virtio\"},\"name\":\"cloudinitdisk\"}],\"inputs\":[{\"bus\":\"usb\",\"name\":\"tablet\",\"type\":\"tablet\"}],\"interfaces\":[{\"binding\":{\"name\":\"managedtap\"},\"model\":\"virtio\",\"name\":\"default\"}]},\"memory\":{\"guest\":\"2Gi\"}},\"networks\":[{\"multus\":{\"networkName\":\"onewater/onewater\"},\"name\":\"default\"}],\"volumes\":[{\"name\":\"disk-0\",\"persistentVolumeClaim\":{\"claimName\":\"vm-onewater-disk-0\"}},{\"cloudInitNoCloud\":{\"userData\":\"#cloud-config\\npassword: \\\"vyos\\\"\\nchpasswd: { expire: false }\\nssh_pwauth: true\\nssh_authorized_keys:\\n  - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFUsj1JqgJPNJJMpWD7En3y7d3jnctUAjY2PkvN1zPi6 baua_@DESKTOP-S32APPK\\n\"},\"name\":\"cloudinitdisk\"}]}}}}\n",
+    "kubevirt.io/latest-observed-api-version": "v1",
+    "kubevirt.io/storage-observed-api-version": "v1"
+   },
+   "labels": {
+    "harvesterhci.io/creator": "harvester",
+    "harvesterhci.io/os": "linux"
+   },
+   "name": "vm-onewater",
+   "namespace": "onewater"
+  },
+  "spec": {
+   "runStrategy": "RerunOnFailure",
+   "running": null,
+   "template": {
+    "spec": {
+     "domain": {
+      "devices": {
+       "interfaces": [
+        {
+         "binding": {
+          "name": "managedtap"
+         },
+         "macAddress": "e6:10:52:5b:4f:fd",
+         "model": "virtio",
+         "name": "default"
+        }
+       ]
+      }
+     },
+     "networks": [
+      {
+       "multus": {
+        "networkName": "onewater/onewater"
+       },
+       "name": "default"
+      }
+     ]
+    }
+   }
+  },
+  "status": {
+   "printableStatus": "Running",
+   "ready": true
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "harvesterhci.io/mac-address": "{\"default\":\"12:07:c5:da:e1:dd\"}",
+    "harvesterhci.io/timestamp": "2026-10-22T22:51:37Z",
+    "harvesterhci.io/vmRunStrategy": "RerunOnFailure",
+    "harvesterhci.io/volumeClaimTemplates": "[\n  {\n    \"metadata\": {\n      \"name\": \"vm-twowater-disk-0\",\n      \"annotations\": {\n        \"harvesterhci.io/imageId\": \"default/image-zvwwm\"\n      }\n    },\n    \"spec\": {\n      \"accessModes\": [\"ReadWriteMany\"],\n      \"resources\": {\n        \"requests\": {\n          \"storage\": \"10Gi\"\n        }\n      },\n      \"volumeMode\": \"Block\",\n      \"storageClassName\": \"lh-5c4dd656-1063-4398-8428-2cf93cddc0e5\"\n    }\n  }\n]\n",
+    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"kubevirt.io/v1\",\"kind\":\"VirtualMachine\",\"metadata\":{\"annotations\":{\"harvesterhci.io/vmRunStrategy\":\"RerunOnFailure\",\"harvesterhci.io/volumeClaimTemplates\":\"[\\n  {\\n    \\\"metadata\\\": {\\n      \\\"name\\\": \\\"vm-twowater-disk-0\\\",\\n      \\\"annotations\\\": {\\n        \\\"harvesterhci.io/imageId\\\": \\\"default/image-zvwwm\\\"\\n      }\\n    },\\n    \\\"spec\\\": {\\n      \\\"accessModes\\\": [\\\"ReadWriteMany\\\"],\\n      \\\"resources\\\": {\\n        \\\"requests\\\": {\\n          \\\"storage\\\": \\\"10Gi\\\"\\n        }\\n      },\\n      \\\"volumeMode\\\": \\\"Block\\\",\\n      \\\"storageClassName\\\": \\\"lh-5c4dd656-1063-4398-8428-2cf93cddc0e5\\\"\\n    }\\n  }\\n]\\n\"},\"labels\":{\"harvesterhci.io/creator\":\"harvester\",\"harvesterhci.io/os\":\"linux\"},\"name\":\"vm-twowater\",\"namespace\":\"twowater\"},\"spec\":{\"runStrategy\":\"RerunOnFailure\",\"template\":{\"metadata\":{\"labels\":{\"harvesterhci.io/vmName\":\"vm-twowater\"}},\"spec\":{\"architecture\":\"amd64\",\"domain\":{\"cpu\":{\"cores\":1,\"sockets\":1,\"threads\":1},\"devices\":{\"disks\":[{\"bootOrder\":1,\"disk\":{\"bus\":\"virtio\"},\"name\":\"disk-0\"},{\"disk\":{\"bus\":\"virtio\"},\"name\":\"cloudinitdisk\"}],\"inputs\":[{\"bus\":\"usb\",\"name\":\"tablet\",\"type\":\"tablet\"}],\"interfaces\":[{\"binding\":{\"name\":\"managedtap\"},\"model\":\"virtio\",\"name\":\"default\"}]},\"memory\":{\"guest\":\"2Gi\"}},\"networks\":[{\"multus\":{\"networkName\":\"twowater/twowater\"},\"name\":\"default\"}],\"volumes\":[{\"name\":\"disk-0\",\"persistentVolumeClaim\":{\"claimName\":\"vm-twowater-disk-0\"}},{\"cloudInitNoCloud\":{\"userData\":\"#cloud-config\\npassword: \\\"vyos\\\"\\nchpasswd: { expire: false }\\nssh_pwauth: true\\nssh_authorized_keys:\\n  - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFUsj1JqgJPNJJMpWD7En3y7d3jnctUAjY2PkvN1zPi6 baua_@DESKTOP-S32APPK\\n\"},\"name\":\"cloudinitdisk\"}]}}}}\n",
+    "kubevirt.io/latest-observed-api-version": "v1",
+    "kubevirt.io/storage-observed-api-version": "v1"
+   },
+   "labels": {
+    "harvesterhci.io/creator": "harvester",
+    "harvesterhci.io/os": "linux"
+   },
+   "name": "vm-twowater",
+   "namespace": "twowater"
+  },
+  "spec": {
+   "runStrategy": "RerunOnFailure",
+   "running": null,
+   "template": {
+    "spec": {
+     "domain": {
+      "devices": {
+       "interfaces": [
+        {
+         "binding": {
+          "name": "managedtap"
+         },
+         "macAddress": "12:07:c5:da:e1:dd",
+         "model": "virtio",
+         "name": "default"
+        }
+       ]
+      }
+     },
+     "networks": [
+      {
+       "multus": {
+        "networkName": "twowater/twowater"
+       },
+       "name": "default"
+      }
+     ]
+    }
+   }
+  },
+  "status": {
+   "printableStatus": "Running",
+   "ready": true
+  }
+ }
+]

@@ -2,9 +2,9 @@ package diag
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
-	"sync"
 
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -15,8 +15,6 @@ import (
 type PodLocator struct {
 	client    kubernetes.Interface
 	namespace string
-	uuidMap   map[string]string
-	mu        sync.Mutex
 }
 
 // NewPodLocator creates a locator targeting the specified namespace (typically "kube-system").
@@ -86,7 +84,6 @@ func (l *PodLocator) FindOvnCentralPod(ctx context.Context) (PodRef, error) {
 
 // FindNodeCNIPod finds the kube-ovn-cni pod running on the specified node.
 func (l *PodLocator) FindNodeCNIPod(ctx context.Context, nodeName string) (PodRef, error) {
-	nodeName = l.resolveKubeNodeName(ctx, nodeName)
 	pods, err := l.client.CoreV1().Pods(l.namespace).List(ctx, metav1.ListOptions{
 		LabelSelector: "app=kube-ovn-cni",
 		FieldSelector: fmt.Sprintf("spec.nodeName=%s", nodeName),
@@ -111,7 +108,9 @@ func (l *PodLocator) FindNodeCNIPod(ctx context.Context, nodeName string) (PodRe
 	}
 
 	for _, p := range pods.Items {
-		if p.Status.Phase == corev1.PodRunning {
+		// Re-check the node: never exec on a pod of another node, even if the
+		// field selector was not honoured.
+		if p.Spec.NodeName == nodeName && p.Status.Phase == corev1.PodRunning {
 			return PodRef{
 				Namespace: l.namespace,
 				Name:      p.Name,
@@ -125,7 +124,6 @@ func (l *PodLocator) FindNodeCNIPod(ctx context.Context, nodeName string) (PodRe
 
 // FindNodeOVSPod finds the ovs-ovn or ovs pod running on the specified node (or falls back to kube-ovn-cni).
 func (l *PodLocator) FindNodeOVSPod(ctx context.Context, nodeName string) (PodRef, error) {
-	nodeName = l.resolveKubeNodeName(ctx, nodeName)
 	selectors := []string{"app=ovs", "app=ovs-ovn"}
 	for _, sel := range selectors {
 		pods, err := l.client.CoreV1().Pods(l.namespace).List(ctx, metav1.ListOptions{
@@ -134,7 +132,7 @@ func (l *PodLocator) FindNodeOVSPod(ctx context.Context, nodeName string) (PodRe
 		})
 		if err == nil && len(pods.Items) > 0 {
 			for _, p := range pods.Items {
-				if p.Status.Phase == corev1.PodRunning {
+				if p.Spec.NodeName == nodeName && p.Status.Phase == corev1.PodRunning {
 					container := "openvswitch"
 					for _, c := range p.Spec.Containers {
 						if c.Name == "openvswitch" || c.Name == "ovs-daemons" {
@@ -179,145 +177,40 @@ func (l *PodLocator) FindNodeOVSPod(ctx context.Context, nodeName string) (PodRe
 	return l.FindNodeCNIPod(ctx, nodeName)
 }
 
-// FindOVSInterface locates which cluster node hosts the dedicated veth interface for an OVN port,
-// and returns the node name and interface name (e.g. "4e3b7_37a8eec_h" or "ovn0").
-// If the port has no dedicated veth (e.g. a pure logical router port), it falls back to an active UP
-// interface: "br-external" for external gateways, or "ovn0" for internal/node traffic.
-func (l *PodLocator) FindOVSInterface(ctx context.Context, exec Executor, hintNode string, portName string) (string, string, error) {
-	if portName == "" {
-		if hintNode == "" {
-			hintNode = l.getFirstNodeName(ctx)
-		}
-		return hintNode, "ovn0", nil
-	}
+// ErrIfaceNotFound reports that no OVS interface on the node carries the port's iface-id.
+var ErrIfaceNotFound = errors.New("no OVS interface with this iface-id")
 
-	// 1. If hintNode is provided, check it first
-	if hintNode != "" {
-		ovsPod, err := l.FindNodeOVSPod(ctx, hintNode)
-		if err == nil {
-			iface := l.queryInterfaceOnPod(ctx, exec, ovsPod, portName)
-			if iface != "" {
-				return hintNode, iface, nil
-			}
-		}
+// FindOVSInterface returns the OVS interface bound to an OVN logical port on the given node
+// (the node of its Port_Binding chassis). It never guesses: an unknown node, an unreachable
+// OVS pod or a port with no interface on that node is an error, so callers cannot end up
+// capturing on an unrelated interface.
+func (l *PodLocator) FindOVSInterface(ctx context.Context, exec Executor, node string, portName string) (string, error) {
+	if node == "" {
+		return "", fmt.Errorf("port %s: node unknown (port not bound to a chassis)", portName)
 	}
-
-	// 2. Query other cluster nodes to find where this port is attached
-	nodes, err := l.client.CoreV1().Nodes().List(ctx, metav1.ListOptions{})
-	if err == nil {
-		for _, n := range nodes.Items {
-			if n.Name == hintNode {
-				continue
-			}
-			ovsPod, err := l.FindNodeOVSPod(ctx, n.Name)
-			if err != nil {
-				continue
-			}
-			iface := l.queryInterfaceOnPod(ctx, exec, ovsPod, portName)
-			if iface != "" {
-				return n.Name, iface, nil
-			}
-		}
-	}
-
-	// Fallback to active UP interface on hintNode (never br-int which is administratively DOWN)
-	if hintNode == "" {
-		hintNode = l.getFirstNodeName(ctx)
-	}
-
-	lowerPort := strings.ToLower(portName)
-	if strings.Contains(lowerPort, "ext") || strings.Contains(lowerPort, "external") || strings.Contains(lowerPort, "gw") {
-		return hintNode, "br-external", nil
-	}
-
-	return hintNode, "ovn0", nil
-}
-
-func (l *PodLocator) queryInterfaceOnPod(ctx context.Context, exec Executor, ovsPod PodRef, portName string) string {
-	cmd := []string{"ovs-vsctl", "--bare", "--columns=name", "find", "interface", fmt.Sprintf("external_ids:iface-id=%s", portName)}
-	stdout, _, err := exec.Exec(ctx, ovsPod, cmd)
-	if err == nil {
-		lines := strings.Split(strings.TrimSpace(string(stdout)), "\n")
-		for _, line := range lines {
-			iface := strings.TrimSpace(line)
-			if iface != "" {
-				return iface
-			}
-		}
-	}
-	return ""
-}
-
-func (l *PodLocator) getFirstNodeName(ctx context.Context) string {
-	nodes, err := l.client.CoreV1().Nodes().List(ctx, metav1.ListOptions{Limit: 1})
-	if err == nil && len(nodes.Items) > 0 {
-		return nodes.Items[0].Name
-	}
-	return "cluster-node"
-}
-
-func (l *PodLocator) PopulateChassisUUIDs(ctx context.Context, exec Executor) {
-	if exec == nil {
-		return
-	}
-	pod, err := l.FindOvnCentralPod(ctx)
+	cmd, err := BuildFindIfaceByIfaceIDCommand(portName)
 	if err != nil {
-		return
+		return "", err
 	}
-	stdout, _, err := exec.Exec(ctx, pod, []string{"ovn-sbctl", "--bare", "--columns=_uuid,hostname", "list", "Chassis"})
+	ovsPod, err := l.FindNodeOVSPod(ctx, node)
 	if err != nil {
-		return
+		return "", err
 	}
-	l.mu.Lock()
-	defer l.mu.Unlock()
-	if l.uuidMap == nil {
-		l.uuidMap = make(map[string]string)
+	stdout, stderr, err := exec.Exec(ctx, ovsPod, cmd)
+	if err != nil {
+		return "", fmt.Errorf("iface-id lookup for %s on %s failed: %s", portName, node, firstNonEmpty(strings.TrimSpace(string(stderr)), err.Error()))
 	}
-	lines := strings.Split(string(stdout), "\n")
-	for i := 0; i+1 < len(lines); i += 2 {
-		uuid := strings.TrimSpace(lines[i])
-		host := strings.TrimSpace(lines[i+1])
-		if uuid != "" && host != "" {
-			l.uuidMap[uuid] = host
+	for _, line := range strings.Split(strings.TrimSpace(string(stdout)), "\n") {
+		if iface := strings.TrimSpace(line); iface != "" {
+			return iface, nil
 		}
 	}
+	return "", fmt.Errorf("port %s on node %s: %w", portName, node, ErrIfaceNotFound)
 }
 
-func (l *PodLocator) ResolveChassisUUID(uuid string) string {
-	l.mu.Lock()
-	defer l.mu.Unlock()
-	if l.uuidMap != nil {
-		if host, ok := l.uuidMap[uuid]; ok && host != "" {
-			return host
-		}
+func firstNonEmpty(a, b string) string {
+	if a != "" {
+		return a
 	}
-	return ""
-}
-
-func (l *PodLocator) resolveKubeNodeName(ctx context.Context, candidate string) string {
-	if candidate == "" {
-		return candidate
-	}
-	if host := l.ResolveChassisUUID(candidate); host != "" {
-		return host
-	}
-	// Check if candidate is already a valid node name
-	if n, err := l.client.CoreV1().Nodes().Get(ctx, candidate, metav1.GetOptions{}); err == nil && n != nil {
-		return n.Name
-	}
-
-	// Try resolving via annotations or hostname labels
-	nodes, err := l.client.CoreV1().Nodes().List(ctx, metav1.ListOptions{})
-	if err == nil {
-		for _, n := range nodes.Items {
-			if n.Name == candidate || n.Labels["kubernetes.io/hostname"] == candidate {
-				return n.Name
-			}
-			if n.Annotations["ovn.kubernetes.io/chassis"] == candidate ||
-				n.Annotations["k8s.ovn.org/chassis"] == candidate {
-				return n.Name
-			}
-		}
-	}
-	return candidate
+	return b
 }

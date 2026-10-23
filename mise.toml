@@ -1,7 +1,5 @@
 [tools]
 go = "1.27"
-node = "24"
-yarn = "1.22.22"
 golangci-lint = "2.15.0"
 
 [env]
@@ -9,8 +7,8 @@ KUBECONFIG = "{{env.KUBECONFIG | default(value=env.HOME ~ '/.kube/hv-01.yaml')}}
 RANCHER_API = "https://10.144.98.13.sslip.io/"
 NB_PORT = "6641"
 SB_PORT = "6642"
-DAEMON_PORT = "8080"
-DAEMON_URL = "http://127.0.0.1:8080/api/v1"
+DAEMON_PORT = "8888"
+DAEMON_URL = "http://127.0.0.1:8888/api/v1"
 PROXY_POD = "ovn-topology-proxy"
 PROXY_NAMESPACE = "kube-system"
 
@@ -126,10 +124,16 @@ description = "Launch interactive Bubble Tea TUI connected directly to in-cluste
 depends = ["build"]
 run = """
 pkill -f "kubectl.*port-forward.*ovn-topologyd" || true
-kubectl --kubeconfig "$KUBECONFIG" port-forward -n kube-system svc/ovn-topologyd "$DAEMON_PORT":8080 > /dev/null 2>&1 &
+PF_LOG=$(mktemp)
+kubectl --kubeconfig "$KUBECONFIG" port-forward -n kube-system svc/ovn-topologyd "$DAEMON_PORT":8080 > "$PF_LOG" 2>&1 &
 PF_PID=$!
-trap 'kill $PF_PID 2>/dev/null || true' EXIT INT TERM
+trap 'kill $PF_PID 2>/dev/null || true; rm -f "$PF_LOG"' EXIT INT TERM
 sleep 1
+if ! kill -0 $PF_PID 2>/dev/null; then
+  echo "port-forward to svc/ovn-topologyd failed:" >&2
+  cat "$PF_LOG" >&2
+  exit 1
+fi
 DIAG_FLAG=""
 if [ "${DIAG:-false}" = "true" ] || [ "${DIAG:-0}" = "1" ]; then
   DIAG_FLAG="--diag --kubeconfig=$KUBECONFIG"
@@ -189,20 +193,7 @@ echo "==> All live tests passed!"
 [tasks.clean]
 description = "Stop port-forwards and clean build artifacts"
 depends = ["pf-stop"]
-run = "rm -rf bin/ ui/dist-pkg/"
-
-[tasks.ui-build]
-description = "Build Rancher UI extension package (dist-pkg/)"
-run = "cd ui && yarn build-pkg ovn-topology"
-
-[tasks.ui-serve]
-description = "Serve Rancher UI extension packages on port 4500 for Developer load testing"
-depends = ["ui-build"]
-run = "cd ui && yarn serve-pkgs"
-
-[tasks.ui-dev]
-description = "Launch Rancher UI extension dev server against Rancher Manager"
-run = "cd ui && NODE_TLS_REJECT_UNAUTHORIZED=0 API=\"$RANCHER_API\" yarn dev"
+run = "rm -rf bin/"
 
 [tasks.deploy-cluster]
 description = "Deploy or upgrade ovn-topology daemon Helm chart in cluster with latest tag and Always pull"

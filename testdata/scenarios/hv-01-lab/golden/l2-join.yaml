@@ -1,0 +1,166 @@
+edges:
+- id: edge:ls:ac3f1945-f4ef-4437-bb09-b13c4f3db3ee-lsp:09a284b0-3f4e-4bf6-8f6c-acbff208503f-contains
+  source: ls:ac3f1945-f4ef-4437-bb09-b13c4f3db3ee
+  target: lsp:09a284b0-3f4e-4bf6-8f6c-acbff208503f
+  type: contains
+- id: edge:ls:ac3f1945-f4ef-4437-bb09-b13c4f3db3ee-lsp:a36018e1-94da-49c9-85e3-5aa4c91d1cf0-contains
+  source: ls:ac3f1945-f4ef-4437-bb09-b13c4f3db3ee
+  target: lsp:a36018e1-94da-49c9-85e3-5aa4c91d1cf0
+  type: contains
+- id: edge:lsp:a36018e1-94da-49c9-85e3-5aa4c91d1cf0-chassis:c1cba3aa-c70b-4918-9a8e-fe4472d6b95c-bound-on
+  source: lsp:a36018e1-94da-49c9-85e3-5aa4c91d1cf0
+  target: chassis:c1cba3aa-c70b-4918-9a8e-fe4472d6b95c
+  type: bound-on
+- id: edge:ls:ac3f1945-f4ef-4437-bb09-b13c4f3db3ee-lsp:b0ea496d-7dba-43fe-9cc3-7e1990443c14-contains
+  source: ls:ac3f1945-f4ef-4437-bb09-b13c4f3db3ee
+  target: lsp:b0ea496d-7dba-43fe-9cc3-7e1990443c14
+  type: contains
+- id: edge:lsp:b0ea496d-7dba-43fe-9cc3-7e1990443c14-chassis:ddbfec73-3751-43f3-b9ef-b5bdec1eedc2-bound-on
+  source: lsp:b0ea496d-7dba-43fe-9cc3-7e1990443c14
+  target: chassis:ddbfec73-3751-43f3-b9ef-b5bdec1eedc2
+  type: bound-on
+- id: edge:ls:ac3f1945-f4ef-4437-bb09-b13c4f3db3ee-lsp:d866d693-8a6d-4475-a8bb-232f9637dbbf-contains
+  source: ls:ac3f1945-f4ef-4437-bb09-b13c4f3db3ee
+  target: lsp:d866d693-8a6d-4475-a8bb-232f9637dbbf
+  type: contains
+- id: edge:lsp:d866d693-8a6d-4475-a8bb-232f9637dbbf-chassis:29066f73-4be9-4d98-b2e7-683ccfd5c091-bound-on
+  source: lsp:d866d693-8a6d-4475-a8bb-232f9637dbbf
+  target: chassis:29066f73-4be9-4d98-b2e7-683ccfd5c091
+  type: bound-on
+- id: edge:ls:ac3f1945-f4ef-4437-bb09-b13c4f3db3ee-lsp:dbbfa52e-062d-40f0-9244-927d0aa4ca4c-contains
+  source: ls:ac3f1945-f4ef-4437-bb09-b13c4f3db3ee
+  target: lsp:dbbfa52e-062d-40f0-9244-927d0aa4ca4c
+  type: contains
+- id: edge:lsp:dbbfa52e-062d-40f0-9244-927d0aa4ca4c-chassis:99991a3f-1220-4479-8dcb-129c074a705f-bound-on
+  source: lsp:dbbfa52e-062d-40f0-9244-927d0aa4ca4c
+  target: chassis:99991a3f-1220-4479-8dcb-129c074a705f
+  type: bound-on
+nodes:
+- id: ls:ac3f1945-f4ef-4437-bb09-b13c4f3db3ee
+  k8s:
+    vendor: kube-ovn
+  name: join
+  properties:
+    portCount: 5
+  type: LS
+- id: lsp:09a284b0-3f4e-4bf6-8f6c-acbff208503f
+  k8s:
+    subnet: join
+    vendor: kube-ovn
+  name: join-ovn-cluster
+  properties:
+    addresses:
+    - router
+    boundChassis: ""
+    boundState: unbound
+    enabled: true
+    type: router
+    up: true
+  type: LSP
+- id: lsp:a36018e1-94da-49c9-85e3-5aa4c91d1cf0
+  k8s:
+    node: hv-02
+    owner: Node/hv-02
+    subnet: join
+    vendor: kube-ovn
+    workloadKind: Node
+    workloadName: hv-02
+  name: node-hv-02
+  properties:
+    addresses:
+    - b6:49:2e:44:fc:dc 100.64.0.3
+    boundChassis: c1cba3aa-c70b-4918-9a8e-fe4472d6b95c
+    boundState: bound
+    enabled: true
+    type: ""
+    up: true
+  type: LSP
+- id: lsp:b0ea496d-7dba-43fe-9cc3-7e1990443c14
+  k8s:
+    node: hv-01
+    owner: Node/hv-01
+    subnet: join
+    vendor: kube-ovn
+    workloadKind: Node
+    workloadName: hv-01
+  name: node-hv-01
+  properties:
+    addresses:
+    - 12:7e:e2:de:70:77 100.64.0.2
+    boundChassis: ddbfec73-3751-43f3-b9ef-b5bdec1eedc2
+    boundState: bound
+    enabled: true
+    type: ""
+    up: true
+  type: LSP
+- id: lsp:d866d693-8a6d-4475-a8bb-232f9637dbbf
+  k8s:
+    node: hv-03
+    owner: Node/hv-03
+    subnet: join
+    vendor: kube-ovn
+    workloadKind: Node
+    workloadName: hv-03
+  name: node-hv-03
+  properties:
+    addresses:
+    - 66:06:46:9e:92:42 100.64.0.4
+    boundChassis: 29066f73-4be9-4d98-b2e7-683ccfd5c091
+    boundState: bound
+    enabled: true
+    type: ""
+    up: true
+  type: LSP
+- id: lsp:dbbfa52e-062d-40f0-9244-927d0aa4ca4c
+  k8s:
+    node: hv-04
+    owner: Node/hv-04
+    subnet: join
+    vendor: kube-ovn
+    workloadKind: Node
+    workloadName: hv-04
+  name: node-hv-04
+  properties:
+    addresses:
+    - 16:3b:16:e1:a6:e1 100.64.0.5
+    boundChassis: 99991a3f-1220-4479-8dcb-129c074a705f
+    boundState: bound
+    enabled: true
+    type: ""
+    up: true
+  type: LSP
+- id: chassis:29066f73-4be9-4d98-b2e7-683ccfd5c091
+  name: hv-03
+  properties:
+    chassis: 29066f73-4be9-4d98-b2e7-683ccfd5c091
+    hostname: hv-03
+    nodeName: hv-03
+  type: Chassis
+- id: chassis:99991a3f-1220-4479-8dcb-129c074a705f
+  name: hv-04
+  properties:
+    chassis: 99991a3f-1220-4479-8dcb-129c074a705f
+    hostname: hv-04
+    nodeName: hv-04
+  type: Chassis
+- id: chassis:c1cba3aa-c70b-4918-9a8e-fe4472d6b95c
+  name: hv-02
+  properties:
+    chassis: c1cba3aa-c70b-4918-9a8e-fe4472d6b95c
+    hostname: hv-02
+    nodeName: hv-02
+  type: Chassis
+- id: chassis:ddbfec73-3751-43f3-b9ef-b5bdec1eedc2
+  name: hv-01
+  properties:
+    chassis: ddbfec73-3751-43f3-b9ef-b5bdec1eedc2
+    hostname: hv-01
+    nodeName: hv-01
+  type: Chassis
+pagination:
+  page: 1
+  pageSize: 1000
+  totalItems: 5
+  totalPages: 1
+revision: 1
+view: l2

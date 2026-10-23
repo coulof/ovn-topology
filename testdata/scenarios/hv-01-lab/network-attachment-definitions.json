@@ -1,0 +1,70 @@
+[
+ {
+  "metadata": {
+   "annotations": {
+    "network.harvesterhci.io/route": "{\"mode\":\"auto\",\"serverIPAddr\":\"\",\"cidr\":\"\",\"gateway\":\"\"}"
+   },
+   "labels": {
+    "network.harvesterhci.io/clusternetwork": "mgmt",
+    "network.harvesterhci.io/ready": "true",
+    "network.harvesterhci.io/type": "UntaggedNetwork"
+   },
+   "name": "default",
+   "namespace": "default"
+  },
+  "spec": {
+   "config": "{\"cniVersion\":\"0.3.1\",\"name\":\"default\",\"type\":\"bridge\",\"bridge\":\"mgmt-br\",\"promiscMode\":true,\"ipam\":{}}"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"k8s.cni.cncf.io/v1\",\"kind\":\"NetworkAttachmentDefinition\",\"metadata\":{\"annotations\":{},\"labels\":{\"network.harvesterhci.io/type\":\"OverlayNetwork\"},\"name\":\"external\",\"namespace\":\"default\"},\"spec\":{\"config\":\"{\\\"cniVersion\\\":\\\"0.3.1\\\",\\\"name\\\":\\\"external\\\",\\\"type\\\":\\\"kube-ovn\\\",\\\"provider\\\":\\\"external.default.ovn\\\"}\"}}\n"
+   },
+   "labels": {
+    "network.harvesterhci.io/clusternetwork": "mgmt",
+    "network.harvesterhci.io/ready": "true",
+    "network.harvesterhci.io/type": "OverlayNetwork"
+   },
+   "name": "external",
+   "namespace": "default"
+  },
+  "spec": {
+   "config": "{\"cniVersion\":\"0.3.1\",\"name\":\"external\",\"type\":\"kube-ovn\",\"server_socket\":\"/run/openvswitch/kube-ovn-daemon.sock\",\"provider\":\"external.default.ovn\"}"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"k8s.cni.cncf.io/v1\",\"kind\":\"NetworkAttachmentDefinition\",\"metadata\":{\"annotations\":{},\"labels\":{\"network.harvesterhci.io/type\":\"OverlayNetwork\"},\"name\":\"onewater\",\"namespace\":\"onewater\"},\"spec\":{\"config\":\"{\\\"cniVersion\\\":\\\"0.3.1\\\",\\\"name\\\":\\\"onewater\\\",\\\"type\\\":\\\"kube-ovn\\\",\\\"server_socket\\\":\\\"/run/openvswitch/kube-ovn-daemon.sock\\\",\\\"provider\\\":\\\"onewater.onewater.ovn\\\"}\"}}\n"
+   },
+   "labels": {
+    "network.harvesterhci.io/clusternetwork": "mgmt",
+    "network.harvesterhci.io/ready": "true",
+    "network.harvesterhci.io/type": "OverlayNetwork"
+   },
+   "name": "onewater",
+   "namespace": "onewater"
+  },
+  "spec": {
+   "config": "{\"cniVersion\":\"0.3.1\",\"name\":\"onewater\",\"type\":\"kube-ovn\",\"server_socket\":\"/run/openvswitch/kube-ovn-daemon.sock\",\"provider\":\"onewater.onewater.ovn\"}"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"k8s.cni.cncf.io/v1\",\"kind\":\"NetworkAttachmentDefinition\",\"metadata\":{\"annotations\":{},\"labels\":{\"network.harvesterhci.io/type\":\"OverlayNetwork\"},\"name\":\"twowater\",\"namespace\":\"twowater\"},\"spec\":{\"config\":\"{\\\"cniVersion\\\":\\\"0.3.1\\\",\\\"name\\\":\\\"twowater\\\",\\\"type\\\":\\\"kube-ovn\\\",\\\"server_socket\\\":\\\"/run/openvswitch/kube-ovn-daemon.sock\\\",\\\"provider\\\":\\\"twowater.twowater.ovn\\\"}\"}}\n"
+   },
+   "labels": {
+    "network.harvesterhci.io/clusternetwork": "mgmt",
+    "network.harvesterhci.io/ready": "true",
+    "network.harvesterhci.io/type": "OverlayNetwork"
+   },
+   "name": "twowater",
+   "namespace": "twowater"
+  },
+  "spec": {
+   "config": "{\"cniVersion\":\"0.3.1\",\"name\":\"twowater\",\"type\":\"kube-ovn\",\"server_socket\":\"/run/openvswitch/kube-ovn-daemon.sock\",\"provider\":\"twowater.twowater.ovn\"}"
+  }
+ }
+]

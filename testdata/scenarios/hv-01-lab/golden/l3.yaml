@@ -1,0 +1,198 @@
+edges:
+- id: edge:lr:28981b5a-1e3a-45a3-a388-8f986c0e3ffc-ls:4a5f8013-b78c-45eb-bf22-846d9b503d6d-router-peer
+  label: 192.168.55.49/28
+  properties:
+    lrp: vpc-twowater-subnet-twowater
+    lrpMac: 36:6d:5e:c1:a0:2d
+    lsp: subnet-twowater-vpc-twowater
+    networks:
+    - 192.168.55.49/28
+  source: lr:28981b5a-1e3a-45a3-a388-8f986c0e3ffc
+  target: ls:4a5f8013-b78c-45eb-bf22-846d9b503d6d
+  type: router-peer
+- id: edge:lr:28981b5a-1e3a-45a3-a388-8f986c0e3ffc-ls:57386a16-5084-4188-b376-ef826d828be5-router-peer
+  label: 10.144.124.14/27
+  properties:
+    activeGateway: hv-01
+    isGateway: true
+    lrp: vpc-twowater-external
+    lrpMac: c6:cf:b9:36:50:f0
+    lsp: external-vpc-twowater
+    networks:
+    - 10.144.124.14/27
+  source: lr:28981b5a-1e3a-45a3-a388-8f986c0e3ffc
+  target: ls:57386a16-5084-4188-b376-ef826d828be5
+  type: router-peer
+- id: edge:lr:56000bdc-a830-4879-833a-2e504cdd67ed-ls:16805dfb-1658-44d4-b724-ccedaad81ee0-router-peer
+  label: 192.168.54.33/28
+  properties:
+    lrp: vpc-onewater-subnet-onewater
+    lrpMac: 4a:73:ae:a4:54:b3
+    lsp: subnet-onewater-vpc-onewater
+    networks:
+    - 192.168.54.33/28
+  source: lr:56000bdc-a830-4879-833a-2e504cdd67ed
+  target: ls:16805dfb-1658-44d4-b724-ccedaad81ee0
+  type: router-peer
+- id: edge:lr:56000bdc-a830-4879-833a-2e504cdd67ed-ls:57386a16-5084-4188-b376-ef826d828be5-router-peer
+  label: 10.144.124.13/27
+  properties:
+    activeGateway: hv-01
+    isGateway: true
+    lrp: vpc-onewater-external
+    lrpMac: 2a:81:fd:2e:41:f3
+    lsp: external-vpc-onewater
+    networks:
+    - 10.144.124.13/27
+  source: lr:56000bdc-a830-4879-833a-2e504cdd67ed
+  target: ls:57386a16-5084-4188-b376-ef826d828be5
+  type: router-peer
+- id: edge:lr:db212758-da7a-4e7e-9707-2ac6d1cbe60a-ls:833c1bc9-8109-4829-86cf-5e0f39855dba-router-peer
+  label: 10.54.0.1/16
+  properties:
+    lrp: ovn-cluster-ovn-default
+    lrpMac: 32:35:2f:aa:e2:5f
+    lsp: ovn-default-ovn-cluster
+    networks:
+    - 10.54.0.1/16
+  source: lr:db212758-da7a-4e7e-9707-2ac6d1cbe60a
+  target: ls:833c1bc9-8109-4829-86cf-5e0f39855dba
+  type: router-peer
+- id: edge:lr:db212758-da7a-4e7e-9707-2ac6d1cbe60a-ls:ac3f1945-f4ef-4437-bb09-b13c4f3db3ee-router-peer
+  label: 100.64.0.1/16
+  properties:
+    lrp: ovn-cluster-join
+    lrpMac: ee:f7:a0:23:68:a1
+    lsp: join-ovn-cluster
+    networks:
+    - 100.64.0.1/16
+  source: lr:db212758-da7a-4e7e-9707-2ac6d1cbe60a
+  target: ls:ac3f1945-f4ef-4437-bb09-b13c4f3db3ee
+  type: router-peer
+- id: edge:ls:57386a16-5084-4188-b376-ef826d828be5-ext:external-localnet
+  source: ls:57386a16-5084-4188-b376-ef826d828be5
+  target: ext:external
+  type: localnet
+nodes:
+- id: ext:external
+  name: external
+  type: External
+- id: lr:28981b5a-1e3a-45a3-a388-8f986c0e3ffc
+  k8s:
+    vendor: kube-ovn
+  name: vpc-twowater
+  parent: vpc:vpc-twowater
+  properties:
+    enabled: true
+    gateways:
+    - activeChassis: hv-01
+      lrp: vpc-twowater-external
+    lbCount: 0
+    natCount: 0
+    policyCount: 2
+    routeCount: 2
+  type: LR
+- id: lr:56000bdc-a830-4879-833a-2e504cdd67ed
+  k8s:
+    vendor: kube-ovn
+  name: vpc-onewater
+  parent: vpc:vpc-onewater
+  properties:
+    enabled: true
+    gateways:
+    - activeChassis: hv-01
+      lrp: vpc-onewater-external
+    lbCount: 0
+    natCount: 0
+    policyCount: 1
+    routeCount: 2
+  type: LR
+- id: lr:db212758-da7a-4e7e-9707-2ac6d1cbe60a
+  k8s:
+    vendor: kube-ovn
+  name: ovn-cluster
+  parent: vpc:ovn-cluster
+  properties:
+    enabled: true
+    lbCount: 0
+    natCount: 0
+    policyCount: 10
+    routeCount: 1
+  type: LR
+- id: ls:16805dfb-1658-44d4-b724-ccedaad81ee0
+  k8s:
+    vendor: kube-ovn
+  name: subnet-onewater
+  parent: vpc:vpc-onewater
+  properties:
+    boundPortCount: 3
+    portCount: 4
+    subnet: subnet-onewater
+    unboundPortCount: 0
+  type: LS
+- id: ls:4a5f8013-b78c-45eb-bf22-846d9b503d6d
+  k8s:
+    vendor: kube-ovn
+  name: subnet-twowater
+  parent: vpc:vpc-twowater
+  properties:
+    boundPortCount: 2
+    portCount: 3
+    subnet: subnet-twowater
+    unboundPortCount: 0
+  type: LS
+- id: ls:57386a16-5084-4188-b376-ef826d828be5
+  k8s:
+    vendor: kube-ovn
+  name: external
+  properties:
+    boundPortCount: 0
+    portCount: 3
+    subnet: external
+    unboundPortCount: 0
+  type: LS
+- id: ls:833c1bc9-8109-4829-86cf-5e0f39855dba
+  k8s:
+    vendor: kube-ovn
+  name: ovn-default
+  parent: vpc:ovn-cluster
+  properties:
+    boundPortCount: 0
+    portCount: 1
+    subnet: ovn-default
+    unboundPortCount: 0
+  type: LS
+- id: ls:ac3f1945-f4ef-4437-bb09-b13c4f3db3ee
+  k8s:
+    vendor: kube-ovn
+  name: join
+  parent: vpc:ovn-cluster
+  properties:
+    boundPortCount: 4
+    portCount: 5
+    subnet: join
+    unboundPortCount: 0
+  type: LS
+- id: vpc:ovn-cluster
+  k8s:
+    vendor: kube-ovn
+  name: ovn-cluster
+  properties:
+    isDefault: true
+  type: VPC
+- id: vpc:vpc-onewater
+  k8s:
+    vendor: kube-ovn
+  name: vpc-onewater
+  properties:
+    isDefault: false
+  type: VPC
+- id: vpc:vpc-twowater
+  k8s:
+    vendor: kube-ovn
+  name: vpc-twowater
+  properties:
+    isDefault: false
+  type: VPC
+revision: 1
+view: l3

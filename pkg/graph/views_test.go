@@ -5,6 +5,7 @@ import (
 	"flag"
 	"os"
 	"path/filepath"
+	"sort"
 	"testing"
 
 	"github.com/coulof/ovn-topology/pkg/api"
@@ -239,6 +240,24 @@ func TestNodeDetail(t *testing.T) {
 	if chDetail.Name != "node-1" {
 		t.Errorf("expected chassis name node-1, got %s", chDetail.Name)
 	}
+	// raw is keyed by OVSDB column names, like ovn-sbctl list chassis (not Go field names).
+	for _, col := range []string{"_uuid", "name", "hostname", "encaps", "other_config", "external_ids"} {
+		if _, ok := chDetail.Raw[col]; !ok {
+			t.Errorf("expected OVSDB column %q in chassis raw, got keys %v", col, sortedKeysOf(chDetail.Raw))
+		}
+	}
+	if _, ok := chDetail.Raw["Hostname"]; ok {
+		t.Errorf("raw must not use Go field names")
+	}
+}
+
+func sortedKeysOf(m map[string]interface{}) []string {
+	keys := make([]string, 0, len(m))
+	for k := range m {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	return keys
 }
 
 func TestGoldenFiles(t *testing.T) {

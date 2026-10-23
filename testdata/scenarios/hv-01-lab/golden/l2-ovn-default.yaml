@@ -1,0 +1,34 @@
+edges:
+- id: edge:ls:833c1bc9-8109-4829-86cf-5e0f39855dba-lsp:b56f2c81-9758-49ea-91ee-476340b46095-contains
+  source: ls:833c1bc9-8109-4829-86cf-5e0f39855dba
+  target: lsp:b56f2c81-9758-49ea-91ee-476340b46095
+  type: contains
+nodes:
+- id: ls:833c1bc9-8109-4829-86cf-5e0f39855dba
+  k8s:
+    vendor: kube-ovn
+  name: ovn-default
+  properties:
+    portCount: 1
+  type: LS
+- id: lsp:b56f2c81-9758-49ea-91ee-476340b46095
+  k8s:
+    subnet: ovn-default
+    vendor: kube-ovn
+  name: ovn-default-ovn-cluster
+  properties:
+    addresses:
+    - router
+    boundChassis: ""
+    boundState: unbound
+    enabled: true
+    type: router
+    up: true
+  type: LSP
+pagination:
+  page: 1
+  pageSize: 1000
+  totalItems: 1
+  totalPages: 1
+revision: 1
+view: l2

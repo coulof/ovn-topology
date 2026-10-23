@@ -82,10 +82,13 @@ func run() error {
 	defer cancel()
 
 	// Initialize Kubernetes NodeMapper and WorkloadResolver (read-only per hard rule 2)
-	nodeMapper, workloadResolver := setupKubeMappers(ctx, kubeconfig, logger)
+	nodeMapper, workloadResolver, watchKube := setupKubeMappers(kubeconfig, logger)
 
 	// Create thread-safe in-memory graph store
 	store := graph.NewStore(nodeMapper, workloadResolver)
+	if watchKube != nil {
+		go watchKube(ctx, store)
+	}
 
 	// Parse endpoints
 	nbList := splitEndpoints(nbEndpoints)
@@ -169,7 +172,9 @@ func run() error {
 	return httpServer.Shutdown(shutdownCtx)
 }
 
-func setupKubeMappers(ctx context.Context, kubeconfig string, logger *slog.Logger) (graph.NodeMapper, graph.WorkloadResolver) {
+// setupKubeMappers returns the node mapper and workload resolver, and, with a
+// Kubernetes client, the watch that keeps them current (nil otherwise).
+func setupKubeMappers(kubeconfig string, logger *slog.Logger) (graph.NodeMapper, graph.WorkloadResolver, func(context.Context, *graph.Store)) {
 	var k8sConfig *rest.Config
 	var err error
 
@@ -181,26 +186,21 @@ func setupKubeMappers(ctx context.Context, kubeconfig string, logger *slog.Logge
 
 	if err != nil {
 		logger.Info("not running inside kubernetes or kubeconfig not provided; using static hostname mapping")
-		return &graph.StaticNodeMapper{}, &graph.StaticWorkloadResolver{}
+		return &graph.StaticNodeMapper{}, &graph.StaticWorkloadResolver{}, nil
 	}
 
 	clientset, err := kubernetes.NewForConfig(k8sConfig)
 	if err != nil {
 		logger.Warn("failed to initialize kubernetes client", "error", err)
-		return &graph.StaticNodeMapper{}, &graph.StaticWorkloadResolver{}
+		return &graph.StaticNodeMapper{}, &graph.StaticWorkloadResolver{}, nil
 	}
 
 	mapper := graph.NewKubeNodeMapper(clientset, logger)
-	if err := mapper.Sync(ctx); err != nil {
-		logger.Warn("initial kubernetes node sync failed (will retry dynamically)", "error", err)
-	}
-
 	workloadResolver := graph.NewKubeWorkloadResolver(clientset, logger)
-	if err := workloadResolver.Sync(ctx); err != nil {
-		logger.Warn("initial kubernetes pod sync failed (will retry dynamically)", "error", err)
+	watch := func(ctx context.Context, store *graph.Store) {
+		graph.WatchKubernetes(ctx, clientset, mapper, workloadResolver, store, 2*time.Second, logger)
 	}
-
-	return mapper, workloadResolver
+	return mapper, workloadResolver, watch
 }
 
 func splitEndpoints(s string) []string {

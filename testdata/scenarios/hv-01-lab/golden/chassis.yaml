@@ -1,0 +1,64 @@
+edges: []
+nodes:
+- id: chassis:43519f69-444f-4b57-8fa0-be222c9fc4e7
+  name: hv-01
+  properties:
+    bindingCount: 5
+    encaps:
+    - ip: 10.144.98.249
+      type: vxlan
+    hostname: hv-01
+    hostnameShared: 2
+    isInterconn: false
+    name: 43519f69-444f-4b57-8fa0-be222c9fc4e7
+    nodeMatch: annotation
+    nodeName: hv-01
+    uuid: ddbfec73-3751-43f3-b9ef-b5bdec1eedc2
+  type: Chassis
+- id: chassis:a5e5d41a-75b3-4b11-bd7c-8ddc695db969
+  name: hv-03
+  properties:
+    bindingCount: 2
+    encaps:
+    - ip: 10.144.98.244
+      type: vxlan
+    hostname: hv-03
+    hostnameShared: 2
+    isInterconn: false
+    name: a5e5d41a-75b3-4b11-bd7c-8ddc695db969
+    nodeMatch: annotation
+    nodeName: hv-03
+    uuid: 29066f73-4be9-4d98-b2e7-683ccfd5c091
+  type: Chassis
+- id: chassis:b31870eb-31b2-420c-b2b2-a98af839670c
+  name: hv-04
+  properties:
+    bindingCount: 2
+    encaps:
+    - ip: 10.144.98.201
+      type: vxlan
+    hostname: hv-04
+    hostnameShared: 2
+    isInterconn: false
+    name: b31870eb-31b2-420c-b2b2-a98af839670c
+    nodeMatch: annotation
+    nodeName: hv-04
+    uuid: 99991a3f-1220-4479-8dcb-129c074a705f
+  type: Chassis
+- id: chassis:e89b2726-abaf-4f21-a107-2d6a23c7619a
+  name: hv-02
+  properties:
+    bindingCount: 2
+    encaps:
+    - ip: 10.144.98.7
+      type: vxlan
+    hostname: hv-02
+    hostnameShared: 2
+    isInterconn: false
+    name: e89b2726-abaf-4f21-a107-2d6a23c7619a
+    nodeMatch: annotation
+    nodeName: hv-02
+    uuid: c1cba3aa-c70b-4918-9a8e-fe4472d6b95c
+  type: Chassis
+revision: 1
+view: chassis

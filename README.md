@@ -6,7 +6,7 @@ A read-only network topology visualizer for OVN as deployed by Kube-OVN on Ranch
 
 - **`ovn-topologyd`**: Go daemon that connects to OVN Northbound (NB) and Southbound (SB) databases over OVSDB, monitors updates, maintains a joined in-memory network graph, and serves it over HTTP JSON and SSE.
 - **`ovn-topo`**: Terminal UI (Bubble Tea) that renders an L3 topology tree and an interconnection matrix of router ports directly in your terminal.
-- **`ui/`**: Rancher UI Extension (Vue 3, `@rancher/shell`, D3.js + ELK) that embeds topology views into Rancher's cluster explorer.
+- **Rancher UI Extension**: paused; archived at tag `archive/ui-extension` (see below).
 - **`charts/ovn-topology/`**: Helm chart deployed once per downstream cluster.
 
 ## Design and Security Rules
@@ -64,14 +64,15 @@ mise run pf-stop
 
 ## TUI Controls (`ovn-topo`)
 
-- **`1` - `4`**: Switch operational views (**`1. L3 Tree`**, **`2. L2 Subnets`**, **`3. Chassis`**, **`4. Port Matrix`**).
-- **`Space` / `Enter`**: Expand/collapse workload Pods and VMs on logical switches (in L3 Tree) or toggle pane focus (in L2 Subnets).
-- **`Tab` / `←` / `→`**: Switch between Subnets list and individual Workload cards (in L2 Subnets view).
-- **`x`**: Open **Tier 1 Diagnostics** modal (interactive `ovn-trace` with fzf search & custom IP, live `tcpdump`, conntrack, `ovs-vsctl show`, controller logs).
-- **`t`**: Cycle color themes live (**SUSE**, **Dracula**, **Nord**, **Tokyo Night**, **Catppuccin Mocha**, **Default**).
-- **`j` / `k`** or **`↓` / `↑`**: Move selection across routers, subnets, and workloads.
-- **`r`**: Refresh topology from the daemon.
-- **`q`**: Quit.
+k9s-style navigation; see [`docs/tui-guide.md`](docs/tui-guide.md) for the full guide.
+
+- **`1` - `4`** (or `:xray vpc`, `:xray chassis`, `:xray workload`, `:ports`): switch between the three xray trees and the router-port table.
+- **`j`/`k`**, **`h`/`l`**, **`Space`**: move, fold/unfold, toggle. **`e`/`E`** expands/folds everything.
+- **`Enter`** on a `⇢` relation (chassis, workload, peer port…) jumps to that object; **`b`** goes back.
+- **`i`**: show/hide the right **details pane** (interconnections of the selection: router ports and peers, connected routers, path out of a subnet, gateways); the tree starts with two levels open.
+- **`/`**: filter (keeps the ancestors of every match). **`d`** describe, **`y`** raw columns.
+- **`x`**: open **Tier 1 Diagnostics** on the selection (interactive `ovn-trace` with fzf search & custom IP, live `tcpdump`, conntrack, `ovs-vsctl show`, controller logs).
+- **`r`** refresh, **`L`** pause/resume live (SSE) updates, **`t`** cycle themes, **`?`** help, **`q`** quit.
 
 Launch with Tier 1 diagnostics enabled:
 ```bash
@@ -105,23 +106,11 @@ Available diagnostic actions from the TUI (`x` key):
 3. **OVS interfaces**: inspect physical interfaces and port bindings via `ovs-vsctl`.
 4. **Controller logs**: tail `ovn-controller` logs on the target node.
 
-If RBAC denies `pods/exec`, the TUI displays a `DIAG DEGRADED` badge and falls back to passive mode without crashing.
+If RBAC denies `pods/exec`, the TUI header shows the `DIAG` badge as degraded with the reason and falls back to passive mode without crashing.
 
-## Rancher and Harvester UI Extension
+## Rancher UI Extension (paused)
 
-The extension integrates into two places:
-- **Cluster Explorer**: Navigate to your cluster ➡️ in the left navigation sidebar, select **OVN Topology** ➡️ **Topology** (`/c/:cluster/ovn-topology/topology`).
-- **Harvester Virtualization Management**: Navigate to your Harvester cluster ➡️ in the left sidebar under **Networks**, select **OVN Topology** (`/c/:cluster/harvester/ovn-topology`).
-
-To test the extension with a running Rancher Manager:
-
-```bash
-# Serve the built package locally for Developer Load (port 4500)
-mise run ui-serve
-
-# Or run the development server with live reload
-mise run ui-dev
-```
+The Rancher/Harvester UI extension is paused. Its code is archived at tag `archive/ui-extension` (`git checkout archive/ui-extension -- ui`). The daemon API stays usable by any client.
 
 ## Release Artifacts
 
@@ -131,12 +120,11 @@ Every version tag (`vX.Y.Z`) publishes:
 |---|---|---|
 | **Daemon Image** | `ghcr.io/coulof/ovn-topologyd:vX.Y.Z` | Multi-arch (`linux/amd64`, `linux/arm64`) distroless daemon |
 | **Daemon Chart** | `oci://ghcr.io/coulof/charts/ovn-topology:X.Y.Z` | OCI Helm chart for downstream clusters |
-| **Extension Catalog Image (ECI)** | `ghcr.io/coulof/ovn-topology-ui:vX.Y.Z` | Rancher Extension Catalog container |
-| **Binaries** | GitHub Releases | Static `ovn-topologyd` and `ovn-topo` archives for Linux/macOS |
+| **Binaries** | GitHub Releases | Static `ovn-topologyd` + `ovn-topo` archives for Linux/macOS (amd64, arm64); `ovn-topo` zip for Windows (amd64, arm64) |
 
 ### Air-Gapped Environments (Hauler)
 
-Each release includes a `hauler.yaml` manifest bundling the daemon image, Helm chart, and Extension Catalog Image:
+Each release includes a `hauler.yaml` manifest bundling the daemon image and Helm chart:
 
 ```bash
 # Sync release artifacts into a local Hauler store

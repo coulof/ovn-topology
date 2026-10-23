@@ -13,6 +13,10 @@
           }
         ],
         "hostname": "node-1",
+        "hostnameShared": 1,
+        "isInterconn": false,
+        "name": "chassis-node-1",
+        "nodeMatch": "override",
         "nodeName": "node-1",
         "uuid": "chassis-node-1-uuid"
       },
@@ -30,6 +34,10 @@
           }
         ],
         "hostname": "node-2",
+        "hostnameShared": 1,
+        "isInterconn": false,
+        "name": "chassis-node-2",
+        "nodeMatch": "override",
         "nodeName": "node-2",
         "uuid": "chassis-node-2-uuid"
       },
@@ -47,6 +55,10 @@
           }
         ],
         "hostname": "node-3",
+        "hostnameShared": 1,
+        "isInterconn": false,
+        "name": "chassis-node-3",
+        "nodeMatch": "override",
         "nodeName": "node-3",
         "uuid": "chassis-node-3-uuid"
       },

@@ -12,7 +12,7 @@ A **read-only network topology visualizer for OVN as deployed by Kube-OVN**, mad
 
 - `ovn-topologyd` — Go daemon that monitors the OVN Northbound (NB) and Southbound (SB) databases via OVSDB, builds a joined in-memory graph, and serves it over HTTP JSON + SSE.
 - `ovn-topo` — Go TUI (Bubble Tea) consuming the same graph package.
-- `ui/` — Rancher UI Extension (Vue 3, `@rancher/shell`) rendering the topology inside Rancher's cluster explorer.
+- Rancher UI Extension — **paused** (see §7). The code is archived at tag `archive/ui-extension`; it is not in the tree.
 
 Targets: Rancher-managed RKE2 and Rancher-managed Harvester clusters running Kube-OVN. Latest Rancher only.
 
@@ -45,15 +45,12 @@ ovn-topology/
 │   ├── ovn-topologyd/
 │   └── ovn-topo/
 ├── charts/ovn-topology/     # daemon Helm chart (installed per downstream cluster)
-├── ui/                      # Rancher extension "development app" (npm init @rancher/extension)
-│   ├── package.json         # dev app name: ovn-topology-ui (MUST differ from the pkg name)
-│   └── pkg/ovn-topology/    # the extension package itself
 ├── testdata/                # OVSDB snapshots used as fixtures
-├── test/                    # e2e (Go, tag e2e), ovn/ (raw OVSDB), ui/ (Playwright) — see ROADMAP testing strategy
+├── test/                    # e2e (Go, tag e2e), ovn/ (raw OVSDB) — see ROADMAP testing strategy
 ├── hack/                    # codegen, check-deps.sh, capture-fixtures.sh, kind/, harvester/
 ├── docs/adr/                # architecture decision records
 ├── ROADMAP.md
-└── .github/workflows/       # path-filtered: go.yml, ui.yml, e2e-pr.yml, e2e-nightly.yml, release.yml
+└── .github/workflows/       # go.yml, cli.yml, image.yml, release.yml
 ```
 
 Generated code lives in dedicated directories and is regenerated with `make generate`. Never hand-edit it.
@@ -62,17 +59,14 @@ Generated code lives in dedicated directories and is regenerated with `make gene
 
 ```
 make generate      # OVSDB models (modelgen) + Go/TS types from api/openapi.yaml
-make lint          # golangci-lint (incl. forbidigo read-only rule) + eslint
+make lint          # golangci-lint (incl. forbidigo read-only rule) + ADR-0001 deps check
 make test          # go test ./... (unit + in-memory OVSDB tests)
 make build         # daemon + TUI binaries
 make image         # daemon container image (distroless, non-root)
-make ui-dev        # cd ui && API=$RANCHER_URL yarn dev  → https://127.0.0.1:8005
-make ui-build      # cd ui && yarn build-pkg ovn-topology  → ui/dist-pkg/
-make ui-serve      # cd ui && yarn serve-pkgs (port 4500) for "Developer load" testing
 make dev-cluster   # hack/: kind or lima cluster with Kube-OVN + sample VPCs
 ```
 
-Run `make generate lint test` before declaring any task done. If you change `api/openapi.yaml`, regenerate and update **both** Go and UI consumers in the same change.
+Run `make generate lint test` before declaring any task done. If you change `api/openapi.yaml`, regenerate and update the Go consumers in the same change.
 
 ## 4. Backend (`pkg/`, `cmd/ovn-topologyd`)
 
@@ -110,7 +104,7 @@ Defined in `api/openapi.yaml`. Base path `/api/v1`.
 ### Security
 
 - Distroless, non-root, read-only root filesystem.
-- K8s RBAC for the daemon ServiceAccount: `get/list/watch nodes`, `get secrets` for the OVN TLS secret only. Nothing else.
+- K8s RBAC for the daemon ServiceAccount: `get/list/watch` on exactly the kinds allowed by hard rule 2 (`nodes`, `pods`, `services`, `endpointslices`, KubeVirt `virtualmachines`/`virtualmachineinstances`, `network-attachment-definitions`), plus `get` on the OVN TLS secret only. Nothing else.
 - Access to the API is via the Kubernetes service proxy; viewer authorization is `services/proxy` RBAC. Document this in the chart README.
 - OVSDB NB has no read-only role; read-only is guaranteed by code + lint. Say so in the README. Do not soften it.
 
@@ -127,7 +121,7 @@ Defined in `api/openapi.yaml`. Base path `/api/v1`.
 - `Port_Binding.logical_port` == LSP/LRP name → binding state + chassis.
 - `Datapath_Binding.external_ids["logical-switch"|"logical-router"]` == NB UUID.
 - Active gateway = `Port_Binding.chassis` of the `chassisredirect` port (`cr-<lrp>`).
-- Chassis ↔ k8s Node: `Chassis.hostname`, fallback to node annotation `ovn.kubernetes.io/chassis`.
+- Chassis ↔ k8s Node: node annotation `ovn.kubernetes.io/chassis` == `Chassis.name` (the OVS system-id, authoritative), fallback to `Chassis.hostname`. Hostname is informational in OVN and can be shared or stale; report which rule matched.
 - Kubernetes identity from NB `external_ids`: LSP `pod`, `namespace`, `ls`; `vendor=kube-ovn`; LR VPC name. Treat missing keys as normal (non-Kube-OVN objects exist).
 
 ### Node types
@@ -158,62 +152,23 @@ Additional edge types introduced by later milestones (`attached-to` LSP→Worklo
 3. **Chassis**: chassis with encap IP/type, binding counts, gateway roles and HA group priorities.
 4. **Path** (M5, `pkg/trace`, T0): src LSP → dst LSP/IP/VIP, computed from NB configuration and always labelled "approximate". Real `ovn-trace` packet traces are T1 and TUI-only (M6, `pkg/diag`).
 
-## 7. UI extension (`ui/`)
+## 7. UI extension — paused
 
-### Required reading (consult before writing UI code)
+The Rancher UI Extension (Vue 3, `@rancher/shell`, elkjs + SVG) is **paused** and not in the tree. Its code, its CI workflow and the full instructions that were in this section are archived at tag `archive/ui-extension`:
 
-- Extensions docs (v3, current): https://extensions.rancher.io/extensions/next/home
-  - Getting started: https://extensions.rancher.io/extensions/next/extensions-getting-started
-  - Support matrix: https://extensions.rancher.io/extensions/next/support-matrix
-  - Extensions API (products, routes, panels, tabs…): https://extensions.rancher.io/extensions/next/api/overview
-  - Cluster-level product concept: https://extensions.rancher.io/extensions/next/api/concepts
-  - Shell API: https://extensions.rancher.io/extensions/next/shell-api
-  - Publishing: https://extensions.rancher.io/extensions/next/publishing
-  - Air-gapped (Extension Catalog Image): https://extensions.rancher.io/extensions/next/advanced/air-gapped-environments
-  - Examples: https://github.com/rancher/ui-plugin-examples
-- Components & Design kit (Storybook): https://rancher.github.io/storybook/
+```
+git checkout archive/ui-extension -- ui .github/workflows/ui.yml   # restore the code
+git show archive/ui-extension:AGENTS.md                              # the full §7/§8 UI rules
+```
 
-### Toolchain
-
-- Scaffold: `npm init @rancher/extension@latest ovn-topology -- --app-name ovn-topology-ui` run inside `ui/`'s parent, then move/rename so the dev app sits in `ui/`. The dev app name and the extension package name **must differ** — the Rancher publish workflows fail otherwise.
-- Node.js **v24**, Yarn. Linux/macOS only.
-- `@rancher/shell` **3.x** (Extensions API v3, Rancher 2.10+). Target the latest Rancher release; Shell API (2.14+) may be used. Do **not** use experimental APIs (Resources API, Product Registration API) unless the task says so.
-- Keep the `npm init` tag consistent; upgrades go through `npm init @rancher/extension@latest -- --update`.
-
-### Design system
-
-- Use existing shell / `@rancher/components` components from the Storybook (buttons, banners, loading, tabs, sortable tables, badges, side panels) instead of custom ones. Check Storybook first; only build a custom component when nothing fits, and justify it in the PR.
-- Colors, spacing, typography from shell CSS variables / design tokens only — no hard-coded hex. This includes Cytoscape styles: resolve CSS variables at runtime and re-apply on theme change.
-- Follow Rancher patterns for empty states, errors, and loading.
-
-### Behaviour
-
-- Register a **cluster-level product** (`inStore: 'cluster'`), page "Network Topology", scoped to the currently selected cluster.
-- Call the daemon via the Rancher cluster service proxy:
-  `/k8s/clusters/<clusterId>/api/v1/namespaces/<ns>/services/http:ovn-topologyd:8080/proxy/api/v1/...`
-- If the daemon is absent (404/503 on `/version`), show an empty state explaining how to install the `ovn-topology` chart on that cluster. No stack traces.
-- Rendering: **Cytoscape.js** with compound nodes + **elkjs** (layered). Apply SSE deltas incrementally; do not re-layout the whole graph on each update; persist node positions per view per cluster in `localStorage` (wrapped in try/catch).
-- Side panel shows `/node/{id}` details; raw columns available behind a "raw" toggle.
-- Types come from generated `openapi` TS types only. No hand-written API types.
-- Bundle all assets (air-gap). No external fonts/CDNs.
-- Respect Rancher light/dark theme via shell CSS variables.
-
-### Unverified — check before relying on it
-- The reusable workflows (`rancher/dashboard/.github/workflows/build-extension-charts.yml`, `build-extension-catalog.yml`) default to `working-directory: ./`. Running them from `ui/` is not documented. Try the reusable workflow with the subdirectory first; if it doesn't work, call `yarn publish-pkgs` from a custom workflow in `ui/`. Don't move the dev app to the repo root without asking.
-- Whether the Rancher service proxy passes SSE without buffering.
+Do not start UI work without an explicit task. The daemon API (`api/openapi.yaml`, SSE with heartbeat, `If-None-Match` polling) stays UI-ready; restoring the extension also means restoring `make ui-*`, the ECI release job and the CI type-drift check (`hack/generate.sh` already generates TS types when `ui/pkg/ovn-topology` exists).
 
 ## 8. Packaging
 
-- Two install targets, two artifacts:
-  - Extension: installed **once** in Rancher (local cluster) via the extension catalog.
-  - Daemon chart `charts/ovn-topology`: installed on **each** downstream cluster running Kube-OVN.
-- Versions move in lockstep: daemon/Go `X.Y.Z` == `ui/pkg/ovn-topology/package.json` version == `ui/package.json` version. The extension checks `/version` and warns on API major mismatch.
-- Tags (the Rancher workflows key off tag names):
-  - `vX.Y.Z` — Go module, daemon image, daemon chart.
-  - `ovn-topology-X.Y.Z` — extension Helm chart (`<pkg-folder>-<pkg version>`), published to `gh-pages`.
-  - `ovn-topology-ui-X.Y.Z` — Extension Catalog Image (`<dev app name>-<app version>`), published to the registry.
-  - `release.yml` creates all three from one version bump; never hand-craft them.
-- Air-gap: ship the **Extension Catalog Image (ECI)**, not the gh-pages chart repo. Release produces a Hauler manifest listing daemon image, daemon chart, and the ECI.
+- Daemon chart `charts/ovn-topology`: installed on **each** downstream cluster running Kube-OVN.
+- Tag `vX.Y.Z`: Go module, daemon image, daemon chart and the `ovn-topologyd`/`ovn-topo` binaries. `release.yml` produces them from one version bump; never hand-craft them.
+- Air-gap: release produces a Hauler manifest listing the daemon image and chart.
+- While the extension is paused, its tags (`ovn-topology-X.Y.Z` chart, `ovn-topology-ui-X.Y.Z` ECI) are not produced; the lockstep rules are in `archive/ui-extension`.
 
 ## 9. Testing
 
@@ -221,13 +176,12 @@ Additional edge types introduced by later milestones (`attached-to` LSP→Worklo
 - Fixtures: OVSDB snapshots in `testdata/` (captured with `ovsdb-client backup` from a dev cluster), loaded into libovsdb's in-process test server (`github.com/ovn-kubernetes/libovsdb/server`) so tests exercise the real monitor path.
 - Golden-file tests for `/graph` responses per view (`-update` flag to regenerate).
 - Required fixture scenarios: default VPC only; custom VPC with distributed FIP; centralized gateway with HA chassis group; underlay/localnet; LS attached to multiple LRs; unbound port; chassis down.
-- UI: component tests for the graph adapter (API → Cytoscape elements); no snapshot tests of rendered canvas.
 
 ## 10. Conventions
 
 - Go: latest stable, `log/slog` structured logging, context-aware everywhere, no global state except metrics registry.
 - Errors wrap with `%w`; no panics outside `main`.
-- Commits: Conventional Commits. Keep Go and UI changes for the same feature in one PR when they share an API change.
+- Commits: Conventional Commits.
 - Don't add dependencies without a reason stated in the PR description.
 
 ## 11. Delivery

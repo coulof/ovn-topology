@@ -206,3 +206,49 @@ func TestEventsSSE(t *testing.T) {
 		t.Fatalf("expected line to start with data: , got %s", line)
 	}
 }
+
+// TestEventsHeartbeat: an idle stream gets comment lines so proxies keep it open.
+func TestEventsHeartbeat(t *testing.T) {
+	srv, store := setupTestServer(t)
+	store.SetReady(true)
+	srv.heartbeat = 20 * time.Millisecond
+	server := httptest.NewServer(srv)
+	defer server.Close()
+
+	resp, err := (&http.Client{Timeout: 2 * time.Second}).Get(server.URL + "/api/v1/events")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer func() { _ = resp.Body.Close() }()
+	reader := bufio.NewReader(resp.Body)
+	sawData := false
+	for {
+		line, err := reader.ReadString('\n')
+		if err != nil {
+			t.Fatalf("stream ended before a heartbeat (data seen: %v): %v", sawData, err)
+		}
+		if strings.HasPrefix(line, "data: ") {
+			sawData = true
+		}
+		if strings.HasPrefix(line, ": keepalive") {
+			if !sawData {
+				t.Errorf("the initial event must come before heartbeats")
+			}
+			return
+		}
+	}
+}
+
+// TestNoCORSHeaders: the daemon is reached through the Kubernetes service proxy
+// (same origin as Rancher), so it allows no cross-origin access.
+func TestNoCORSHeaders(t *testing.T) {
+	srv, _ := setupTestServer(t)
+	w := httptest.NewRecorder()
+	srv.ServeHTTP(w, httptest.NewRequest(http.MethodGet, "/api/v1/version", nil))
+	if w.Code != http.StatusOK {
+		t.Fatalf("version: %d", w.Code)
+	}
+	if v := w.Header().Get("Access-Control-Allow-Origin"); v != "" {
+		t.Errorf("unexpected CORS header: %q", v)
+	}
+}

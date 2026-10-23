@@ -1,0 +1,5037 @@
+[
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.2.34\"\n    ],\n    \"mac\": \"36:52:c1:c3:c8:91\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "cluster.x-k8s.io/provider": "cluster-api",
+    "control-plane": "controller-manager",
+    "pod-template-hash": "674956678b"
+   },
+   "name": "capi-controller-manager-674956678b-tzlc9",
+   "namespace": "cattle-capi-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "capi-controller-manager-674956678b",
+     "uid": "9fbd9ca2-730b-40c8-bb42-ca9a3a7dd92f"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.1.16\"\n    ],\n    \"mac\": \"b6:f6:0f:45:be:e5\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "fleet-agent",
+    "pod-template-hash": "5cdb98c6fc"
+   },
+   "name": "fleet-agent-5cdb98c6fc-rt4jc",
+   "namespace": "cattle-fleet-local-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "fleet-agent-5cdb98c6fc",
+     "uid": "92109ef7-ec18-4437-939d-cc89d7cb31d1"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-02"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.38\"\n    ],\n    \"mac\": \"0e:ee:fd:49:b4:18\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "fleet-agent",
+    "pod-template-hash": "5cb6c4976c"
+   },
+   "name": "fleet-agent-5cb6c4976c-jdp9f",
+   "namespace": "cattle-fleet-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "fleet-agent-5cb6c4976c",
+     "uid": "235bfd3a-8a87-42e0-a7cd-b05922184e6e"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.7\"\n    ],\n    \"mac\": \"aa:91:f3:8c:de:ba\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "fleet-controller",
+    "fleet.cattle.io/shard-default": "true",
+    "fleet.cattle.io/shard-id": "",
+    "pod-template-hash": "5688d9645d"
+   },
+   "name": "fleet-controller-5688d9645d-lg7cq",
+   "namespace": "cattle-fleet-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "fleet-controller-5688d9645d",
+     "uid": "3d4cf7f6-84e8-4cd0-8ede-83513c61ada2"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.45\"\n    ],\n    \"mac\": \"5e:0a:b2:6b:65:8c\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "gitjob",
+    "fleet.cattle.io/shard-default": "true",
+    "fleet.cattle.io/shard-id": "",
+    "pod-template-hash": "744bfb6675"
+   },
+   "name": "gitjob-744bfb6675-6vrzh",
+   "namespace": "cattle-fleet-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "gitjob-744bfb6675",
+     "uid": "41043a4f-91e8-4410-b7e0-b126f97f4ca2"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.36\"\n    ],\n    \"mac\": \"5e:70:ec:68:ff:3f\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "helmops",
+    "fleet.cattle.io/shard-default": "true",
+    "fleet.cattle.io/shard-id": "",
+    "pod-template-hash": "74fb6b5d9c"
+   },
+   "name": "helmops-74fb6b5d9c-2m8fz",
+   "namespace": "cattle-fleet-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "helmops-74fb6b5d9c",
+     "uid": "c114d05c-8818-48df-918c-dfe130f00308"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.0.14\"\n    ],\n    \"mac\": \"46:19:b0:75:03:0c\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "cattle-cluster-agent",
+    "pod-template-hash": "7fbcdd59b7"
+   },
+   "name": "cattle-cluster-agent-7fbcdd59b7-j4nhh",
+   "namespace": "cattle-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "cattle-cluster-agent-7fbcdd59b7",
+     "uid": "9e783c1f-d882-4ea7-9c1a-315bdc19ddb2"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.2.23\"\n    ],\n    \"mac\": \"4e:fe:f6:01:9a:0b\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "cattle-cluster-agent",
+    "pod-template-hash": "7fbcdd59b7"
+   },
+   "name": "cattle-cluster-agent-7fbcdd59b7-xv99d",
+   "namespace": "cattle-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "cattle-cluster-agent-7fbcdd59b7",
+     "uid": "9e783c1f-d882-4ea7-9c1a-315bdc19ddb2"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.32\"\n    ],\n    \"mac\": \"ee:ed:b4:de:69:bb\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "harvester-cluster-repo",
+    "pod-template-hash": "6f6bcdcb"
+   },
+   "name": "harvester-cluster-repo-6f6bcdcb-jh9gb",
+   "namespace": "cattle-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "harvester-cluster-repo-6f6bcdcb",
+     "uid": "e2fdfd6a-c37d-44bc-a416-146a67def60b"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.15\"\n    ],\n    \"mac\": \"ca:2c:ae:c8:c0:8c\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "rancher",
+    "pod-template-hash": "7596c4d44b",
+    "release": "rancher"
+   },
+   "name": "rancher-7596c4d44b-lzcd2",
+   "namespace": "cattle-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "rancher-7596c4d44b",
+     "uid": "eed1c106-ac16-4e71-bf34-051613aeed6a"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.2.16\"\n    ],\n    \"mac\": \"f6:3d:db:ca:ce:17\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "rancher",
+    "pod-template-hash": "7596c4d44b",
+    "release": "rancher"
+   },
+   "name": "rancher-7596c4d44b-n28tb",
+   "namespace": "cattle-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "rancher-7596c4d44b",
+     "uid": "eed1c106-ac16-4e71-bf34-051613aeed6a"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.0.12\"\n    ],\n    \"mac\": \"66:f9:49:8a:41:ca\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "rancher",
+    "pod-template-hash": "7596c4d44b",
+    "release": "rancher"
+   },
+   "name": "rancher-7596c4d44b-zflsm",
+   "namespace": "cattle-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "rancher-7596c4d44b",
+     "uid": "eed1c106-ac16-4e71-bf34-051613aeed6a"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.0.7\"\n    ],\n    \"mac\": \"de:0e:4f:33:14:2c\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "rancher-webhook",
+    "pod-template-hash": "768976b65c"
+   },
+   "name": "rancher-webhook-768976b65c-2tczc",
+   "namespace": "cattle-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "rancher-webhook-768976b65c",
+     "uid": "724d4a5a-b772-485c-97c6-33cfc713c943"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.0.21\"\n    ],\n    \"mac\": \"96:6b:27:a8:d6:d7\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/component": "controller",
+    "app.kubernetes.io/name": "system-upgrade-controller",
+    "pod-template-hash": "54c465b8cb",
+    "upgrade.cattle.io/controller": "system-upgrade-controller"
+   },
+   "name": "system-upgrade-controller-54c465b8cb-xbmss",
+   "namespace": "cattle-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "system-upgrade-controller-54c465b8cb",
+     "uid": "413e8d8f-c862-4502-ae9e-591c941591bc"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.0.4\"\n    ],\n    \"mac\": \"32:7d:c6:13:b0:f9\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "control-plane": "controller-manager",
+    "pod-template-hash": "5fd864954c"
+   },
+   "name": "rancher-turtles-controller-manager-5fd864954c-8s4b8",
+   "namespace": "cattle-turtles-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "rancher-turtles-controller-manager-5fd864954c",
+     "uid": "47a8ba8f-603c-44f5-aa2c-bd5ee0c303c4"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.1.23\"\n    ],\n    \"mac\": \"fe:98:e4:aa:11:3a\",\n    \"default\": true,\n    \"dns\": {}\n},{\n    \"name\": \"default/default\",\n    \"interface\": \"pod37a8eec1ce1\",\n    \"mac\": \"66:a6:d0:bf:2b:4a\",\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "harvesterhci.io/vmName": "coriolis-win-minion",
+    "kubevirt.io": "virt-launcher",
+    "kubevirt.io/created-by": "50858aff-70a6-4e03-a156-a72fcc0cf912",
+    "kubevirt.io/nodeName": "hv-02",
+    "vm.kubevirt.io/name": "coriolis-win-minion",
+    "vmi.kubevirt.io/id": "coriolis-win-minion"
+   },
+   "name": "virt-launcher-coriolis-win-minion-k6rfq",
+   "namespace": "default",
+   "ownerReferences": [
+    {
+     "apiVersion": "kubevirt.io/v1",
+     "kind": "VirtualMachineInstance",
+     "name": "coriolis-win-minion",
+     "uid": "50858aff-70a6-4e03-a156-a72fcc0cf912"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-02"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.1.24\"\n    ],\n    \"mac\": \"62:c7:98:68:d3:10\",\n    \"default\": true,\n    \"dns\": {}\n},{\n    \"name\": \"default/default\",\n    \"interface\": \"pod37a8eec1ce1\",\n    \"mac\": \"ae:24:2a:cc:e7:c6\",\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "harvesterhci.io/vmName": "spike-it",
+    "kubevirt.io": "virt-launcher",
+    "kubevirt.io/created-by": "a38bdb16-5833-49bf-a516-2fbedc4ce158",
+    "kubevirt.io/nodeName": "hv-02",
+    "vm.kubevirt.io/name": "spike-it",
+    "vmi.kubevirt.io/id": "spike-it"
+   },
+   "name": "virt-launcher-spike-it-wlrr6",
+   "namespace": "default",
+   "ownerReferences": [
+    {
+     "apiVersion": "kubevirt.io/v1",
+     "kind": "VirtualMachineInstance",
+     "name": "spike-it",
+     "uid": "a38bdb16-5833-49bf-a516-2fbedc4ce158"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-02"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.0.98\"\n    ],\n    \"mac\": \"c6:b0:7e:fd:ab:1b\",\n    \"default\": true,\n    \"dns\": {}\n},{\n    \"name\": \"onewater/onewater\",\n    \"interface\": \"pod37a8eec1ce1\",\n    \"ips\": [\n        \"192.168.54.37\"\n    ],\n    \"mac\": \"32:36:ab:92:a9:0a\",\n    \"dns\": {}\n},{\n    \"name\": \"twowater/twowater\",\n    \"interface\": \"pod8fe0d3f1ac5\",\n    \"ips\": [\n        \"192.168.55.51\"\n    ],\n    \"mac\": \"be:91:0e:cd:33:71\",\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "harvesterhci.io/vmName": "test-2-nics-2-vpc",
+    "kubevirt.io": "virt-launcher",
+    "kubevirt.io/created-by": "aa011ab6-dffb-4459-acb0-80854c947b61",
+    "kubevirt.io/nodeName": "hv-01",
+    "vm.kubevirt.io/name": "test-2-nics-2-vpc",
+    "vmi.kubevirt.io/id": "test-2-nics-2-vpc"
+   },
+   "name": "virt-launcher-test-2-nics-2-vpc-k827k",
+   "namespace": "default",
+   "ownerReferences": [
+    {
+     "apiVersion": "kubevirt.io/v1",
+     "kind": "VirtualMachineInstance",
+     "name": "test-2-nics-2-vpc",
+     "uid": "aa011ab6-dffb-4459-acb0-80854c947b61"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.1.25\"\n    ],\n    \"mac\": \"7e:fd:f7:45:b3:87\",\n    \"default\": true,\n    \"dns\": {}\n},{\n    \"name\": \"default/default\",\n    \"interface\": \"pod37a8eec1ce1\",\n    \"mac\": \"56:57:0f:bd:a5:4e\",\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "harvesterhci.io/vmName": "tumbleweed-flint-florian",
+    "kubevirt.io": "virt-launcher",
+    "kubevirt.io/created-by": "8a6fa978-4af2-4e29-9f94-50d2d8a6511d",
+    "kubevirt.io/nodeName": "hv-02",
+    "vm.kubevirt.io/name": "tumbleweed-flint-florian",
+    "vmi.kubevirt.io/id": "tumbleweed-flint-florian"
+   },
+   "name": "virt-launcher-tumbleweed-flint-florian-qrrrt",
+   "namespace": "default",
+   "ownerReferences": [
+    {
+     "apiVersion": "kubevirt.io/v1",
+     "kind": "VirtualMachineInstance",
+     "name": "tumbleweed-flint-florian",
+     "uid": "8a6fa978-4af2-4e29-9f94-50d2d8a6511d"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-02"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.2.5\"\n    ],\n    \"mac\": \"7a:67:a4:73:19:12\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "podinfo",
+    "pod-template-hash": "857755c44d",
+    "version": "v1"
+   },
+   "name": "podinfo-v1-857755c44d-bpwfs",
+   "namespace": "demo",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "podinfo-v1-857755c44d",
+     "uid": "a4436a2d-df74-475b-ab25-9c9e9f79e80a"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.27\"\n    ],\n    \"mac\": \"0a:f0:b7:c0:43:0c\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "podinfo",
+    "pod-template-hash": "74b747579d",
+    "version": "v2"
+   },
+   "name": "podinfo-v2-74b747579d-b5ps5",
+   "namespace": "demo",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "podinfo-v2-74b747579d",
+     "uid": "bd4700b3-75b3-496a-af01-a79f88ca161f"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.0.80\"\n    ],\n    \"mac\": \"8e:b9:9b:ac:09:34\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "batch.kubernetes.io/controller-uid": "a3d7b4fa-3740-4409-bb87-f1e4a42bafe1",
+    "batch.kubernetes.io/job-name": "rke2-machineconfig-cleanup-cronjob-29875685",
+    "controller-uid": "a3d7b4fa-3740-4409-bb87-f1e4a42bafe1",
+    "job-name": "rke2-machineconfig-cleanup-cronjob-29875685"
+   },
+   "name": "rke2-machineconfig-cleanup-cronjob-29875685-fxph9",
+   "namespace": "fleet-local",
+   "ownerReferences": [
+    {
+     "apiVersion": "batch/v1",
+     "kind": "Job",
+     "name": "rke2-machineconfig-cleanup-cronjob-29875685",
+     "uid": "a3d7b4fa-3740-4409-bb87-f1e4a42bafe1"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.162\"\n    ],\n    \"mac\": \"ce:90:1d:e5:ab:1d\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "batch.kubernetes.io/controller-uid": "d2ca8560-73b1-47b7-a87a-16475b25dd5c",
+    "batch.kubernetes.io/job-name": "rke2-machineconfig-cleanup-cronjob-29877125",
+    "controller-uid": "d2ca8560-73b1-47b7-a87a-16475b25dd5c",
+    "job-name": "rke2-machineconfig-cleanup-cronjob-29877125"
+   },
+   "name": "rke2-machineconfig-cleanup-cronjob-29877125-5blps",
+   "namespace": "fleet-local",
+   "ownerReferences": [
+    {
+     "apiVersion": "batch/v1",
+     "kind": "Job",
+     "name": "rke2-machineconfig-cleanup-cronjob-29877125",
+     "uid": "d2ca8560-73b1-47b7-a87a-16475b25dd5c"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.165\"\n    ],\n    \"mac\": \"6e:ed:5a:bc:f7:98\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "batch.kubernetes.io/controller-uid": "d117e25f-45d8-4c73-bb06-651a5b627714",
+    "batch.kubernetes.io/job-name": "rke2-machineconfig-cleanup-cronjob-29878565",
+    "controller-uid": "d117e25f-45d8-4c73-bb06-651a5b627714",
+    "job-name": "rke2-machineconfig-cleanup-cronjob-29878565"
+   },
+   "name": "rke2-machineconfig-cleanup-cronjob-29878565-c4p4z",
+   "namespace": "fleet-local",
+   "ownerReferences": [
+    {
+     "apiVersion": "batch/v1",
+     "kind": "Job",
+     "name": "rke2-machineconfig-cleanup-cronjob-29878565",
+     "uid": "d117e25f-45d8-4c73-bb06-651a5b627714"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.37\"\n    ],\n    \"mac\": \"7e:78:0d:d7:ed:29\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "containerized-data-importer",
+    "app.kubernetes.io/component": "storage",
+    "app.kubernetes.io/managed-by": "cdi-operator",
+    "cdi.kubevirt.io": "cdi-apiserver",
+    "np.kubevirt.io/allow-access-cluster-services": "true",
+    "operator.cdi.kubevirt.io/createVersion": "1.64.0-150700.9.11.1",
+    "pod-template-hash": "5c588d6c79"
+   },
+   "name": "cdi-apiserver-5c588d6c79-gqjk9",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "cdi-apiserver-5c588d6c79",
+     "uid": "ced06515-f15b-4041-8939-a9b24f401bf0"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.2.11\"\n    ],\n    \"mac\": \"5a:b3:8d:2f:8e:38\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "containerized-data-importer",
+    "app.kubernetes.io/component": "storage",
+    "app.kubernetes.io/managed-by": "cdi-operator",
+    "cdi.kubevirt.io": "cdi-deployment",
+    "np.kubevirt.io/allow-access-cluster-services": "true",
+    "operator.cdi.kubevirt.io/createVersion": "1.64.0-150700.9.11.1",
+    "pod-template-hash": "798489b899",
+    "prometheus.cdi.kubevirt.io": "true"
+   },
+   "name": "cdi-deployment-798489b899-s8xtc",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "cdi-deployment-798489b899",
+     "uid": "1690abe9-b8e6-4a06-958c-daca02f3eae8"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.0.5\"\n    ],\n    \"mac\": \"12:0a:4c:32:95:19\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "cdi.kubevirt.io": "cdi-operator",
+    "name": "cdi-operator",
+    "np.kubevirt.io/allow-access-cluster-services": "true",
+    "operator.cdi.kubevirt.io": "",
+    "pod-template-hash": "8774b7dbd",
+    "prometheus.cdi.kubevirt.io": "true"
+   },
+   "name": "cdi-operator-8774b7dbd-t56vn",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "cdi-operator-8774b7dbd",
+     "uid": "2892fa68-03e4-410b-a8d8-74bd0337e712"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.35\"\n    ],\n    \"mac\": \"4a:52:4e:4f:cf:7a\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "containerized-data-importer",
+    "app.kubernetes.io/component": "storage",
+    "app.kubernetes.io/managed-by": "cdi-operator",
+    "cdi.kubevirt.io": "cdi-uploadproxy",
+    "np.kubevirt.io/allow-access-cluster-services": "true",
+    "operator.cdi.kubevirt.io/createVersion": "1.64.0-150700.9.11.1",
+    "pod-template-hash": "7f78546574"
+   },
+   "name": "cdi-uploadproxy-7f78546574-vrs2q",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "cdi-uploadproxy-7f78546574",
+     "uid": "9d655f5b-6ead-4245-958d-3b0e2d4e56af"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.0.30\"\n    ],\n    \"mac\": \"ea:a9:0c:6e:aa:c3\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/component": "apiserver",
+    "app.kubernetes.io/managed-by": "Helm",
+    "app.kubernetes.io/name": "harvester",
+    "app.kubernetes.io/part-of": "harvester",
+    "app.kubernetes.io/version": "v1.9.0",
+    "helm.sh/chart": "harvester-1.9.0",
+    "helm.sh/release": "harvester",
+    "pod-template-hash": "86d5967c8c"
+   },
+   "name": "harvester-86d5967c8c-94qs8",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "harvester-86d5967c8c",
+     "uid": "cc9da111-f8f2-4561-bddf-a91447e63a0c"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.2.21\"\n    ],\n    \"mac\": \"32:e6:95:c4:e1:f3\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/component": "apiserver",
+    "app.kubernetes.io/managed-by": "Helm",
+    "app.kubernetes.io/name": "harvester",
+    "app.kubernetes.io/part-of": "harvester",
+    "app.kubernetes.io/version": "v1.9.0",
+    "helm.sh/chart": "harvester-1.9.0",
+    "helm.sh/release": "harvester",
+    "pod-template-hash": "86d5967c8c"
+   },
+   "name": "harvester-86d5967c8c-jm45z",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "harvester-86d5967c8c",
+     "uid": "cc9da111-f8f2-4561-bddf-a91447e63a0c"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.6\"\n    ],\n    \"mac\": \"62:42:0b:66:0c:8c\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/component": "apiserver",
+    "app.kubernetes.io/managed-by": "Helm",
+    "app.kubernetes.io/name": "harvester",
+    "app.kubernetes.io/part-of": "harvester",
+    "app.kubernetes.io/version": "v1.9.0",
+    "helm.sh/chart": "harvester-1.9.0",
+    "helm.sh/release": "harvester",
+    "pod-template-hash": "86d5967c8c"
+   },
+   "name": "harvester-86d5967c8c-mwn84",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "harvester-86d5967c8c",
+     "uid": "cc9da111-f8f2-4561-bddf-a91447e63a0c"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.33\"\n    ],\n    \"mac\": \"6a:62:8d:8c:de:25\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/instance": "harvester",
+    "app.kubernetes.io/name": "harvester-load-balancer",
+    "pod-template-hash": "86cfff565b"
+   },
+   "name": "harvester-load-balancer-86cfff565b-2z8sg",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "harvester-load-balancer-86cfff565b",
+     "uid": "e16ebf3a-1fd8-4af1-9f34-352657290e85"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.16\"\n    ],\n    \"mac\": \"ce:e5:aa:70:e1:a2\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/instance": "harvester",
+    "app.kubernetes.io/name": "harvester-load-balancer-webhook",
+    "pod-template-hash": "5b8cb44d6d"
+   },
+   "name": "harvester-load-balancer-webhook-5b8cb44d6d-4t9ng",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "harvester-load-balancer-webhook-5b8cb44d6d",
+     "uid": "a7b4eeec-a56b-49e7-a982-1d14c10b4a3f"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "app.kubernetes.io/instance": "harvester",
+    "app.kubernetes.io/name": "harvester-network-controller",
+    "controller-revision-hash": "56d756996d",
+    "pod-template-generation": "6"
+   },
+   "name": "harvester-network-controller-54q5d",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "harvester-network-controller",
+     "uid": "ebe03280-06fa-4046-a7f6-74177f0fbbae"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "app.kubernetes.io/instance": "harvester",
+    "app.kubernetes.io/name": "harvester-network-controller",
+    "controller-revision-hash": "56d756996d",
+    "pod-template-generation": "6"
+   },
+   "name": "harvester-network-controller-9x9bs",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "harvester-network-controller",
+     "uid": "ebe03280-06fa-4046-a7f6-74177f0fbbae"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-02"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "app.kubernetes.io/instance": "harvester",
+    "app.kubernetes.io/name": "harvester-network-controller-manager",
+    "pod-template-hash": "6dfc8d699d"
+   },
+   "name": "harvester-network-controller-manager-6dfc8d699d-d5j2s",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "harvester-network-controller-manager-6dfc8d699d",
+     "uid": "1578cb16-7ead-43f4-9ae6-7253290b572d"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "app.kubernetes.io/instance": "harvester",
+    "app.kubernetes.io/name": "harvester-network-controller-manager",
+    "pod-template-hash": "6dfc8d699d"
+   },
+   "name": "harvester-network-controller-manager-6dfc8d699d-qld8g",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "harvester-network-controller-manager-6dfc8d699d",
+     "uid": "1578cb16-7ead-43f4-9ae6-7253290b572d"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "app.kubernetes.io/instance": "harvester",
+    "app.kubernetes.io/name": "harvester-network-controller",
+    "controller-revision-hash": "56d756996d",
+    "pod-template-generation": "6"
+   },
+   "name": "harvester-network-controller-s2dqr",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "harvester-network-controller",
+     "uid": "ebe03280-06fa-4046-a7f6-74177f0fbbae"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "app.kubernetes.io/instance": "harvester",
+    "app.kubernetes.io/name": "harvester-network-controller",
+    "controller-revision-hash": "56d756996d",
+    "pod-template-generation": "6"
+   },
+   "name": "harvester-network-controller-xm4k9",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "harvester-network-controller",
+     "uid": "ebe03280-06fa-4046-a7f6-74177f0fbbae"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.9\"\n    ],\n    \"mac\": \"1a:ff:56:9c:03:d3\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/instance": "harvester",
+    "app.kubernetes.io/name": "harvester-network-webhook",
+    "pod-template-hash": "748b8f96f9"
+   },
+   "name": "harvester-network-webhook-748b8f96f9-6g2vf",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "harvester-network-webhook-748b8f96f9",
+     "uid": "36a6fa6a-4dc4-4131-b4a6-d57bb5d33d9a"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "app.kubernetes.io/instance": "harvester",
+    "app.kubernetes.io/name": "harvester-networkfs-manager",
+    "controller-revision-hash": "74cfcb9587",
+    "pod-template-generation": "6"
+   },
+   "name": "harvester-networkfs-manager-6pqr5",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "harvester-networkfs-manager",
+     "uid": "a6731d3b-c1f4-423e-b23d-7d3d34583855"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-02"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "app.kubernetes.io/instance": "harvester",
+    "app.kubernetes.io/name": "harvester-networkfs-manager",
+    "controller-revision-hash": "74cfcb9587",
+    "pod-template-generation": "6"
+   },
+   "name": "harvester-networkfs-manager-8qkmv",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "harvester-networkfs-manager",
+     "uid": "a6731d3b-c1f4-423e-b23d-7d3d34583855"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "app.kubernetes.io/instance": "harvester",
+    "app.kubernetes.io/name": "harvester-networkfs-manager",
+    "controller-revision-hash": "74cfcb9587",
+    "pod-template-generation": "6"
+   },
+   "name": "harvester-networkfs-manager-bjtrh",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "harvester-networkfs-manager",
+     "uid": "a6731d3b-c1f4-423e-b23d-7d3d34583855"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "app.kubernetes.io/instance": "harvester",
+    "app.kubernetes.io/name": "harvester-networkfs-manager",
+    "controller-revision-hash": "74cfcb9587",
+    "pod-template-generation": "6"
+   },
+   "name": "harvester-networkfs-manager-vlwrj",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "harvester-networkfs-manager",
+     "uid": "a6731d3b-c1f4-423e-b23d-7d3d34583855"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "app.kubernetes.io/instance": "harvester",
+    "app.kubernetes.io/name": "harvester-node-disk-manager",
+    "controller-revision-hash": "5b899795b9",
+    "pod-template-generation": "6"
+   },
+   "name": "harvester-node-disk-manager-4hgqg",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "harvester-node-disk-manager",
+     "uid": "60b652bd-8a3b-4f6c-b487-adcd1465bc4e"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "app.kubernetes.io/instance": "harvester",
+    "app.kubernetes.io/name": "harvester-node-disk-manager",
+    "controller-revision-hash": "5b899795b9",
+    "pod-template-generation": "6"
+   },
+   "name": "harvester-node-disk-manager-stwd2",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "harvester-node-disk-manager",
+     "uid": "60b652bd-8a3b-4f6c-b487-adcd1465bc4e"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-02"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "app.kubernetes.io/instance": "harvester",
+    "app.kubernetes.io/name": "harvester-node-disk-manager",
+    "controller-revision-hash": "5b899795b9",
+    "pod-template-generation": "6"
+   },
+   "name": "harvester-node-disk-manager-ts98k",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "harvester-node-disk-manager",
+     "uid": "60b652bd-8a3b-4f6c-b487-adcd1465bc4e"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "app.kubernetes.io/instance": "harvester",
+    "app.kubernetes.io/name": "harvester-node-disk-manager",
+    "controller-revision-hash": "5b899795b9",
+    "pod-template-generation": "6"
+   },
+   "name": "harvester-node-disk-manager-twknl",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "harvester-node-disk-manager",
+     "uid": "60b652bd-8a3b-4f6c-b487-adcd1465bc4e"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.31\"\n    ],\n    \"mac\": \"26:bb:ec:68:aa:1a\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/component": "webhook",
+    "app.kubernetes.io/instance": "harvester",
+    "app.kubernetes.io/managed-by": "Helm",
+    "app.kubernetes.io/name": "harvester-node-disk-manager-webhook",
+    "app.kubernetes.io/version": "v1.9.0",
+    "helm.sh/chart": "harvester-node-disk-manager-1.9.0",
+    "pod-template-hash": "554f79c86b"
+   },
+   "name": "harvester-node-disk-manager-webhook-554f79c86b-st9rb",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "harvester-node-disk-manager-webhook-554f79c86b",
+     "uid": "6b37a885-e2ae-4084-979b-ad68ca7acb9f"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.1.5\"\n    ],\n    \"mac\": \"ba:89:85:12:2f:9d\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/instance": "harvester",
+    "app.kubernetes.io/name": "harvester-node-manager",
+    "controller-revision-hash": "69969cbc87",
+    "name": "harvester-node-manager",
+    "pod-template-generation": "6"
+   },
+   "name": "harvester-node-manager-66hbf",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "harvester-node-manager",
+     "uid": "124e14d5-ee3e-4a68-8b16-ff5b5f643072"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-02"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.0.2\"\n    ],\n    \"mac\": \"42:1f:12:83:4b:01\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/instance": "harvester",
+    "app.kubernetes.io/name": "harvester-node-manager",
+    "controller-revision-hash": "69969cbc87",
+    "name": "harvester-node-manager",
+    "pod-template-generation": "6"
+   },
+   "name": "harvester-node-manager-dq7r5",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "harvester-node-manager",
+     "uid": "124e14d5-ee3e-4a68-8b16-ff5b5f643072"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.19\"\n    ],\n    \"mac\": \"5e:f1:2e:70:e2:18\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/instance": "harvester",
+    "app.kubernetes.io/name": "harvester-node-manager",
+    "controller-revision-hash": "69969cbc87",
+    "name": "harvester-node-manager",
+    "pod-template-generation": "6"
+   },
+   "name": "harvester-node-manager-ph5lx",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "harvester-node-manager",
+     "uid": "124e14d5-ee3e-4a68-8b16-ff5b5f643072"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.2.22\"\n    ],\n    \"mac\": \"d2:68:22:44:27:9c\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/instance": "harvester",
+    "app.kubernetes.io/name": "harvester-node-manager",
+    "controller-revision-hash": "69969cbc87",
+    "name": "harvester-node-manager",
+    "pod-template-generation": "6"
+   },
+   "name": "harvester-node-manager-rzh2c",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "harvester-node-manager",
+     "uid": "124e14d5-ee3e-4a68-8b16-ff5b5f643072"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.2.19\"\n    ],\n    \"mac\": \"ae:3b:49:08:e0:66\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/name": "harvester-node-manager-webhook",
+    "pod-template-hash": "6885dc7864"
+   },
+   "name": "harvester-node-manager-webhook-6885dc7864-cbfbt",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "harvester-node-manager-webhook-6885dc7864",
+     "uid": "f3f9c30d-2bb7-485d-8643-8b68ad2fef47"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.11\"\n    ],\n    \"mac\": \"9a:4a:05:b9:a1:b2\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/name": "harvester-node-manager-webhook",
+    "pod-template-hash": "6885dc7864"
+   },
+   "name": "harvester-node-manager-webhook-6885dc7864-nvn8c",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "harvester-node-manager-webhook-6885dc7864",
+     "uid": "f3f9c30d-2bb7-485d-8643-8b68ad2fef47"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.1.2\"\n    ],\n    \"mac\": \"66:a8:04:4e:68:bd\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/name": "harvester-node-manager-webhook",
+    "pod-template-hash": "6885dc7864"
+   },
+   "name": "harvester-node-manager-webhook-6885dc7864-qt94b",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "harvester-node-manager-webhook-6885dc7864",
+     "uid": "f3f9c30d-2bb7-485d-8643-8b68ad2fef47"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-02"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.2\"\n    ],\n    \"mac\": \"5a:84:63:0f:fd:b4\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/component": "webhook-server",
+    "app.kubernetes.io/managed-by": "Helm",
+    "app.kubernetes.io/name": "harvester",
+    "app.kubernetes.io/part-of": "harvester",
+    "app.kubernetes.io/version": "v1.9.0",
+    "helm.sh/chart": "harvester-1.9.0",
+    "helm.sh/release": "harvester",
+    "pod-template-hash": "67b7745d66"
+   },
+   "name": "harvester-webhook-67b7745d66-fz6bb",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "harvester-webhook-67b7745d66",
+     "uid": "a660e8f0-af24-46cb-be5f-037f01b2d12f"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.0.32\"\n    ],\n    \"mac\": \"5a:89:18:57:f3:90\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/component": "webhook-server",
+    "app.kubernetes.io/managed-by": "Helm",
+    "app.kubernetes.io/name": "harvester",
+    "app.kubernetes.io/part-of": "harvester",
+    "app.kubernetes.io/version": "v1.9.0",
+    "helm.sh/chart": "harvester-1.9.0",
+    "helm.sh/release": "harvester",
+    "pod-template-hash": "67b7745d66"
+   },
+   "name": "harvester-webhook-67b7745d66-hf7sh",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "harvester-webhook-67b7745d66",
+     "uid": "a660e8f0-af24-46cb-be5f-037f01b2d12f"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.2.2\"\n    ],\n    \"mac\": \"ee:7b:b2:81:5d:6c\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/component": "webhook-server",
+    "app.kubernetes.io/managed-by": "Helm",
+    "app.kubernetes.io/name": "harvester",
+    "app.kubernetes.io/part-of": "harvester",
+    "app.kubernetes.io/version": "v1.9.0",
+    "helm.sh/chart": "harvester-1.9.0",
+    "helm.sh/release": "harvester",
+    "pod-template-hash": "67b7745d66"
+   },
+   "name": "harvester-webhook-67b7745d66-kppx7",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "harvester-webhook-67b7745d66",
+     "uid": "a660e8f0-af24-46cb-be5f-037f01b2d12f"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.2.31\"\n    ],\n    \"mac\": \"de:67:d4:be:0c:46\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "harvesterhci.io/upgradeLog": "hvst-upgrade-v190-upgradelog",
+    "harvesterhci.io/upgradeLogComponent": "downloader",
+    "pod-template-hash": "775dcf979"
+   },
+   "name": "hvst-upgrade-v190-upgradelog-downloader-775dcf979-7vffm",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "hvst-upgrade-v190-upgradelog-downloader-775dcf979",
+     "uid": "467f3895-8323-453f-a4e2-714ab5f70293"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "app.kubernetes.io/instance": "harvester",
+    "app.kubernetes.io/name": "kube-vip",
+    "controller-revision-hash": "569ccc9df",
+    "pod-template-generation": "6"
+   },
+   "name": "kube-vip-gsglb",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "kube-vip",
+     "uid": "82307165-06bc-4923-8b8b-e1c8ae9e24d9"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "app.kubernetes.io/instance": "harvester",
+    "app.kubernetes.io/name": "kube-vip",
+    "controller-revision-hash": "569ccc9df",
+    "pod-template-generation": "6"
+   },
+   "name": "kube-vip-vqcdc",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "kube-vip",
+     "uid": "82307165-06bc-4923-8b8b-e1c8ae9e24d9"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "app.kubernetes.io/instance": "harvester",
+    "app.kubernetes.io/name": "kube-vip",
+    "controller-revision-hash": "569ccc9df",
+    "pod-template-generation": "6"
+   },
+   "name": "kube-vip-x2lwg",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "kube-vip",
+     "uid": "82307165-06bc-4923-8b8b-e1c8ae9e24d9"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-02"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.2.15\"\n    ],\n    \"mac\": \"22:89:ac:87:09:3f\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/component": "kubevirt",
+    "app.kubernetes.io/managed-by": "virt-operator",
+    "app.kubernetes.io/version": "1.8.4-9.1",
+    "kubevirt.io": "virt-api",
+    "np.kubevirt.io/allow-access-cluster-services": "true",
+    "pod-template-hash": "5457965dbb",
+    "prometheus.kubevirt.io": "true"
+   },
+   "name": "virt-api-5457965dbb-8zsg8",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "virt-api-5457965dbb",
+     "uid": "60ea9407-a18a-4042-8f05-67adf90cbb1a"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.34\"\n    ],\n    \"mac\": \"56:3b:b3:97:be:3c\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/component": "kubevirt",
+    "app.kubernetes.io/managed-by": "virt-operator",
+    "app.kubernetes.io/version": "1.8.4-9.1",
+    "kubevirt.io": "virt-api",
+    "np.kubevirt.io/allow-access-cluster-services": "true",
+    "pod-template-hash": "5457965dbb",
+    "prometheus.kubevirt.io": "true"
+   },
+   "name": "virt-api-5457965dbb-gn2n5",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "virt-api-5457965dbb",
+     "uid": "60ea9407-a18a-4042-8f05-67adf90cbb1a"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.42\"\n    ],\n    \"mac\": \"32:48:89:2f:b5:9c\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/component": "kubevirt",
+    "app.kubernetes.io/managed-by": "virt-operator",
+    "app.kubernetes.io/version": "1.8.4-9.1",
+    "kubevirt.io": "virt-controller",
+    "np.kubevirt.io/allow-access-cluster-services": "true",
+    "pod-template-hash": "549c74c456",
+    "prometheus.kubevirt.io": "true"
+   },
+   "name": "virt-controller-549c74c456-j5lf2",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "virt-controller-549c74c456",
+     "uid": "3900cfb4-18b7-49ea-9485-1d463c2558e4"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.2.12\"\n    ],\n    \"mac\": \"06:6e:27:c0:f7:cc\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/component": "kubevirt",
+    "app.kubernetes.io/managed-by": "virt-operator",
+    "app.kubernetes.io/version": "1.8.4-9.1",
+    "kubevirt.io": "virt-controller",
+    "np.kubevirt.io/allow-access-cluster-services": "true",
+    "pod-template-hash": "549c74c456",
+    "prometheus.kubevirt.io": "true"
+   },
+   "name": "virt-controller-549c74c456-xs49l",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "virt-controller-549c74c456",
+     "uid": "3900cfb4-18b7-49ea-9485-1d463c2558e4"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.30\"\n    ],\n    \"mac\": \"ea:5e:c1:8d:09:1c\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/component": "kubevirt",
+    "app.kubernetes.io/managed-by": "virt-operator",
+    "app.kubernetes.io/version": "1.8.4-9.1",
+    "controller-revision-hash": "5894ff6f45",
+    "kubevirt.io": "virt-handler",
+    "np.kubevirt.io/allow-access-cluster-services": "true",
+    "pod-template-generation": "6",
+    "prometheus.kubevirt.io": "true"
+   },
+   "name": "virt-handler-6jhvr",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "virt-handler",
+     "uid": "c9af4c31-c34c-4771-ba53-73aaa2d076e9"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.0.25\"\n    ],\n    \"mac\": \"42:e5:ab:99:e4:76\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/component": "kubevirt",
+    "app.kubernetes.io/managed-by": "virt-operator",
+    "app.kubernetes.io/version": "1.8.4-9.1",
+    "controller-revision-hash": "5894ff6f45",
+    "kubevirt.io": "virt-handler",
+    "np.kubevirt.io/allow-access-cluster-services": "true",
+    "pod-template-generation": "6",
+    "prometheus.kubevirt.io": "true"
+   },
+   "name": "virt-handler-72m5s",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "virt-handler",
+     "uid": "c9af4c31-c34c-4771-ba53-73aaa2d076e9"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.1.8\"\n    ],\n    \"mac\": \"2e:8c:5a:6b:90:94\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/component": "kubevirt",
+    "app.kubernetes.io/managed-by": "virt-operator",
+    "app.kubernetes.io/version": "1.8.4-9.1",
+    "controller-revision-hash": "5894ff6f45",
+    "kubevirt.io": "virt-handler",
+    "np.kubevirt.io/allow-access-cluster-services": "true",
+    "pod-template-generation": "6",
+    "prometheus.kubevirt.io": "true"
+   },
+   "name": "virt-handler-d5kcn",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "virt-handler",
+     "uid": "c9af4c31-c34c-4771-ba53-73aaa2d076e9"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-02"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.2.36\"\n    ],\n    \"mac\": \"0a:45:71:70:11:9e\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/component": "kubevirt",
+    "app.kubernetes.io/managed-by": "virt-operator",
+    "app.kubernetes.io/version": "1.8.4-9.1",
+    "controller-revision-hash": "5894ff6f45",
+    "kubevirt.io": "virt-handler",
+    "np.kubevirt.io/allow-access-cluster-services": "true",
+    "pod-template-generation": "6",
+    "prometheus.kubevirt.io": "true"
+   },
+   "name": "virt-handler-wnqzp",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "virt-handler",
+     "uid": "c9af4c31-c34c-4771-ba53-73aaa2d076e9"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.17\"\n    ],\n    \"mac\": \"be:41:7b:f3:49:04\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/component": "operator",
+    "app.kubernetes.io/managed-by": "Helm",
+    "app.kubernetes.io/name": "virt-operator",
+    "app.kubernetes.io/part-of": "kubevirt-operator",
+    "app.kubernetes.io/version": "1.8.3",
+    "helm.sh/chart": "kubevirt-operator-0.7.0",
+    "helm.sh/release": "harvester",
+    "kubevirt.io": "virt-operator",
+    "pod-template-hash": "5d76f4589b",
+    "prometheus.kubevirt.io": "true"
+   },
+   "name": "virt-operator-5d76f4589b-rbvsd",
+   "namespace": "harvester-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "virt-operator-5d76f4589b",
+     "uid": "78026a63-4b7f-4259-be3a-6da0152d4944"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "component": "cloud-controller-manager",
+    "tier": "control-plane"
+   },
+   "name": "cloud-controller-manager-hv-01",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "v1",
+     "kind": "Node",
+     "name": "hv-01",
+     "uid": "2f3baf73-8c06-47ae-8d3f-999c392c9ed8"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "component": "cloud-controller-manager",
+    "tier": "control-plane"
+   },
+   "name": "cloud-controller-manager-hv-02",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "v1",
+     "kind": "Node",
+     "name": "hv-02",
+     "uid": "74cd475a-1bfa-4854-83ba-b1c0663dcf49"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-02"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "component": "cloud-controller-manager",
+    "tier": "control-plane"
+   },
+   "name": "cloud-controller-manager-hv-03",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "v1",
+     "kind": "Node",
+     "name": "hv-03",
+     "uid": "0c792274-29bb-444e-8c57-cb0ed7527c24"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "component": "etcd",
+    "tier": "control-plane"
+   },
+   "name": "etcd-hv-01",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "v1",
+     "kind": "Node",
+     "name": "hv-01",
+     "uid": "2f3baf73-8c06-47ae-8d3f-999c392c9ed8"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "component": "etcd",
+    "tier": "control-plane"
+   },
+   "name": "etcd-hv-02",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "v1",
+     "kind": "Node",
+     "name": "hv-02",
+     "uid": "74cd475a-1bfa-4854-83ba-b1c0663dcf49"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-02"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "component": "etcd",
+    "tier": "control-plane"
+   },
+   "name": "etcd-hv-03",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "v1",
+     "kind": "Node",
+     "name": "hv-03",
+     "uid": "0c792274-29bb-444e-8c57-cb0ed7527c24"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "app": "whereabouts",
+    "app.kubernetes.io/instance": "harvester",
+    "app.kubernetes.io/name": "whereabouts",
+    "controller-revision-hash": "6cc6484658",
+    "name": "whereabouts",
+    "pod-template-generation": "1"
+   },
+   "name": "harvester-whereabouts-48567",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "harvester-whereabouts",
+     "uid": "ffc4f43c-79aa-45bf-b3b3-074984118053"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-02"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "app": "whereabouts",
+    "app.kubernetes.io/instance": "harvester",
+    "app.kubernetes.io/name": "whereabouts",
+    "controller-revision-hash": "6cc6484658",
+    "name": "whereabouts",
+    "pod-template-generation": "1"
+   },
+   "name": "harvester-whereabouts-knlc4",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "harvester-whereabouts",
+     "uid": "ffc4f43c-79aa-45bf-b3b3-074984118053"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "app": "whereabouts",
+    "app.kubernetes.io/instance": "harvester",
+    "app.kubernetes.io/name": "whereabouts",
+    "controller-revision-hash": "6cc6484658",
+    "name": "whereabouts",
+    "pod-template-generation": "1"
+   },
+   "name": "harvester-whereabouts-t7wm2",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "harvester-whereabouts",
+     "uid": "ffc4f43c-79aa-45bf-b3b3-074984118053"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "app": "whereabouts",
+    "app.kubernetes.io/instance": "harvester",
+    "app.kubernetes.io/name": "whereabouts",
+    "controller-revision-hash": "6cc6484658",
+    "name": "whereabouts",
+    "pod-template-generation": "1"
+   },
+   "name": "harvester-whereabouts-xj5t6",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "harvester-whereabouts",
+     "uid": "ffc4f43c-79aa-45bf-b3b3-074984118053"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.0.19\"\n    ],\n    \"mac\": \"2e:2c:81:40:e7:09\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "batch.kubernetes.io/controller-uid": "bef9a456-1bcc-4670-8ca2-b6d9ee19de91",
+    "batch.kubernetes.io/job-name": "helm-install-kubeovn-operator",
+    "controller-uid": "bef9a456-1bcc-4670-8ca2-b6d9ee19de91",
+    "helmcharts.helm.cattle.io/chart": "kubeovn-operator",
+    "job-name": "helm-install-kubeovn-operator"
+   },
+   "name": "helm-install-kubeovn-operator-68rzk",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "batch/v1",
+     "kind": "Job",
+     "name": "helm-install-kubeovn-operator",
+     "uid": "bef9a456-1bcc-4670-8ca2-b6d9ee19de91"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "component": "kube-apiserver",
+    "tier": "control-plane"
+   },
+   "name": "kube-apiserver-hv-01",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "v1",
+     "kind": "Node",
+     "name": "hv-01",
+     "uid": "2f3baf73-8c06-47ae-8d3f-999c392c9ed8"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "component": "kube-apiserver",
+    "tier": "control-plane"
+   },
+   "name": "kube-apiserver-hv-02",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "v1",
+     "kind": "Node",
+     "name": "hv-02",
+     "uid": "74cd475a-1bfa-4854-83ba-b1c0663dcf49"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-02"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "component": "kube-apiserver",
+    "tier": "control-plane"
+   },
+   "name": "kube-apiserver-hv-03",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "v1",
+     "kind": "Node",
+     "name": "hv-03",
+     "uid": "0c792274-29bb-444e-8c57-cb0ed7527c24"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "component": "kube-controller-manager",
+    "tier": "control-plane"
+   },
+   "name": "kube-controller-manager-hv-01",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "v1",
+     "kind": "Node",
+     "name": "hv-01",
+     "uid": "2f3baf73-8c06-47ae-8d3f-999c392c9ed8"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "component": "kube-controller-manager",
+    "tier": "control-plane"
+   },
+   "name": "kube-controller-manager-hv-02",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "v1",
+     "kind": "Node",
+     "name": "hv-02",
+     "uid": "74cd475a-1bfa-4854-83ba-b1c0663dcf49"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-02"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "component": "kube-controller-manager",
+    "tier": "control-plane"
+   },
+   "name": "kube-controller-manager-hv-03",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "v1",
+     "kind": "Node",
+     "name": "hv-03",
+     "uid": "0c792274-29bb-444e-8c57-cb0ed7527c24"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "app": "kube-ovn-cni",
+    "component": "network",
+    "controller-revision-hash": "785df6dc5f",
+    "pod-template-generation": "1",
+    "type": "infra"
+   },
+   "name": "kube-ovn-cni-kz6lx",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "kube-ovn-cni",
+     "uid": "6521018d-6ca4-47f2-8dfd-958eb24621dd"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "app": "kube-ovn-cni",
+    "component": "network",
+    "controller-revision-hash": "785df6dc5f",
+    "pod-template-generation": "1",
+    "type": "infra"
+   },
+   "name": "kube-ovn-cni-lwj45",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "kube-ovn-cni",
+     "uid": "6521018d-6ca4-47f2-8dfd-958eb24621dd"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-02"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "app": "kube-ovn-cni",
+    "component": "network",
+    "controller-revision-hash": "785df6dc5f",
+    "pod-template-generation": "1",
+    "type": "infra"
+   },
+   "name": "kube-ovn-cni-nwtlf",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "kube-ovn-cni",
+     "uid": "6521018d-6ca4-47f2-8dfd-958eb24621dd"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "app": "kube-ovn-cni",
+    "component": "network",
+    "controller-revision-hash": "785df6dc5f",
+    "pod-template-generation": "1",
+    "type": "infra"
+   },
+   "name": "kube-ovn-cni-w28pw",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "kube-ovn-cni",
+     "uid": "6521018d-6ca4-47f2-8dfd-958eb24621dd"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "app": "kube-ovn-controller",
+    "component": "network",
+    "pod-template-hash": "7bf56bf595",
+    "type": "infra"
+   },
+   "name": "kube-ovn-controller-7bf56bf595-j9g4j",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "kube-ovn-controller-7bf56bf595",
+     "uid": "26e1f9cb-2eeb-48c0-a9ef-015e323709bd"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "app": "kube-ovn-controller",
+    "component": "network",
+    "pod-template-hash": "7bf56bf595",
+    "type": "infra"
+   },
+   "name": "kube-ovn-controller-7bf56bf595-l8bfd",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "kube-ovn-controller-7bf56bf595",
+     "uid": "26e1f9cb-2eeb-48c0-a9ef-015e323709bd"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "app": "kube-ovn-controller",
+    "component": "network",
+    "pod-template-hash": "7bf56bf595",
+    "type": "infra"
+   },
+   "name": "kube-ovn-controller-7bf56bf595-w7xs8",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "kube-ovn-controller-7bf56bf595",
+     "uid": "26e1f9cb-2eeb-48c0-a9ef-015e323709bd"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "app": "kube-ovn-monitor",
+    "component": "network",
+    "pod-template-hash": "7c464db87c",
+    "type": "infra"
+   },
+   "name": "kube-ovn-monitor-7c464db87c-bvz9c",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "kube-ovn-monitor-7c464db87c",
+     "uid": "0417f3f3-9b12-4702-905a-72aecb90d86d"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.2.13\"\n    ],\n    \"mac\": \"62:43:d1:8c:99:0a\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "kube-ovn-pinger",
+    "component": "network",
+    "controller-revision-hash": "76bd57558",
+    "pod-template-generation": "1",
+    "type": "infra"
+   },
+   "name": "kube-ovn-pinger-2j96s",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "kube-ovn-pinger",
+     "uid": "1bff97f5-0fe9-4fb9-8e6c-dd56b9cfb86b"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.0.10\"\n    ],\n    \"mac\": \"e6:c2:4b:20:5e:0a\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "kube-ovn-pinger",
+    "component": "network",
+    "controller-revision-hash": "76bd57558",
+    "pod-template-generation": "1",
+    "type": "infra"
+   },
+   "name": "kube-ovn-pinger-jfzgb",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "kube-ovn-pinger",
+     "uid": "1bff97f5-0fe9-4fb9-8e6c-dd56b9cfb86b"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.1.12\"\n    ],\n    \"mac\": \"d6:56:ef:2f:bf:0c\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "kube-ovn-pinger",
+    "component": "network",
+    "controller-revision-hash": "76bd57558",
+    "pod-template-generation": "1",
+    "type": "infra"
+   },
+   "name": "kube-ovn-pinger-mh94l",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "kube-ovn-pinger",
+     "uid": "1bff97f5-0fe9-4fb9-8e6c-dd56b9cfb86b"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-02"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.29\"\n    ],\n    \"mac\": \"c2:44:32:01:15:14\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "kube-ovn-pinger",
+    "component": "network",
+    "controller-revision-hash": "76bd57558",
+    "pod-template-generation": "1",
+    "type": "infra"
+   },
+   "name": "kube-ovn-pinger-zrgmv",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "kube-ovn-pinger",
+     "uid": "1bff97f5-0fe9-4fb9-8e6c-dd56b9cfb86b"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.0.6\"\n    ],\n    \"mac\": \"9e:38:48:45:e3:df\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "kube-ovn-webhook",
+    "pod-template-hash": "7764999c78"
+   },
+   "name": "kube-ovn-webhook-7764999c78-74rbc",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "kube-ovn-webhook-7764999c78",
+     "uid": "0fc7452f-0314-469f-8ee2-9298a34f8625"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "component": "kube-proxy",
+    "tier": "control-plane"
+   },
+   "name": "kube-proxy-hv-01",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "v1",
+     "kind": "Node",
+     "name": "hv-01",
+     "uid": "2f3baf73-8c06-47ae-8d3f-999c392c9ed8"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "component": "kube-proxy",
+    "tier": "control-plane"
+   },
+   "name": "kube-proxy-hv-02",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "v1",
+     "kind": "Node",
+     "name": "hv-02",
+     "uid": "74cd475a-1bfa-4854-83ba-b1c0663dcf49"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-02"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "component": "kube-proxy",
+    "tier": "control-plane"
+   },
+   "name": "kube-proxy-hv-03",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "v1",
+     "kind": "Node",
+     "name": "hv-03",
+     "uid": "0c792274-29bb-444e-8c57-cb0ed7527c24"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "component": "kube-proxy",
+    "tier": "control-plane"
+   },
+   "name": "kube-proxy-hv-04",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "v1",
+     "kind": "Node",
+     "name": "hv-04",
+     "uid": "d6d73e30-a537-4457-8ee9-c3e121ae34af"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "component": "kube-scheduler",
+    "tier": "control-plane"
+   },
+   "name": "kube-scheduler-hv-01",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "v1",
+     "kind": "Node",
+     "name": "hv-01",
+     "uid": "2f3baf73-8c06-47ae-8d3f-999c392c9ed8"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "component": "kube-scheduler",
+    "tier": "control-plane"
+   },
+   "name": "kube-scheduler-hv-02",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "v1",
+     "kind": "Node",
+     "name": "hv-02",
+     "uid": "74cd475a-1bfa-4854-83ba-b1c0663dcf49"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-02"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "component": "kube-scheduler",
+    "tier": "control-plane"
+   },
+   "name": "kube-scheduler-hv-03",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "v1",
+     "kind": "Node",
+     "name": "hv-03",
+     "uid": "0c792274-29bb-444e-8c57-cb0ed7527c24"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.25\"\n    ],\n    \"mac\": \"22:5f:dd:aa:e5:3a\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/instance": "kubeovn-operator",
+    "app.kubernetes.io/name": "kubeovn-operator",
+    "control-plane": "controller-manager",
+    "pod-template-hash": "945fd775d"
+   },
+   "name": "kubeovn-operator-controller-manager-945fd775d-vgdm9",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "kubeovn-operator-controller-manager-945fd775d",
+     "uid": "ebe7f1cc-ec0b-4701-92c3-ded0c45e6e4a"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.0.17\"\n    ],\n    \"mac\": \"b2:03:b4:44:ca:76\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/instance": "kubeovn-operator",
+    "app.kubernetes.io/name": "kubeovn-operator",
+    "control-plane": "controller-manager",
+    "pod-template-hash": "945fd775d"
+   },
+   "name": "kubeovn-operator-controller-manager-945fd775d-wpdbs",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "kubeovn-operator-controller-manager-945fd775d",
+     "uid": "ebe7f1cc-ec0b-4701-92c3-ded0c45e6e4a"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "app": "ovn-central",
+    "component": "network",
+    "ovn-nb-leader": "false",
+    "ovn-northd-leader": "true",
+    "ovn-sb-leader": "false",
+    "pod-template-hash": "64fbbc6dc7",
+    "type": "infra"
+   },
+   "name": "ovn-central-64fbbc6dc7-dxlsc",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "ovn-central-64fbbc6dc7",
+     "uid": "b8dd1dd1-275f-41de-b63a-08089046d7c1"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-02"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "app": "ovn-central",
+    "component": "network",
+    "ovn-nb-leader": "true",
+    "ovn-northd-leader": "false",
+    "ovn-sb-leader": "true",
+    "pod-template-hash": "64fbbc6dc7",
+    "type": "infra"
+   },
+   "name": "ovn-central-64fbbc6dc7-l7p64",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "ovn-central-64fbbc6dc7",
+     "uid": "b8dd1dd1-275f-41de-b63a-08089046d7c1"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "app": "ovn-central",
+    "component": "network",
+    "ovn-nb-leader": "false",
+    "ovn-northd-leader": "false",
+    "ovn-sb-leader": "false",
+    "pod-template-hash": "64fbbc6dc7",
+    "type": "infra"
+   },
+   "name": "ovn-central-64fbbc6dc7-qzk6k",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "ovn-central-64fbbc6dc7",
+     "uid": "b8dd1dd1-275f-41de-b63a-08089046d7c1"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.0.92\"\n    ],\n    \"mac\": \"de:62:95:36:4a:dc\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "ovn-topology-proxy"
+   },
+   "name": "ovn-topology-proxy",
+   "namespace": "kube-system"
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.0.90\"\n    ],\n    \"mac\": \"12:0f:79:ce:56:ca\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/instance": "ovn-topology",
+    "app.kubernetes.io/name": "ovn-topology",
+    "pod-template-hash": "54d6466444"
+   },
+   "name": "ovn-topologyd-54d6466444-s45q8",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "ovn-topologyd-54d6466444",
+     "uid": "3bb25c14-15e1-415f-ba2e-23ec82defb80"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "app": "ovs",
+    "component": "network",
+    "controller-revision-hash": "8d7679d9f",
+    "pod-template-generation": "1",
+    "type": "infra"
+   },
+   "name": "ovs-ovn-9cv5r",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "ovs-ovn",
+     "uid": "af3a7f98-012a-45cc-a12f-0262a05c70a2"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-02"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "app": "ovs",
+    "component": "network",
+    "controller-revision-hash": "8d7679d9f",
+    "pod-template-generation": "1",
+    "type": "infra"
+   },
+   "name": "ovs-ovn-jkhdh",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "ovs-ovn",
+     "uid": "af3a7f98-012a-45cc-a12f-0262a05c70a2"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "app": "ovs",
+    "component": "network",
+    "controller-revision-hash": "8d7679d9f",
+    "pod-template-generation": "1",
+    "type": "infra"
+   },
+   "name": "ovs-ovn-ngvb5",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "ovs-ovn",
+     "uid": "af3a7f98-012a-45cc-a12f-0262a05c70a2"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "app": "ovs",
+    "component": "network",
+    "controller-revision-hash": "8d7679d9f",
+    "pod-template-generation": "1",
+    "type": "infra"
+   },
+   "name": "ovs-ovn-sr95v",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "ovs-ovn",
+     "uid": "af3a7f98-012a-45cc-a12f-0262a05c70a2"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "controller-revision-hash": "cbb66f6ff",
+    "k8s-app": "canal",
+    "pod-template-generation": "1"
+   },
+   "name": "rke2-canal-5xd7r",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "rke2-canal",
+     "uid": "c7e4b10c-b588-4bb4-9c31-fe0861947fd1"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "controller-revision-hash": "cbb66f6ff",
+    "k8s-app": "canal",
+    "pod-template-generation": "1"
+   },
+   "name": "rke2-canal-dgcfv",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "rke2-canal",
+     "uid": "c7e4b10c-b588-4bb4-9c31-fe0861947fd1"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-02"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "controller-revision-hash": "cbb66f6ff",
+    "k8s-app": "canal",
+    "pod-template-generation": "1"
+   },
+   "name": "rke2-canal-hprbw",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "rke2-canal",
+     "uid": "c7e4b10c-b588-4bb4-9c31-fe0861947fd1"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "controller-revision-hash": "cbb66f6ff",
+    "k8s-app": "canal",
+    "pod-template-generation": "1"
+   },
+   "name": "rke2-canal-lrq4x",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "rke2-canal",
+     "uid": "c7e4b10c-b588-4bb4-9c31-fe0861947fd1"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.0.28\"\n    ],\n    \"mac\": \"a2:15:ba:8f:c9:d8\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/instance": "rke2-coredns",
+    "app.kubernetes.io/name": "rke2-coredns",
+    "k8s-app": "kube-dns",
+    "pod-template-hash": "747bbf9659"
+   },
+   "name": "rke2-coredns-rke2-coredns-747bbf9659-298qk",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "rke2-coredns-rke2-coredns-747bbf9659",
+     "uid": "5a4ca254-2de5-478e-8ea6-d5026239fd62"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.39\"\n    ],\n    \"mac\": \"c2:bf:e7:93:83:65\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/instance": "rke2-coredns",
+    "app.kubernetes.io/name": "rke2-coredns",
+    "k8s-app": "kube-dns",
+    "pod-template-hash": "747bbf9659"
+   },
+   "name": "rke2-coredns-rke2-coredns-747bbf9659-vqcdg",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "rke2-coredns-rke2-coredns-747bbf9659",
+     "uid": "5a4ca254-2de5-478e-8ea6-d5026239fd62"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.40\"\n    ],\n    \"mac\": \"7e:d2:e0:af:31:43\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/instance": "rke2-coredns",
+    "app.kubernetes.io/name": "rke2-coredns-autoscaler",
+    "k8s-app": "kube-dns-autoscaler",
+    "pod-template-hash": "55b8d68cd8"
+   },
+   "name": "rke2-coredns-rke2-coredns-autoscaler-55b8d68cd8-2mg88",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "rke2-coredns-rke2-coredns-autoscaler-55b8d68cd8",
+     "uid": "5dd7e1f6-359a-455e-843e-74599b717895"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.41\"\n    ],\n    \"mac\": \"4e:f7:88:71:17:af\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "rke2-metrics-server",
+    "app.kubernetes.io/instance": "rke2-metrics-server",
+    "app.kubernetes.io/name": "rke2-metrics-server",
+    "pod-template-hash": "c46f7bcc7"
+   },
+   "name": "rke2-metrics-server-c46f7bcc7-gw7rw",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "rke2-metrics-server-c46f7bcc7",
+     "uid": "cafad063-26d7-40b8-a8ed-e20fa6abd98a"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "app": "rke2-multus",
+    "controller-revision-hash": "6c4875c65",
+    "pod-template-generation": "1",
+    "tier": "node"
+   },
+   "name": "rke2-multus-dfsnb",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "rke2-multus",
+     "uid": "e0bfef5c-ea76-4057-b5c1-8298d1fb28bc"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-02"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "app": "rke2-multus",
+    "controller-revision-hash": "6c4875c65",
+    "pod-template-generation": "1",
+    "tier": "node"
+   },
+   "name": "rke2-multus-lbh94",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "rke2-multus",
+     "uid": "e0bfef5c-ea76-4057-b5c1-8298d1fb28bc"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "app": "rke2-multus",
+    "controller-revision-hash": "6c4875c65",
+    "pod-template-generation": "1",
+    "tier": "node"
+   },
+   "name": "rke2-multus-lspdb",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "rke2-multus",
+     "uid": "e0bfef5c-ea76-4057-b5c1-8298d1fb28bc"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "labels": {
+    "app": "rke2-multus",
+    "controller-revision-hash": "6c4875c65",
+    "pod-template-generation": "1",
+    "tier": "node"
+   },
+   "name": "rke2-multus-r2n8r",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "rke2-multus",
+     "uid": "e0bfef5c-ea76-4057-b5c1-8298d1fb28bc"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.23\"\n    ],\n    \"mac\": \"f2:15:d5:5b:91:1d\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/instance": "rke2-traefik-kube-system",
+    "app.kubernetes.io/managed-by": "Helm",
+    "app.kubernetes.io/name": "rke2-traefik",
+    "controller-revision-hash": "bd585bd44",
+    "helm.sh/chart": "rke2-traefik-40.1.009",
+    "pod-template-generation": "1"
+   },
+   "name": "rke2-traefik-228z2",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "rke2-traefik",
+     "uid": "dc606245-a1a8-4332-b1d8-fe498350eb4c"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.0.27\"\n    ],\n    \"mac\": \"2e:5e:16:e2:72:49\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/instance": "rke2-traefik-kube-system",
+    "app.kubernetes.io/managed-by": "Helm",
+    "app.kubernetes.io/name": "rke2-traefik",
+    "controller-revision-hash": "bd585bd44",
+    "helm.sh/chart": "rke2-traefik-40.1.009",
+    "pod-template-generation": "1"
+   },
+   "name": "rke2-traefik-b2dk4",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "rke2-traefik",
+     "uid": "dc606245-a1a8-4332-b1d8-fe498350eb4c"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.1.7\"\n    ],\n    \"mac\": \"6a:dd:3f:f8:1e:00\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/instance": "rke2-traefik-kube-system",
+    "app.kubernetes.io/managed-by": "Helm",
+    "app.kubernetes.io/name": "rke2-traefik",
+    "controller-revision-hash": "bd585bd44",
+    "helm.sh/chart": "rke2-traefik-40.1.009",
+    "pod-template-generation": "1"
+   },
+   "name": "rke2-traefik-ffdmw",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "rke2-traefik",
+     "uid": "dc606245-a1a8-4332-b1d8-fe498350eb4c"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-02"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.2.14\"\n    ],\n    \"mac\": \"e2:58:dc:e0:77:62\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/instance": "rke2-traefik-kube-system",
+    "app.kubernetes.io/managed-by": "Helm",
+    "app.kubernetes.io/name": "rke2-traefik",
+    "controller-revision-hash": "bd585bd44",
+    "helm.sh/chart": "rke2-traefik-40.1.009",
+    "pod-template-generation": "1"
+   },
+   "name": "rke2-traefik-hwsn4",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "rke2-traefik",
+     "uid": "dc606245-a1a8-4332-b1d8-fe498350eb4c"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.12\"\n    ],\n    \"mac\": \"92:aa:7c:d2:b7:01\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "snapshot-controller",
+    "pod-template-hash": "6456fb5757"
+   },
+   "name": "snapshot-controller-6456fb5757-r8mcg",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "snapshot-controller-6456fb5757",
+     "uid": "3c0753bf-c100-442d-9669-306557d437a0"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.0.26\"\n    ],\n    \"mac\": \"8e:27:f5:ae:9d:44\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "snapshot-controller",
+    "pod-template-hash": "6456fb5757"
+   },
+   "name": "snapshot-controller-6456fb5757-wvw67",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "snapshot-controller-6456fb5757",
+     "uid": "3c0753bf-c100-442d-9669-306557d437a0"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.0.9\"\n    ],\n    \"mac\": \"9a:dd:47:17:b7:86\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "whereabouts-controller",
+    "pod-template-hash": "7b89d499d4"
+   },
+   "name": "whereabouts-controller-7b89d499d4-xc2lr",
+   "namespace": "kube-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "whereabouts-controller-7b89d499d4",
+     "uid": "e8b01192-19b2-45e8-a26c-826a407fdf76"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.2.28\"\n    ],\n    \"mac\": \"fe:f6:28:90:e3:14\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "longhorn.io/component": "backing-image-manager",
+    "longhorn.io/disk-uuid": "e8a987e1-03d9-4882-b56c-d91319ed4a72",
+    "longhorn.io/managed-by": "longhorn-manager",
+    "longhorn.io/node": "hv-03"
+   },
+   "name": "bim-026bec5b132bd64adbe1f4b32ae5c30386db290e8f090fc576831cf5",
+   "namespace": "longhorn-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "longhorn.io/v1beta2",
+     "kind": "BackingImageManager",
+     "name": "bim-026bec5b132bd64adbe1f4b32ae5c30386db290e8f090fc576831cf5",
+     "uid": "880731b2-bb4e-44cc-9f0b-5122ba1dbac8"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.0.37\"\n    ],\n    \"mac\": \"36:78:24:c4:d0:0e\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "longhorn.io/component": "backing-image-manager",
+    "longhorn.io/disk-uuid": "b1ec2226-743c-4b6d-bb74-75659068d9fb",
+    "longhorn.io/managed-by": "longhorn-manager",
+    "longhorn.io/node": "hv-01"
+   },
+   "name": "bim-214d20bac3d3f9d01e0fcdec5ad59d8fc2d9040d96fbbc38d193e3c9",
+   "namespace": "longhorn-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "longhorn.io/v1beta2",
+     "kind": "BackingImageManager",
+     "name": "bim-214d20bac3d3f9d01e0fcdec5ad59d8fc2d9040d96fbbc38d193e3c9",
+     "uid": "d676f131-ca4e-4afe-8fae-fd09bd6351c8"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.0.35\"\n    ],\n    \"mac\": \"6e:01:57:30:70:fc\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "longhorn.io/component": "backing-image-manager",
+    "longhorn.io/disk-uuid": "6d53b09c-abb8-4f51-9c3e-847bce7daf90",
+    "longhorn.io/managed-by": "longhorn-manager",
+    "longhorn.io/node": "hv-01"
+   },
+   "name": "bim-27c002167c8c6e466c2a09ce1a3ba45ac7128e86d52b79b58497fc03",
+   "namespace": "longhorn-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "longhorn.io/v1beta2",
+     "kind": "BackingImageManager",
+     "name": "bim-27c002167c8c6e466c2a09ce1a3ba45ac7128e86d52b79b58497fc03",
+     "uid": "d2e837a2-ba37-4ebe-9260-7df2e0231ac8"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.2.29\"\n    ],\n    \"mac\": \"76:40:b7:89:6d:eb\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "longhorn.io/component": "backing-image-manager",
+    "longhorn.io/disk-uuid": "071196b9-e5a2-4bd9-9e52-e92428fa37c1",
+    "longhorn.io/managed-by": "longhorn-manager",
+    "longhorn.io/node": "hv-03"
+   },
+   "name": "bim-3b8b6c0ae1c7ce1a1b467987154da852a98a5f5bdfb341a364c7cb10",
+   "namespace": "longhorn-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "longhorn.io/v1beta2",
+     "kind": "BackingImageManager",
+     "name": "bim-3b8b6c0ae1c7ce1a1b467987154da852a98a5f5bdfb341a364c7cb10",
+     "uid": "ade0703d-2e24-41f6-8867-7228995b661a"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.1.17\"\n    ],\n    \"mac\": \"b6:90:b1:8b:51:9c\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "longhorn.io/component": "backing-image-manager",
+    "longhorn.io/disk-uuid": "9deb86d9-8c3c-4aba-b2cc-7f5aa27f11eb",
+    "longhorn.io/managed-by": "longhorn-manager",
+    "longhorn.io/node": "hv-02"
+   },
+   "name": "bim-774bffad77edb37da84003f6c456b3071b5ad5b840c7f2baa96a41ea",
+   "namespace": "longhorn-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "longhorn.io/v1beta2",
+     "kind": "BackingImageManager",
+     "name": "bim-774bffad77edb37da84003f6c456b3071b5ad5b840c7f2baa96a41ea",
+     "uid": "c9c8ac82-941a-4c57-9e8a-7b08201404a3"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-02"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.1.18\"\n    ],\n    \"mac\": \"12:dc:5b:bd:b9:b9\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "longhorn.io/component": "backing-image-manager",
+    "longhorn.io/disk-uuid": "05913898-af16-461b-8f9d-c71f516f29aa",
+    "longhorn.io/managed-by": "longhorn-manager",
+    "longhorn.io/node": "hv-02"
+   },
+   "name": "bim-c32c17e4a3f9cd87bca8fb59625a2d21201470173beb67bcdc129d29",
+   "namespace": "longhorn-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "longhorn.io/v1beta2",
+     "kind": "BackingImageManager",
+     "name": "bim-c32c17e4a3f9cd87bca8fb59625a2d21201470173beb67bcdc129d29",
+     "uid": "26df3436-e7aa-4b14-9ff1-16b7b94a7c43"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-02"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.46\"\n    ],\n    \"mac\": \"da:7e:17:92:ac:b9\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "longhorn.io/component": "backing-image-manager",
+    "longhorn.io/disk-uuid": "d996d4aa-a525-43cf-abde-8f6249c8d74a",
+    "longhorn.io/managed-by": "longhorn-manager",
+    "longhorn.io/node": "hv-04"
+   },
+   "name": "bim-e04d8bc7b3a1624aa4cb63132150d0e0e136fb15340f16b90030bdb1",
+   "namespace": "longhorn-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "longhorn.io/v1beta2",
+     "kind": "BackingImageManager",
+     "name": "bim-e04d8bc7b3a1624aa4cb63132150d0e0e136fb15340f16b90030bdb1",
+     "uid": "fa33de40-3fa7-4873-b2a2-2227b65ae08c"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.0.24\"\n    ],\n    \"mac\": \"8e:11:10:3a:ba:56\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "csi-attacher",
+    "pod-template-hash": "5598574f"
+   },
+   "name": "csi-attacher-5598574f-c559s",
+   "namespace": "longhorn-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "csi-attacher-5598574f",
+     "uid": "349e225d-7b09-4150-b906-a97a9dc9bfe5"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.2.3\"\n    ],\n    \"mac\": \"e2:5b:06:d1:97:95\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "csi-attacher",
+    "pod-template-hash": "5598574f"
+   },
+   "name": "csi-attacher-5598574f-xbg9v",
+   "namespace": "longhorn-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "csi-attacher-5598574f",
+     "uid": "349e225d-7b09-4150-b906-a97a9dc9bfe5"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.5\"\n    ],\n    \"mac\": \"56:e0:80:a9:da:28\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "csi-attacher",
+    "pod-template-hash": "5598574f"
+   },
+   "name": "csi-attacher-5598574f-zvrc8",
+   "namespace": "longhorn-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "csi-attacher-5598574f",
+     "uid": "349e225d-7b09-4150-b906-a97a9dc9bfe5"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.4\"\n    ],\n    \"mac\": \"b6:c7:0e:ca:f0:bf\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "csi-provisioner",
+    "pod-template-hash": "5f89fc84dc"
+   },
+   "name": "csi-provisioner-5f89fc84dc-644zn",
+   "namespace": "longhorn-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "csi-provisioner-5f89fc84dc",
+     "uid": "e97940cb-832f-4e4f-b764-76b8f1174366"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.0.11\"\n    ],\n    \"mac\": \"da:b2:91:17:bb:b2\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "csi-provisioner",
+    "pod-template-hash": "5f89fc84dc"
+   },
+   "name": "csi-provisioner-5f89fc84dc-mvwkj",
+   "namespace": "longhorn-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "csi-provisioner-5f89fc84dc",
+     "uid": "e97940cb-832f-4e4f-b764-76b8f1174366"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.2.9\"\n    ],\n    \"mac\": \"92:27:02:c6:98:03\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "csi-provisioner",
+    "pod-template-hash": "5f89fc84dc"
+   },
+   "name": "csi-provisioner-5f89fc84dc-sdkdj",
+   "namespace": "longhorn-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "csi-provisioner-5f89fc84dc",
+     "uid": "e97940cb-832f-4e4f-b764-76b8f1174366"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.3\"\n    ],\n    \"mac\": \"0e:07:b2:34:c1:93\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "csi-resizer",
+    "pod-template-hash": "54544fdfb5"
+   },
+   "name": "csi-resizer-54544fdfb5-n26q5",
+   "namespace": "longhorn-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "csi-resizer-54544fdfb5",
+     "uid": "8c3242fb-092a-4109-9511-c32696c8b102"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.2.17\"\n    ],\n    \"mac\": \"92:38:b6:a2:35:15\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "csi-resizer",
+    "pod-template-hash": "54544fdfb5"
+   },
+   "name": "csi-resizer-54544fdfb5-p9xvn",
+   "namespace": "longhorn-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "csi-resizer-54544fdfb5",
+     "uid": "8c3242fb-092a-4109-9511-c32696c8b102"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.0.20\"\n    ],\n    \"mac\": \"ee:fd:b5:93:fc:16\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "csi-resizer",
+    "pod-template-hash": "54544fdfb5"
+   },
+   "name": "csi-resizer-54544fdfb5-zfrpn",
+   "namespace": "longhorn-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "csi-resizer-54544fdfb5",
+     "uid": "8c3242fb-092a-4109-9511-c32696c8b102"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.2.24\"\n    ],\n    \"mac\": \"da:32:28:f4:06:dc\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "csi-snapshotter",
+    "pod-template-hash": "5ff7966987"
+   },
+   "name": "csi-snapshotter-5ff7966987-dxltn",
+   "namespace": "longhorn-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "csi-snapshotter-5ff7966987",
+     "uid": "255d4b45-1840-407b-a2f7-b7d9d37f424c"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.0.8\"\n    ],\n    \"mac\": \"66:02:d3:f1:27:50\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "csi-snapshotter",
+    "pod-template-hash": "5ff7966987"
+   },
+   "name": "csi-snapshotter-5ff7966987-q2n22",
+   "namespace": "longhorn-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "csi-snapshotter-5ff7966987",
+     "uid": "255d4b45-1840-407b-a2f7-b7d9d37f424c"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.24\"\n    ],\n    \"mac\": \"f2:57:90:d3:4d:ff\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "csi-snapshotter",
+    "pod-template-hash": "5ff7966987"
+   },
+   "name": "csi-snapshotter-5ff7966987-vkl85",
+   "namespace": "longhorn-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "csi-snapshotter-5ff7966987",
+     "uid": "255d4b45-1840-407b-a2f7-b7d9d37f424c"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.2.6\"\n    ],\n    \"mac\": \"92:95:f9:a4:37:a3\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "controller-revision-hash": "d8fc6fd85",
+    "longhorn.io/component": "engine-image",
+    "longhorn.io/engine-image": "ei-493e04e7",
+    "pod-template-generation": "1"
+   },
+   "name": "engine-image-ei-493e04e7-958g5",
+   "namespace": "longhorn-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "engine-image-ei-493e04e7",
+     "uid": "b9e56357-8c91-4c03-9620-f00d44a12fc4"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.20\"\n    ],\n    \"mac\": \"16:67:fe:7f:a1:05\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "controller-revision-hash": "d8fc6fd85",
+    "longhorn.io/component": "engine-image",
+    "longhorn.io/engine-image": "ei-493e04e7",
+    "pod-template-generation": "1"
+   },
+   "name": "engine-image-ei-493e04e7-ctwr8",
+   "namespace": "longhorn-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "engine-image-ei-493e04e7",
+     "uid": "b9e56357-8c91-4c03-9620-f00d44a12fc4"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.1.9\"\n    ],\n    \"mac\": \"26:ec:de:45:05:a6\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "controller-revision-hash": "d8fc6fd85",
+    "longhorn.io/component": "engine-image",
+    "longhorn.io/engine-image": "ei-493e04e7",
+    "pod-template-generation": "1"
+   },
+   "name": "engine-image-ei-493e04e7-g9ksc",
+   "namespace": "longhorn-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "engine-image-ei-493e04e7",
+     "uid": "b9e56357-8c91-4c03-9620-f00d44a12fc4"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-02"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.0.29\"\n    ],\n    \"mac\": \"6a:7b:64:4e:de:8e\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "controller-revision-hash": "d8fc6fd85",
+    "longhorn.io/component": "engine-image",
+    "longhorn.io/engine-image": "ei-493e04e7",
+    "pod-template-generation": "1"
+   },
+   "name": "engine-image-ei-493e04e7-psscl",
+   "namespace": "longhorn-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "engine-image-ei-493e04e7",
+     "uid": "b9e56357-8c91-4c03-9620-f00d44a12fc4"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.43\"\n    ],\n    \"mac\": \"fa:e5:d1:b5:56:b8\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "longhorn.io/component": "instance-manager",
+    "longhorn.io/data-engine": "v1",
+    "longhorn.io/instance-manager-image": "imi-663c32a8",
+    "longhorn.io/instance-manager-type": "aio",
+    "longhorn.io/managed-by": "longhorn-manager",
+    "longhorn.io/node": "hv-04"
+   },
+   "name": "instance-manager-19e65ef3386cf0fe6e3b689b8d87fa5a",
+   "namespace": "longhorn-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "longhorn.io/v1beta2",
+     "kind": "InstanceManager",
+     "name": "instance-manager-19e65ef3386cf0fe6e3b689b8d87fa5a",
+     "uid": "0d04a633-3001-40c9-b3a3-9da6013a482f"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.0.34\"\n    ],\n    \"mac\": \"46:bc:d7:2f:18:b1\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "longhorn.io/component": "instance-manager",
+    "longhorn.io/data-engine": "v2",
+    "longhorn.io/instance-manager-image": "imi-663c32a8",
+    "longhorn.io/instance-manager-type": "aio",
+    "longhorn.io/managed-by": "longhorn-manager",
+    "longhorn.io/node": "hv-01"
+   },
+   "name": "instance-manager-206017c7552deac97e569bd6fe1fc74f",
+   "namespace": "longhorn-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "longhorn.io/v1beta2",
+     "kind": "InstanceManager",
+     "name": "instance-manager-206017c7552deac97e569bd6fe1fc74f",
+     "uid": "a8a7cc55-6416-4b03-b1e0-cfd28c288a37"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.44\"\n    ],\n    \"mac\": \"e2:54:31:b1:80:d1\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "longhorn.io/component": "instance-manager",
+    "longhorn.io/data-engine": "v2",
+    "longhorn.io/instance-manager-image": "imi-663c32a8",
+    "longhorn.io/instance-manager-type": "aio",
+    "longhorn.io/managed-by": "longhorn-manager",
+    "longhorn.io/node": "hv-04"
+   },
+   "name": "instance-manager-47a45401d273fa4d48e07d6083b2e9c9",
+   "namespace": "longhorn-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "longhorn.io/v1beta2",
+     "kind": "InstanceManager",
+     "name": "instance-manager-47a45401d273fa4d48e07d6083b2e9c9",
+     "uid": "58020087-8b83-4c9d-a975-89a3e1fe3156"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.2.26\"\n    ],\n    \"mac\": \"82:b9:ed:9d:9b:1e\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "longhorn.io/component": "instance-manager",
+    "longhorn.io/data-engine": "v1",
+    "longhorn.io/instance-manager-image": "imi-663c32a8",
+    "longhorn.io/instance-manager-type": "aio",
+    "longhorn.io/managed-by": "longhorn-manager",
+    "longhorn.io/node": "hv-03"
+   },
+   "name": "instance-manager-58f675ab1ddd24c56127c5659089e311",
+   "namespace": "longhorn-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "longhorn.io/v1beta2",
+     "kind": "InstanceManager",
+     "name": "instance-manager-58f675ab1ddd24c56127c5659089e311",
+     "uid": "e2361c05-9101-419b-ad3b-e569a29c0138"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.2.27\"\n    ],\n    \"mac\": \"3e:88:93:45:5f:cb\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "longhorn.io/component": "instance-manager",
+    "longhorn.io/data-engine": "v2",
+    "longhorn.io/instance-manager-image": "imi-663c32a8",
+    "longhorn.io/instance-manager-type": "aio",
+    "longhorn.io/managed-by": "longhorn-manager",
+    "longhorn.io/node": "hv-03"
+   },
+   "name": "instance-manager-c3338afdac70071c2afcc72062724614",
+   "namespace": "longhorn-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "longhorn.io/v1beta2",
+     "kind": "InstanceManager",
+     "name": "instance-manager-c3338afdac70071c2afcc72062724614",
+     "uid": "a875ad49-ce5b-41fa-a4cc-5ffe27c6b17c"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.0.33\"\n    ],\n    \"mac\": \"86:a3:9d:16:77:48\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "longhorn.io/component": "instance-manager",
+    "longhorn.io/data-engine": "v1",
+    "longhorn.io/instance-manager-image": "imi-663c32a8",
+    "longhorn.io/instance-manager-type": "aio",
+    "longhorn.io/managed-by": "longhorn-manager",
+    "longhorn.io/node": "hv-01"
+   },
+   "name": "instance-manager-cc7281c17e5cc11f3688814f85ab2d9d",
+   "namespace": "longhorn-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "longhorn.io/v1beta2",
+     "kind": "InstanceManager",
+     "name": "instance-manager-cc7281c17e5cc11f3688814f85ab2d9d",
+     "uid": "e8c63192-b6ca-4d4f-9e7b-e920aa4520a8"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.1.14\"\n    ],\n    \"mac\": \"2a:ac:b2:fc:ca:ad\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "longhorn.io/component": "instance-manager",
+    "longhorn.io/data-engine": "v1",
+    "longhorn.io/instance-manager-image": "imi-663c32a8",
+    "longhorn.io/instance-manager-type": "aio",
+    "longhorn.io/managed-by": "longhorn-manager",
+    "longhorn.io/node": "hv-02"
+   },
+   "name": "instance-manager-dbdebd315ceb84965d253287519ff36a",
+   "namespace": "longhorn-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "longhorn.io/v1beta2",
+     "kind": "InstanceManager",
+     "name": "instance-manager-dbdebd315ceb84965d253287519ff36a",
+     "uid": "0fd26f75-7d73-4903-8f1e-a69ade8c01ac"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-02"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.1.15\"\n    ],\n    \"mac\": \"c2:02:99:75:b4:05\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "longhorn.io/component": "instance-manager",
+    "longhorn.io/data-engine": "v2",
+    "longhorn.io/instance-manager-image": "imi-663c32a8",
+    "longhorn.io/instance-manager-type": "aio",
+    "longhorn.io/managed-by": "longhorn-manager",
+    "longhorn.io/node": "hv-02"
+   },
+   "name": "instance-manager-f67ed5213c650ebb5df49abedbccfbfd",
+   "namespace": "longhorn-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "longhorn.io/v1beta2",
+     "kind": "InstanceManager",
+     "name": "instance-manager-f67ed5213c650ebb5df49abedbccfbfd",
+     "uid": "2bf73543-7134-470d-817e-33bcf45a2746"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-02"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.1.11\"\n    ],\n    \"mac\": \"9e:57:18:ec:cb:e9\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "longhorn-csi-plugin",
+    "controller-revision-hash": "7b9c88dcfb",
+    "pod-template-generation": "1"
+   },
+   "name": "longhorn-csi-plugin-gcjgk",
+   "namespace": "longhorn-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "longhorn-csi-plugin",
+     "uid": "242bf017-3785-4ea5-aa7d-fd1ac2cfbd2f"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-02"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.0.15\"\n    ],\n    \"mac\": \"9e:af:34:11:78:79\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "longhorn-csi-plugin",
+    "controller-revision-hash": "7b9c88dcfb",
+    "pod-template-generation": "1"
+   },
+   "name": "longhorn-csi-plugin-hgf6b",
+   "namespace": "longhorn-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "longhorn-csi-plugin",
+     "uid": "242bf017-3785-4ea5-aa7d-fd1ac2cfbd2f"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.2.18\"\n    ],\n    \"mac\": \"f6:72:43:af:43:ea\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "longhorn-csi-plugin",
+    "controller-revision-hash": "7b9c88dcfb",
+    "pod-template-generation": "1"
+   },
+   "name": "longhorn-csi-plugin-szv8v",
+   "namespace": "longhorn-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "longhorn-csi-plugin",
+     "uid": "242bf017-3785-4ea5-aa7d-fd1ac2cfbd2f"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.18\"\n    ],\n    \"mac\": \"7e:93:bf:22:45:07\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "longhorn-csi-plugin",
+    "controller-revision-hash": "7b9c88dcfb",
+    "pod-template-generation": "1"
+   },
+   "name": "longhorn-csi-plugin-z6h9j",
+   "namespace": "longhorn-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "longhorn-csi-plugin",
+     "uid": "242bf017-3785-4ea5-aa7d-fd1ac2cfbd2f"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.14\"\n    ],\n    \"mac\": \"36:3b:89:40:10:97\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "longhorn-driver-deployer",
+    "app.kubernetes.io/instance": "harvester",
+    "app.kubernetes.io/managed-by": "Helm",
+    "app.kubernetes.io/name": "longhorn",
+    "app.kubernetes.io/version": "v1.12.1",
+    "helm.sh/chart": "longhorn-1.12.1",
+    "pod-template-hash": "74548d7b85"
+   },
+   "name": "longhorn-driver-deployer-74548d7b85-hz9g6",
+   "namespace": "longhorn-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "longhorn-driver-deployer-74548d7b85",
+     "uid": "32baa6a0-0400-4ff2-b3de-09cde27e9307"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.0.23\"\n    ],\n    \"mac\": \"82:5e:c7:bd:bd:99\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "longhorn-manager",
+    "app.kubernetes.io/instance": "harvester",
+    "app.kubernetes.io/managed-by": "Helm",
+    "app.kubernetes.io/name": "longhorn",
+    "app.kubernetes.io/version": "v1.12.1",
+    "controller-revision-hash": "7797c6d5b9",
+    "helm.sh/chart": "longhorn-1.12.1",
+    "longhorn.io/admission-webhook": "longhorn-admission-webhook",
+    "longhorn.io/recovery-backend": "longhorn-recovery-backend",
+    "pod-template-generation": "6"
+   },
+   "name": "longhorn-manager-grc7q",
+   "namespace": "longhorn-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "longhorn-manager",
+     "uid": "d92f2ee9-5159-4086-b9e3-a832cd290187"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.2.10\"\n    ],\n    \"mac\": \"12:17:2d:1e:5a:3d\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "longhorn-manager",
+    "app.kubernetes.io/instance": "harvester",
+    "app.kubernetes.io/managed-by": "Helm",
+    "app.kubernetes.io/name": "longhorn",
+    "app.kubernetes.io/version": "v1.12.1",
+    "controller-revision-hash": "7797c6d5b9",
+    "helm.sh/chart": "longhorn-1.12.1",
+    "longhorn.io/admission-webhook": "longhorn-admission-webhook",
+    "longhorn.io/recovery-backend": "longhorn-recovery-backend",
+    "pod-template-generation": "6"
+   },
+   "name": "longhorn-manager-m7xx6",
+   "namespace": "longhorn-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "longhorn-manager",
+     "uid": "d92f2ee9-5159-4086-b9e3-a832cd290187"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.22\"\n    ],\n    \"mac\": \"f6:56:fe:c7:1a:cb\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "longhorn-manager",
+    "app.kubernetes.io/instance": "harvester",
+    "app.kubernetes.io/managed-by": "Helm",
+    "app.kubernetes.io/name": "longhorn",
+    "app.kubernetes.io/version": "v1.12.1",
+    "controller-revision-hash": "7797c6d5b9",
+    "helm.sh/chart": "longhorn-1.12.1",
+    "longhorn.io/admission-webhook": "longhorn-admission-webhook",
+    "longhorn.io/recovery-backend": "longhorn-recovery-backend",
+    "pod-template-generation": "6"
+   },
+   "name": "longhorn-manager-n9zjt",
+   "namespace": "longhorn-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "longhorn-manager",
+     "uid": "d92f2ee9-5159-4086-b9e3-a832cd290187"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.1.10\"\n    ],\n    \"mac\": \"86:a1:3a:dd:56:5d\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "longhorn-manager",
+    "app.kubernetes.io/instance": "harvester",
+    "app.kubernetes.io/managed-by": "Helm",
+    "app.kubernetes.io/name": "longhorn",
+    "app.kubernetes.io/version": "v1.12.1",
+    "controller-revision-hash": "7797c6d5b9",
+    "helm.sh/chart": "longhorn-1.12.1",
+    "longhorn.io/admission-webhook": "longhorn-admission-webhook",
+    "longhorn.io/recovery-backend": "longhorn-recovery-backend",
+    "pod-template-generation": "6"
+   },
+   "name": "longhorn-manager-xp8d4",
+   "namespace": "longhorn-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "longhorn-manager",
+     "uid": "d92f2ee9-5159-4086-b9e3-a832cd290187"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-02"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.0.31\"\n    ],\n    \"mac\": \"de:5c:2f:05:09:80\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "longhorn-ui",
+    "app.kubernetes.io/instance": "harvester",
+    "app.kubernetes.io/managed-by": "Helm",
+    "app.kubernetes.io/name": "longhorn",
+    "app.kubernetes.io/version": "v1.12.1",
+    "helm.sh/chart": "longhorn-1.12.1",
+    "pod-template-hash": "566fbfd6b8"
+   },
+   "name": "longhorn-ui-566fbfd6b8-kwcvd",
+   "namespace": "longhorn-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "longhorn-ui-566fbfd6b8",
+     "uid": "79b615fd-5678-485d-a398-3e59cd775fde"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.10\"\n    ],\n    \"mac\": \"9a:1d:5c:6b:ba:1c\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "longhorn-ui",
+    "app.kubernetes.io/instance": "harvester",
+    "app.kubernetes.io/managed-by": "Helm",
+    "app.kubernetes.io/name": "longhorn",
+    "app.kubernetes.io/version": "v1.12.1",
+    "helm.sh/chart": "longhorn-1.12.1",
+    "pod-template-hash": "566fbfd6b8"
+   },
+   "name": "longhorn-ui-566fbfd6b8-pll9t",
+   "namespace": "longhorn-system",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "longhorn-ui-566fbfd6b8",
+     "uid": "79b615fd-5678-485d-a398-3e59cd775fde"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.0.16\"\n    ],\n    \"mac\": \"22:18:c2:9b:a6:db\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "catalog-operator",
+    "pod-template-hash": "6587dcb8f9"
+   },
+   "name": "catalog-operator-6587dcb8f9-sdrvn",
+   "namespace": "olm",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "catalog-operator-6587dcb8f9",
+     "uid": "4a807876-2781-407b-90ac-f3943a656f2a"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.26\"\n    ],\n    \"mac\": \"26:45:d6:60:ba:7c\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "olm-operator",
+    "pod-template-hash": "7cc6f4bbc4"
+   },
+   "name": "olm-operator-7cc6f4bbc4-mqrr2",
+   "namespace": "olm",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "olm-operator-7cc6f4bbc4",
+     "uid": "d294972f-98f5-4822-8ab4-505bfb3d7db9"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.2.73\"\n    ],\n    \"mac\": \"c2:6e:f5:21:b7:d3\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "catalogsource.operators.coreos.com/update": "",
+    "olm.catalogSource": "operatorhubio-catalog",
+    "olm.managed": "true",
+    "olm.pod-spec-hash": "28K7d8LWkgurvgPlYNUPKKgu4cKP79dZmgDUZf"
+   },
+   "name": "operatorhubio-catalog-lz6ng",
+   "namespace": "olm",
+   "ownerReferences": [
+    {
+     "apiVersion": "operators.coreos.com/v1alpha1",
+     "kind": "CatalogSource",
+     "name": "operatorhubio-catalog",
+     "uid": "9596ae6a-736d-4240-b0b2-ac61075ec7bc"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.21\"\n    ],\n    \"mac\": \"76:61:6f:04:e6:cc\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "packageserver",
+    "pod-template-hash": "74bf6dd4dc"
+   },
+   "name": "packageserver-74bf6dd4dc-bmscf",
+   "namespace": "olm",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "packageserver-74bf6dd4dc",
+     "uid": "7dd32463-c65f-41f0-a269-6a9f367a91fe"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.0.19\"\n    ],\n    \"mac\": \"e6:ec:71:9e:3c:1a\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app": "packageserver",
+    "pod-template-hash": "74bf6dd4dc"
+   },
+   "name": "packageserver-74bf6dd4dc-mwsp4",
+   "namespace": "olm",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "packageserver-74bf6dd4dc",
+     "uid": "7dd32463-c65f-41f0-a269-6a9f367a91fe"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.160\"\n    ],\n    \"mac\": \"42:69:17:56:1e:70\",\n    \"default\": true,\n    \"dns\": {}\n},{\n    \"name\": \"onewater/onewater\",\n    \"interface\": \"pod37a8eec1ce1\",\n    \"ips\": [\n        \"192.168.54.36\"\n    ],\n    \"mac\": \"d6:c4:54:0b:7b:5b\",\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "harvesterhci.io/vmName": "vm-2",
+    "kubevirt.io": "virt-launcher",
+    "kubevirt.io/created-by": "8a15412a-af05-442b-9fc9-b0f9f0a5ca31",
+    "kubevirt.io/nodeName": "hv-04",
+    "vm.kubevirt.io/name": "vm-2",
+    "vmi.kubevirt.io/id": "vm-2"
+   },
+   "name": "virt-launcher-vm-2-swms2",
+   "namespace": "onewater",
+   "ownerReferences": [
+    {
+     "apiVersion": "kubevirt.io/v1",
+     "kind": "VirtualMachineInstance",
+     "name": "vm-2",
+     "uid": "8a15412a-af05-442b-9fc9-b0f9f0a5ca31"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.2.37\"\n    ],\n    \"mac\": \"aa:20:d4:c2:fb:e8\",\n    \"default\": true,\n    \"dns\": {}\n},{\n    \"name\": \"onewater/onewater\",\n    \"interface\": \"pod37a8eec1ce1\",\n    \"ips\": [\n        \"192.168.54.35\"\n    ],\n    \"mac\": \"e6:10:52:5b:4f:fd\",\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "harvesterhci.io/vmName": "vm-onewater",
+    "kubevirt.io": "virt-launcher",
+    "kubevirt.io/created-by": "33675e16-67ff-44ac-bd1a-38f646a683eb",
+    "kubevirt.io/nodeName": "hv-03",
+    "vm.kubevirt.io/name": "vm-onewater",
+    "vmi.kubevirt.io/id": "vm-onewater"
+   },
+   "name": "virt-launcher-vm-onewater-mfjq5",
+   "namespace": "onewater",
+   "ownerReferences": [
+    {
+     "apiVersion": "kubevirt.io/v1",
+     "kind": "VirtualMachineInstance",
+     "name": "vm-onewater",
+     "uid": "33675e16-67ff-44ac-bd1a-38f646a683eb"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.2.7\"\n    ],\n    \"mac\": \"62:74:a0:50:cc:fa\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/component": "controller-manager",
+    "app.kubernetes.io/name": "node-healthcheck-operator",
+    "pod-template-hash": "54647f68d9"
+   },
+   "name": "node-healthcheck-controller-manager-54647f68d9-jgs55",
+   "namespace": "operators",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "node-healthcheck-controller-manager-54647f68d9",
+     "uid": "a4e4f11c-ab37-4c79-baa4-c1c9483b4ad7"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.0.3\"\n    ],\n    \"mac\": \"16:50:56:ce:29:e3\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/component": "controller-manager",
+    "app.kubernetes.io/name": "node-healthcheck-operator",
+    "pod-template-hash": "54647f68d9"
+   },
+   "name": "node-healthcheck-controller-manager-54647f68d9-sh4wf",
+   "namespace": "operators",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "node-healthcheck-controller-manager-54647f68d9",
+     "uid": "a4e4f11c-ab37-4c79-baa4-c1c9483b4ad7"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.0.13\"\n    ],\n    \"mac\": \"26:99:6f:2b:5f:3e\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "control-plane": "controller-manager",
+    "pod-template-hash": "666db9d5c9",
+    "self-node-remediation-operator": ""
+   },
+   "name": "self-node-remediation-controller-manager-666db9d5c9-k65g9",
+   "namespace": "operators",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "self-node-remediation-controller-manager-666db9d5c9",
+     "uid": "71e734b2-eace-4318-b3d4-33eed40e680f"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.28\"\n    ],\n    \"mac\": \"1e:51:5f:da:3b:fd\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "control-plane": "controller-manager",
+    "pod-template-hash": "666db9d5c9",
+    "self-node-remediation-operator": ""
+   },
+   "name": "self-node-remediation-controller-manager-666db9d5c9-n7zh4",
+   "namespace": "operators",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "ReplicaSet",
+     "name": "self-node-remediation-controller-manager-666db9d5c9",
+     "uid": "71e734b2-eace-4318-b3d4-33eed40e680f"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.0.22\"\n    ],\n    \"mac\": \"86:bf:2f:f2:69:55\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/component": "agent",
+    "app.kubernetes.io/name": "self-node-remediation",
+    "controller-revision-hash": "58b9f846bc",
+    "pod-template-generation": "2"
+   },
+   "name": "self-node-remediation-ds-b2gzp",
+   "namespace": "operators",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "self-node-remediation-ds",
+     "uid": "75792742-3ad1-4fd8-b438-09ffd3b31711"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-01"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.2.20\"\n    ],\n    \"mac\": \"0e:c3:c8:d5:d7:28\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/component": "agent",
+    "app.kubernetes.io/name": "self-node-remediation",
+    "controller-revision-hash": "58b9f846bc",
+    "pod-template-generation": "2"
+   },
+   "name": "self-node-remediation-ds-b8xk8",
+   "namespace": "operators",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "self-node-remediation-ds",
+     "uid": "75792742-3ad1-4fd8-b438-09ffd3b31711"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.1.4\"\n    ],\n    \"mac\": \"b2:39:7a:91:41:46\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/component": "agent",
+    "app.kubernetes.io/name": "self-node-remediation",
+    "controller-revision-hash": "58b9f846bc",
+    "pod-template-generation": "2"
+   },
+   "name": "self-node-remediation-ds-htr7b",
+   "namespace": "operators",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "self-node-remediation-ds",
+     "uid": "75792742-3ad1-4fd8-b438-09ffd3b31711"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-02"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.13\"\n    ],\n    \"mac\": \"1a:8e:31:a6:d2:17\",\n    \"default\": true,\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "app.kubernetes.io/component": "agent",
+    "app.kubernetes.io/name": "self-node-remediation",
+    "controller-revision-hash": "58b9f846bc",
+    "pod-template-generation": "2"
+   },
+   "name": "self-node-remediation-ds-m4x6h",
+   "namespace": "operators",
+   "ownerReferences": [
+    {
+     "apiVersion": "apps/v1",
+     "kind": "DaemonSet",
+     "name": "self-node-remediation-ds",
+     "uid": "75792742-3ad1-4fd8-b438-09ffd3b31711"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.1.31\"\n    ],\n    \"mac\": \"b6:d3:31:80:9c:af\",\n    \"default\": true,\n    \"dns\": {}\n},{\n    \"name\": \"twowater/twowater\",\n    \"interface\": \"pod37a8eec1ce1\",\n    \"ips\": [\n        \"192.168.55.50\"\n    ],\n    \"mac\": \"12:07:c5:da:e1:dd\",\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "harvesterhci.io/vmName": "vm-twowater",
+    "kubevirt.io": "virt-launcher",
+    "kubevirt.io/created-by": "36ce9b9b-d92d-4185-8a29-51d260b18f99",
+    "kubevirt.io/migrationJobUID": "0f7e21af-d591-4528-a00c-b0750e56ebde",
+    "kubevirt.io/nodeName": "hv-02",
+    "vm.kubevirt.io/name": "vm-twowater",
+    "vmi.kubevirt.io/id": "vm-twowater"
+   },
+   "name": "virt-launcher-vm-twowater-dbst2",
+   "namespace": "twowater",
+   "ownerReferences": [
+    {
+     "apiVersion": "kubevirt.io/v1",
+     "kind": "VirtualMachineInstance",
+     "name": "vm-twowater",
+     "uid": "36ce9b9b-d92d-4185-8a29-51d260b18f99"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-02"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.3.51\"\n    ],\n    \"mac\": \"b2:fc:ad:f2:15:52\",\n    \"default\": true,\n    \"dns\": {}\n},{\n    \"name\": \"twowater/twowater\",\n    \"interface\": \"pod37a8eec1ce1\",\n    \"ips\": [\n        \"192.168.55.50\"\n    ],\n    \"mac\": \"12:07:c5:da:e1:dd\",\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "harvesterhci.io/vmName": "vm-twowater",
+    "kubevirt.io": "virt-launcher",
+    "kubevirt.io/created-by": "36ce9b9b-d92d-4185-8a29-51d260b18f99",
+    "kubevirt.io/nodeName": "hv-04",
+    "vm.kubevirt.io/name": "vm-twowater",
+    "vmi.kubevirt.io/id": "vm-twowater"
+   },
+   "name": "virt-launcher-vm-twowater-jkqgg",
+   "namespace": "twowater",
+   "ownerReferences": [
+    {
+     "apiVersion": "kubevirt.io/v1",
+     "kind": "VirtualMachineInstance",
+     "name": "vm-twowater",
+     "uid": "36ce9b9b-d92d-4185-8a29-51d260b18f99"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-04"
+  }
+ },
+ {
+  "metadata": {
+   "annotations": {
+    "k8s.v1.cni.cncf.io/network-status": "[{\n    \"name\": \"k8s-pod-network\",\n    \"interface\": \"eth0\",\n    \"ips\": [\n        \"10.52.2.41\"\n    ],\n    \"mac\": \"aa:66:2f:67:b1:43\",\n    \"default\": true,\n    \"dns\": {}\n},{\n    \"name\": \"twowater/twowater\",\n    \"interface\": \"pod37a8eec1ce1\",\n    \"ips\": [\n        \"192.168.55.50\"\n    ],\n    \"mac\": \"12:07:c5:da:e1:dd\",\n    \"dns\": {}\n}]"
+   },
+   "labels": {
+    "harvesterhci.io/vmName": "vm-twowater",
+    "kubevirt.io": "virt-launcher",
+    "kubevirt.io/created-by": "36ce9b9b-d92d-4185-8a29-51d260b18f99",
+    "kubevirt.io/migrationJobUID": "c557a60f-8fad-49f6-91a2-56ae4e80d4bb",
+    "kubevirt.io/nodeName": "hv-03",
+    "vm.kubevirt.io/name": "vm-twowater",
+    "vmi.kubevirt.io/id": "vm-twowater"
+   },
+   "name": "virt-launcher-vm-twowater-m8wsf",
+   "namespace": "twowater",
+   "ownerReferences": [
+    {
+     "apiVersion": "kubevirt.io/v1",
+     "kind": "VirtualMachineInstance",
+     "name": "vm-twowater",
+     "uid": "36ce9b9b-d92d-4185-8a29-51d260b18f99"
+    }
+   ]
+  },
+  "spec": {
+   "nodeName": "hv-03"
+  }
+ }
+]

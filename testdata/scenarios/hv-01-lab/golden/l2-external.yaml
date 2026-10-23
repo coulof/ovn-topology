@@ -1,0 +1,70 @@
+edges:
+- id: edge:ls:57386a16-5084-4188-b376-ef826d828be5-lsp:39fb08fc-1b6c-40d9-8451-c1702c720b44-contains
+  source: ls:57386a16-5084-4188-b376-ef826d828be5
+  target: lsp:39fb08fc-1b6c-40d9-8451-c1702c720b44
+  type: contains
+- id: edge:ls:57386a16-5084-4188-b376-ef826d828be5-lsp:5654c0d9-e37a-4805-9ae4-a193826286f0-contains
+  source: ls:57386a16-5084-4188-b376-ef826d828be5
+  target: lsp:5654c0d9-e37a-4805-9ae4-a193826286f0
+  type: contains
+- id: edge:ls:57386a16-5084-4188-b376-ef826d828be5-lsp:b843d8d4-e602-4260-9a5b-cd681db87dbc-contains
+  source: ls:57386a16-5084-4188-b376-ef826d828be5
+  target: lsp:b843d8d4-e602-4260-9a5b-cd681db87dbc
+  type: contains
+nodes:
+- id: ls:57386a16-5084-4188-b376-ef826d828be5
+  k8s:
+    vendor: kube-ovn
+  name: external
+  properties:
+    portCount: 3
+  type: LS
+- id: lsp:39fb08fc-1b6c-40d9-8451-c1702c720b44
+  k8s:
+    subnet: external
+    vendor: kube-ovn
+  name: localnet.external
+  properties:
+    addresses:
+    - unknown
+    boundChassis: ""
+    boundState: unbound
+    enabled: true
+    type: localnet
+    up: false
+  type: LSP
+- id: lsp:5654c0d9-e37a-4805-9ae4-a193826286f0
+  k8s:
+    subnet: external
+    vendor: kube-ovn
+  name: external-vpc-onewater
+  properties:
+    addresses:
+    - router
+    boundChassis: ""
+    boundState: unbound
+    enabled: true
+    type: router
+    up: true
+  type: LSP
+- id: lsp:b843d8d4-e602-4260-9a5b-cd681db87dbc
+  k8s:
+    subnet: external
+    vendor: kube-ovn
+  name: external-vpc-twowater
+  properties:
+    addresses:
+    - router
+    boundChassis: ""
+    boundState: unbound
+    enabled: true
+    type: router
+    up: true
+  type: LSP
+pagination:
+  page: 1
+  pageSize: 1000
+  totalItems: 3
+  totalPages: 1
+revision: 1
+view: l2

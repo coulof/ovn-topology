@@ -1,0 +1,6 @@
+{
+ "scenario": "hv-01-lab",
+ "captured": "2026-10-23T07:31:11Z",
+ "ovnCentralImage": "docker.io/kubeovn/kube-ovn:v1.16.2",
+ "ovnVersion": "ovn-nbctl 25.03.4"
+}

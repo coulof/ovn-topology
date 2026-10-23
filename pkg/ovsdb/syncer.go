@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log/slog"
 	"sync"
+	"sync/atomic"
 	"time"
 
 	"github.com/coulof/ovn-topology/pkg/graph"
@@ -30,13 +31,25 @@ type dbEvent struct {
 }
 
 // Syncer manages OVSDB monitors for NB and SB, maintaining an up-to-date graph store.
+//
+// The libovsdb cache is the source of truth; the snapshot follows it through cache
+// events. Whenever events may have been missed the snapshot is rebuilt from the cache
+// (a resync): after a reconnect, because libovsdb purges and repopulates its cache
+// without emitting Delete events for rows removed while disconnected, and after the
+// event queue overflowed.
 type Syncer struct {
 	nbClient client.Client
 	sbClient client.Client
 	store    *graph.Store
 	logger   *slog.Logger
 
+	// healthEvery is the period of the Echo probe that detects outages and reconnects.
+	healthEvery time.Duration
+
 	eventsChan chan dbEvent
+	resyncCh   chan string // reason; buffered 1, requests coalesce
+	nbUp       atomic.Bool
+	sbUp       atomic.Bool
 	closeOnce  sync.Once
 	stopCh     chan struct{}
 }
@@ -47,12 +60,14 @@ func NewSyncer(nbClient, sbClient client.Client, store *graph.Store, logger *slo
 		logger = slog.Default()
 	}
 	return &Syncer{
-		nbClient:   nbClient,
-		sbClient:   sbClient,
-		store:      store,
-		logger:     logger,
-		eventsChan: make(chan dbEvent, 1024),
-		stopCh:     make(chan struct{}),
+		nbClient:    nbClient,
+		sbClient:    sbClient,
+		store:       store,
+		logger:      logger,
+		healthEvery: 2 * time.Second,
+		eventsChan:  make(chan dbEvent, 1024),
+		resyncCh:    make(chan string, 1),
+		stopCh:      make(chan struct{}),
 	}
 }
 
@@ -71,7 +86,8 @@ func (s *Syncer) Start(ctx context.Context) error {
 		return fmt.Errorf("failed to connect to OVN SB: %w", err)
 	}
 
-	// Register cache event handlers before starting monitors
+	// Register cache event handlers before starting monitors. libovsdb keeps the same
+	// cache (and so these handlers) across reconnects when reconnect is enabled.
 	s.registerHandlers()
 
 	// Start monitors
@@ -81,6 +97,8 @@ func (s *Syncer) Start(ctx context.Context) error {
 	if _, err := s.sbClient.MonitorAll(ctx); err != nil {
 		return fmt.Errorf("failed to monitor OVN SB: %w", err)
 	}
+	s.nbUp.Store(true)
+	s.sbUp.Store(true)
 
 	// Perform initial full rebuild from monitor caches
 	if err := s.rebuildFullSnapshot(ctx); err != nil {
@@ -90,9 +108,9 @@ func (s *Syncer) Start(ctx context.Context) error {
 	s.store.SetReady(true)
 	s.logger.Info("initial ovn topology snapshot synchronized successfully")
 
-	// Start event loop for incremental updates and disconnect handling
+	// Start event loop for incremental updates and the health probe
 	go s.processEvents(ctx)
-	go s.watchDisconnects(ctx)
+	go s.watchHealth(ctx)
 
 	<-ctx.Done()
 	s.Close()
@@ -109,7 +127,7 @@ func (s *Syncer) Close() {
 }
 
 func (s *Syncer) registerHandlers() {
-	nbHandler := &cache.EventHandlerFuncs{
+	handler := &cache.EventHandlerFuncs{
 		AddFunc: func(table string, m model.Model) {
 			s.enqueueEvent(table, eventAdd, m)
 		},
@@ -120,27 +138,23 @@ func (s *Syncer) registerHandlers() {
 			s.enqueueEvent(table, eventDelete, m)
 		},
 	}
-	s.nbClient.Cache().AddEventHandler(nbHandler)
-
-	sbHandler := &cache.EventHandlerFuncs{
-		AddFunc: func(table string, m model.Model) {
-			s.enqueueEvent(table, eventAdd, m)
-		},
-		UpdateFunc: func(table string, _, newModel model.Model) {
-			s.enqueueEvent(table, eventUpdate, newModel)
-		},
-		DeleteFunc: func(table string, m model.Model) {
-			s.enqueueEvent(table, eventDelete, m)
-		},
-	}
-	s.sbClient.Cache().AddEventHandler(sbHandler)
+	s.nbClient.Cache().AddEventHandler(handler)
+	s.sbClient.Cache().AddEventHandler(handler)
 }
 
 func (s *Syncer) enqueueEvent(table string, et eventType, m model.Model) {
 	select {
 	case s.eventsChan <- dbEvent{table: table, eventType: et, m: m}:
 	default:
-		s.logger.Warn("ovsdb event queue full, event dropped (will recover on resync)", "table", table)
+		s.requestResync("event queue overflow")
+	}
+}
+
+// requestResync asks the event loop to rebuild the snapshot from the caches.
+func (s *Syncer) requestResync(reason string) {
+	select {
+	case s.resyncCh <- reason:
+	default: // one is already pending
 	}
 }
 
@@ -149,6 +163,7 @@ func (s *Syncer) processEvents(ctx context.Context) {
 	defer ticker.Stop()
 
 	var batch []dbEvent
+	pending := "" // reason of a resync that has not succeeded yet
 
 	flush := func() {
 		if len(batch) == 0 {
@@ -173,12 +188,37 @@ func (s *Syncer) processEvents(ctx context.Context) {
 		})
 	}
 
+	resync := func(reason string) {
+		// Queued events are older than the cache: replaying them after the rebuild
+		// could regress a row whose newer event was dropped. Events emitted from
+		// here on describe changes the rebuild already sees or newer ones.
+		batch = nil
+		for drained := false; !drained; {
+			select {
+			case <-s.eventsChan:
+			default:
+				drained = true
+			}
+		}
+		if err := s.rebuildFullSnapshot(ctx); err != nil {
+			s.logger.Error("graph resync failed, will retry", "reason", reason, "error", err)
+			s.store.SetReady(false)
+			pending = reason
+			return
+		}
+		pending = ""
+		s.store.SetReady(s.nbUp.Load() && s.sbUp.Load())
+		s.logger.Info("graph resynchronized from ovsdb caches", "reason", reason)
+	}
+
 	for {
 		select {
 		case <-ctx.Done():
 			return
 		case <-s.stopCh:
 			return
+		case reason := <-s.resyncCh:
+			resync(reason)
 		case ev := <-s.eventsChan:
 			batch = append(batch, ev)
 			if len(batch) >= 100 {
@@ -186,36 +226,36 @@ func (s *Syncer) processEvents(ctx context.Context) {
 			}
 		case <-ticker.C:
 			flush()
+			if pending != "" && s.nbUp.Load() && s.sbUp.Load() {
+				resync(pending)
+			}
 		}
 	}
 }
 
-func (s *Syncer) watchDisconnects(ctx context.Context) {
-	nbDisc := s.nbClient.DisconnectNotify()
-	sbDisc := s.sbClient.DisconnectNotify()
-
-	for {
-		select {
-		case <-ctx.Done():
-			return
-		case <-s.stopCh:
-			return
-		case <-nbDisc:
-			s.logger.Warn("disconnected from OVN NB, awaiting reconnect")
-			s.store.SetReady(false)
-			// Wait until reconnected then rebuild snapshot
-			s.awaitReconnect(ctx)
-		case <-sbDisc:
-			s.logger.Warn("disconnected from OVN SB, awaiting reconnect")
-			s.store.SetReady(false)
-			s.awaitReconnect(ctx)
-		}
-	}
-}
-
-func (s *Syncer) awaitReconnect(ctx context.Context) {
-	ticker := time.NewTicker(500 * time.Millisecond)
+// watchHealth probes both databases with Echo. libovsdb reconnects on its own and
+// emits no notification when reconnect is enabled, so an Echo failure is how an
+// outage is seen (not ready), and the first success after it is how the reconnect
+// is seen (resync).
+func (s *Syncer) watchHealth(ctx context.Context) {
+	ticker := time.NewTicker(s.healthEvery)
 	defer ticker.Stop()
+
+	probe := func(name string, c client.Client, up *atomic.Bool) {
+		pctx, cancel := context.WithTimeout(ctx, s.healthEvery)
+		err := c.Echo(pctx)
+		cancel()
+		switch {
+		case err != nil && up.Load():
+			up.Store(false)
+			s.store.SetReady(false)
+			s.logger.Warn("ovn database unreachable, awaiting reconnect", "db", name, "error", err)
+		case err == nil && !up.Load():
+			up.Store(true)
+			s.logger.Info("ovn database reconnected", "db", name)
+			s.requestResync(name + " reconnected")
+		}
+	}
 
 	for {
 		select {
@@ -224,208 +264,145 @@ func (s *Syncer) awaitReconnect(ctx context.Context) {
 		case <-s.stopCh:
 			return
 		case <-ticker.C:
-			if s.nbClient.Connected() && s.sbClient.Connected() {
-				s.logger.Info("reconnected to OVN databases, rebuilding full snapshot")
-				if err := s.rebuildFullSnapshot(ctx); err != nil {
-					s.logger.Error("failed to rebuild snapshot on reconnect", "error", err)
-					continue
-				}
-				s.store.SetReady(true)
-				return
-			}
+			probe("nb", s.nbClient, &s.nbUp)
+			probe("sb", s.sbClient, &s.sbUp)
 		}
 	}
 }
 
-func (s *Syncer) rebuildFullSnapshot(ctx context.Context) error {
-	s.store.Apply(func(draft *graph.Snapshot) []string {
-		// Clear existing NB & SB maps in draft
-		draft.LogicalRouters = make(map[string]*nbmodel.LogicalRouter)
-		draft.LogicalRouterPorts = make(map[string]*nbmodel.LogicalRouterPort)
-		draft.StaticRoutes = make(map[string]*nbmodel.LogicalRouterStaticRoute)
-		draft.Policies = make(map[string]*nbmodel.LogicalRouterPolicy)
-		draft.NATs = make(map[string]*nbmodel.NAT)
-		draft.GatewayChassis = make(map[string]*nbmodel.GatewayChassis)
-		draft.HAChassisGroups = make(map[string]*nbmodel.HAChassisGroup)
-		draft.HAChassis = make(map[string]*nbmodel.HAChassis)
-		draft.LogicalSwitches = make(map[string]*nbmodel.LogicalSwitch)
-		draft.LogicalSwitchPorts = make(map[string]*nbmodel.LogicalSwitchPort)
-		draft.LoadBalancers = make(map[string]*nbmodel.LoadBalancer)
-		draft.Chassis = make(map[string]*sbmodel.Chassis)
-		draft.Encaps = make(map[string]*sbmodel.Encap)
-		draft.PortBindings = make(map[string]*sbmodel.PortBinding)
-		draft.DatapathBindings = make(map[string]*sbmodel.DatapathBinding)
-		draft.BFDs = make(map[string]*sbmodel.BFD)
+// lister reads every row of a table into result, a pointer to a slice of models
+// (the shape of client.Client.List).
+type lister func(ctx context.Context, result any) error
 
-		// Populate from NB cache
-		var lrs []nbmodel.LogicalRouter
-		if err := s.nbClient.List(ctx, &lrs); err == nil {
-			for i := range lrs {
-				draft.LogicalRouters[lrs[i].UUID] = &lrs[i]
-			}
+// listInto reads every row of the model's table into m.
+func listInto[T any](ctx context.Context, list lister, m map[string]*T, key func(*T) []string) error {
+	var rows []T
+	if err := list(ctx, &rows); err != nil {
+		return fmt.Errorf("list %T: %w", rows, err)
+	}
+	for i := range rows {
+		for _, k := range key(&rows[i]) {
+			m[k] = &rows[i]
 		}
-		var lrps []nbmodel.LogicalRouterPort
-		if err := s.nbClient.List(ctx, &lrps); err == nil {
-			for i := range lrps {
-				draft.LogicalRouterPorts[lrps[i].UUID] = &lrps[i]
-			}
-		}
-		var routes []nbmodel.LogicalRouterStaticRoute
-		if err := s.nbClient.List(ctx, &routes); err == nil {
-			for i := range routes {
-				draft.StaticRoutes[routes[i].UUID] = &routes[i]
-			}
-		}
-		var policies []nbmodel.LogicalRouterPolicy
-		if err := s.nbClient.List(ctx, &policies); err == nil {
-			for i := range policies {
-				draft.Policies[policies[i].UUID] = &policies[i]
-			}
-		}
-		var nats []nbmodel.NAT
-		if err := s.nbClient.List(ctx, &nats); err == nil {
-			for i := range nats {
-				draft.NATs[nats[i].UUID] = &nats[i]
-			}
-		}
-		var gwChassis []nbmodel.GatewayChassis
-		if err := s.nbClient.List(ctx, &gwChassis); err == nil {
-			for i := range gwChassis {
-				draft.GatewayChassis[gwChassis[i].UUID] = &gwChassis[i]
-			}
-		}
-		var haGroups []nbmodel.HAChassisGroup
-		if err := s.nbClient.List(ctx, &haGroups); err == nil {
-			for i := range haGroups {
-				draft.HAChassisGroups[haGroups[i].UUID] = &haGroups[i]
-			}
-		}
-		var haChassis []nbmodel.HAChassis
-		if err := s.nbClient.List(ctx, &haChassis); err == nil {
-			for i := range haChassis {
-				draft.HAChassis[haChassis[i].UUID] = &haChassis[i]
-			}
-		}
-		var lss []nbmodel.LogicalSwitch
-		if err := s.nbClient.List(ctx, &lss); err == nil {
-			for i := range lss {
-				draft.LogicalSwitches[lss[i].UUID] = &lss[i]
-			}
-		}
-		var lsps []nbmodel.LogicalSwitchPort
-		if err := s.nbClient.List(ctx, &lsps); err == nil {
-			for i := range lsps {
-				draft.LogicalSwitchPorts[lsps[i].UUID] = &lsps[i]
-			}
-		}
-		var lbs []nbmodel.LoadBalancer
-		if err := s.nbClient.List(ctx, &lbs); err == nil {
-			for i := range lbs {
-				draft.LoadBalancers[lbs[i].UUID] = &lbs[i]
-			}
-		}
-
-		// Populate from SB cache
-		var chassisList []sbmodel.Chassis
-		if err := s.sbClient.List(ctx, &chassisList); err == nil {
-			for i := range chassisList {
-				draft.Chassis[chassisList[i].Name] = &chassisList[i]
-				draft.Chassis[chassisList[i].UUID] = &chassisList[i]
-			}
-		}
-		var encaps []sbmodel.Encap
-		if err := s.sbClient.List(ctx, &encaps); err == nil {
-			for i := range encaps {
-				draft.Encaps[encaps[i].UUID] = &encaps[i]
-			}
-		}
-		var pbs []sbmodel.PortBinding
-		if err := s.sbClient.List(ctx, &pbs); err == nil {
-			for i := range pbs {
-				draft.PortBindings[pbs[i].UUID] = &pbs[i]
-			}
-		}
-		var dps []sbmodel.DatapathBinding
-		if err := s.sbClient.List(ctx, &dps); err == nil {
-			for i := range dps {
-				draft.DatapathBindings[dps[i].UUID] = &dps[i]
-			}
-		}
-		var bfds []sbmodel.BFD
-		if err := s.sbClient.List(ctx, &bfds); err == nil {
-			for i := range bfds {
-				draft.BFDs[bfds[i].UUID] = &bfds[i]
-			}
-		}
-
-		return []string{"*"}
-	})
-
+	}
 	return nil
 }
 
-func applyEventToDraft(draft *graph.Snapshot, ev dbEvent) []string {
-	var changed []string
-
-	switch val := ev.m.(type) {
-	case *nbmodel.LogicalRouter:
-		if ev.eventType == eventDelete {
-			delete(draft.LogicalRouters, val.UUID)
-		} else {
-			draft.LogicalRouters[val.UUID] = val
+// fillSnapshot reads every monitored NB and SB table into the entity maps of next.
+func fillSnapshot(ctx context.Context, nb, sb lister, next *graph.Snapshot) error {
+	errs := []error{
+		listInto(ctx, nb, next.LogicalRouters, func(r *nbmodel.LogicalRouter) []string { return []string{r.UUID} }),
+		listInto(ctx, nb, next.LogicalRouterPorts, func(r *nbmodel.LogicalRouterPort) []string { return []string{r.UUID} }),
+		listInto(ctx, nb, next.StaticRoutes, func(r *nbmodel.LogicalRouterStaticRoute) []string { return []string{r.UUID} }),
+		listInto(ctx, nb, next.Policies, func(r *nbmodel.LogicalRouterPolicy) []string { return []string{r.UUID} }),
+		listInto(ctx, nb, next.NATs, func(r *nbmodel.NAT) []string { return []string{r.UUID} }),
+		listInto(ctx, nb, next.GatewayChassis, func(r *nbmodel.GatewayChassis) []string { return []string{r.UUID} }),
+		listInto(ctx, nb, next.HAChassisGroups, func(r *nbmodel.HAChassisGroup) []string { return []string{r.UUID} }),
+		listInto(ctx, nb, next.HAChassis, func(r *nbmodel.HAChassis) []string { return []string{r.UUID} }),
+		listInto(ctx, nb, next.LogicalSwitches, func(r *nbmodel.LogicalSwitch) []string { return []string{r.UUID} }),
+		listInto(ctx, nb, next.LogicalSwitchPorts, func(r *nbmodel.LogicalSwitchPort) []string { return []string{r.UUID} }),
+		listInto(ctx, nb, next.LoadBalancers, func(r *nbmodel.LoadBalancer) []string { return []string{r.UUID} }),
+		listInto(ctx, sb, next.Chassis, func(r *sbmodel.Chassis) []string { return []string{r.Name, r.UUID} }),
+		listInto(ctx, sb, next.Encaps, func(r *sbmodel.Encap) []string { return []string{r.UUID} }),
+		listInto(ctx, sb, next.PortBindings, func(r *sbmodel.PortBinding) []string { return []string{r.UUID} }),
+		listInto(ctx, sb, next.DatapathBindings, func(r *sbmodel.DatapathBinding) []string { return []string{r.UUID} }),
+		listInto(ctx, sb, next.BFDs, func(r *sbmodel.BFD) []string { return []string{r.UUID} }),
+	}
+	for _, err := range errs {
+		if err != nil {
+			return err
 		}
-		changed = append(changed, graph.PrefixLR+val.UUID)
+	}
+	return nil
+}
 
-	case *nbmodel.LogicalRouterPort:
-		if ev.eventType == eventDelete {
-			delete(draft.LogicalRouterPorts, val.UUID)
-		} else {
-			draft.LogicalRouterPorts[val.UUID] = val
-		}
-		changed = append(changed, graph.PrefixLRP+val.UUID)
-
-	case *nbmodel.LogicalSwitch:
-		if ev.eventType == eventDelete {
-			delete(draft.LogicalSwitches, val.UUID)
-		} else {
-			draft.LogicalSwitches[val.UUID] = val
-		}
-		changed = append(changed, graph.PrefixLS+val.UUID)
-
-	case *nbmodel.LogicalSwitchPort:
-		if ev.eventType == eventDelete {
-			delete(draft.LogicalSwitchPorts, val.UUID)
-		} else {
-			draft.LogicalSwitchPorts[val.UUID] = val
-		}
-		changed = append(changed, graph.PrefixLSP+val.UUID)
-
-	case *nbmodel.NAT:
-		if ev.eventType == eventDelete {
-			delete(draft.NATs, val.UUID)
-		} else {
-			draft.NATs[val.UUID] = val
-		}
-		changed = append(changed, graph.PrefixNAT+val.UUID)
-
-	case *sbmodel.Chassis:
-		if ev.eventType == eventDelete {
-			delete(draft.Chassis, val.Name)
-			delete(draft.Chassis, val.UUID)
-		} else {
-			draft.Chassis[val.Name] = val
-			draft.Chassis[val.UUID] = val
-		}
-		changed = append(changed, graph.PrefixChassis+val.Name)
-
-	case *sbmodel.PortBinding:
-		if ev.eventType == eventDelete {
-			delete(draft.PortBindings, val.UUID)
-		} else {
-			draft.PortBindings[val.UUID] = val
-		}
-		changed = append(changed, graph.PrefixLSP+val.LogicalPort)
+// rebuildFullSnapshot replaces the snapshot with the content of both caches. It
+// publishes nothing if any table cannot be read, so a partial graph is never served.
+func (s *Syncer) rebuildFullSnapshot(ctx context.Context) error {
+	next := graph.NewEmptySnapshot(0, nil)
+	if err := fillSnapshot(ctx, s.nbClient.List, s.sbClient.List, next); err != nil {
+		return err
 	}
 
-	return changed
+	s.store.Apply(func(draft *graph.Snapshot) []string {
+		draft.LogicalRouters = next.LogicalRouters
+		draft.LogicalRouterPorts = next.LogicalRouterPorts
+		draft.StaticRoutes = next.StaticRoutes
+		draft.Policies = next.Policies
+		draft.NATs = next.NATs
+		draft.GatewayChassis = next.GatewayChassis
+		draft.HAChassisGroups = next.HAChassisGroups
+		draft.HAChassis = next.HAChassis
+		draft.LogicalSwitches = next.LogicalSwitches
+		draft.LogicalSwitchPorts = next.LogicalSwitchPorts
+		draft.LoadBalancers = next.LoadBalancers
+		draft.Chassis = next.Chassis
+		draft.Encaps = next.Encaps
+		draft.PortBindings = next.PortBindings
+		draft.DatapathBindings = next.DatapathBindings
+		draft.BFDs = next.BFDs
+		return []string{"*"}
+	})
+	return nil
+}
+
+// upsert applies an add, update or delete of one row to a snapshot table.
+func upsert[T any](m map[string]*T, key string, v *T, et eventType) {
+	if et == eventDelete {
+		delete(m, key)
+	} else {
+		m[key] = v
+	}
+}
+
+func applyEventToDraft(draft *graph.Snapshot, ev dbEvent) []string {
+	et := ev.eventType
+	switch val := ev.m.(type) {
+	case *nbmodel.LogicalRouter:
+		upsert(draft.LogicalRouters, val.UUID, val, et)
+		return []string{graph.PrefixLR + val.UUID}
+	case *nbmodel.LogicalRouterPort:
+		upsert(draft.LogicalRouterPorts, val.UUID, val, et)
+		return []string{graph.PrefixLRP + val.UUID}
+	case *nbmodel.LogicalSwitch:
+		upsert(draft.LogicalSwitches, val.UUID, val, et)
+		return []string{graph.PrefixLS + val.UUID}
+	case *nbmodel.LogicalSwitchPort:
+		upsert(draft.LogicalSwitchPorts, val.UUID, val, et)
+		return []string{graph.PrefixLSP + val.UUID}
+	case *nbmodel.NAT:
+		upsert(draft.NATs, val.UUID, val, et)
+		return []string{graph.PrefixNAT + val.UUID}
+	case *sbmodel.Chassis:
+		upsert(draft.Chassis, val.Name, val, et)
+		upsert(draft.Chassis, val.UUID, val, et)
+		return []string{graph.PrefixChassis + val.Name}
+	case *sbmodel.PortBinding:
+		upsert(draft.PortBindings, val.UUID, val, et)
+		return []string{graph.PrefixLSP + val.LogicalPort}
+
+	// Rows below have no node of their own: they feed router counts, gateway roles,
+	// chassis encaps and datapath joins, so the change is reported as "everything".
+	case *nbmodel.LogicalRouterStaticRoute:
+		upsert(draft.StaticRoutes, val.UUID, val, et)
+	case *nbmodel.LogicalRouterPolicy:
+		upsert(draft.Policies, val.UUID, val, et)
+	case *nbmodel.GatewayChassis:
+		upsert(draft.GatewayChassis, val.UUID, val, et)
+	case *nbmodel.HAChassisGroup:
+		upsert(draft.HAChassisGroups, val.UUID, val, et)
+	case *nbmodel.HAChassis:
+		upsert(draft.HAChassis, val.UUID, val, et)
+	case *nbmodel.LoadBalancer:
+		upsert(draft.LoadBalancers, val.UUID, val, et)
+	case *sbmodel.Encap:
+		upsert(draft.Encaps, val.UUID, val, et)
+	case *sbmodel.DatapathBinding:
+		upsert(draft.DatapathBindings, val.UUID, val, et)
+	case *sbmodel.BFD:
+		upsert(draft.BFDs, val.UUID, val, et)
+	default:
+		return nil
+	}
+	return []string{"*"}
 }
