@@ -908,8 +908,19 @@ func (m *model) executeTcpdumpStream(filter string, t diagTarget) tea.Cmd {
 			iface, how = found, firstNonEmpty(t.IfaceNote, "OVS iface-id "+capture)
 		}
 		effectiveFilter := filter
-		if (t.Iface != "" || t.CapturePort != "") && t.SrcIP != "" && !strings.Contains(filter, "host") {
-			effectiveFilter = fmt.Sprintf("(%s) and host %s", filter, t.SrcIP) // shared bridge: keep it to this port
+		if t.Iface != "" && !strings.Contains(filter, "host") && !strings.Contains(filter, "net") {
+			var targets []string
+			if t.SrcIP != "" {
+				targets = append(targets, "host "+t.SrcIP)
+			}
+			for _, sub := range t.Subnets {
+				targets = append(targets, "net "+sub.String())
+			}
+			if len(targets) > 0 {
+				effectiveFilter = fmt.Sprintf("(%s) and (%s)", filter, strings.Join(targets, " or "))
+			}
+		} else if t.CapturePort != "" && t.SrcIP != "" && !strings.Contains(filter, "host") {
+			effectiveFilter = fmt.Sprintf("(%s) and host %s", filter, t.SrcIP) // shared bridge/port: keep it to this port
 		}
 		pod, err := loc.FindNodeCNIPod(ctx, t.Node)
 		if err != nil {

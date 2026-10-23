@@ -436,3 +436,40 @@ func TestChassisNodeFallbackIsFlagged(t *testing.T) {
 		t.Errorf("hostname fallback must be flagged: %q", src)
 	}
 }
+
+func TestRouterPortDiagnostics(t *testing.T) {
+	mock := diag.NewMockExecutor()
+	m := newClusterDiagModel(t, mock)
+
+	// 1. Internal distributed LRP (lrp-default on default-subnet, not join switch)
+	mDist := press(selectRow(t, m, kLRP, "lrp-default"), "x")
+	tgDist := mDist.diagTgt
+	if ok, why := tgDist.can(actTcpdump); ok || !strings.Contains(why, "no host interface") {
+		t.Errorf("internal distributed LRP must have tcpdump disabled upfront: ok=%v why=%q", ok, why)
+	}
+	if len(tgDist.Warnings) == 0 || !strings.Contains(tgDist.Warnings[0], "br-int") {
+		t.Errorf("internal distributed LRP must warn about br-int pipeline: %+v", tgDist.Warnings)
+	}
+	if ok, _ := tgDist.can(actTrace); !ok {
+		t.Errorf("ovn-trace must remain available on internal LRP")
+	}
+
+	// 2. Gateway LRP (lrp-gw on node-1 via br-external)
+	mGW := press(selectRow(t, m, kLRP, "lrp-gw"), "x")
+	tgGW := mGW.diagTgt
+	if tgGW.Iface != "br-external" || tgGW.Node != "node-1" {
+		t.Fatalf("gateway LRP must target br-external on node-1, got iface=%q node=%q", tgGW.Iface, tgGW.Node)
+	}
+	if len(tgGW.Subnets) == 0 {
+		t.Errorf("gateway LRP must collect router's attached subnets for filter matching")
+	}
+	cmd := mGW.executeTcpdumpStream("icmp", tgGW)
+	started, _ := cmd().(tcpdumpStartedMsg)
+	if started.err != nil {
+		t.Fatalf("tcpdump on gateway LRP failed: %v", started.err)
+	}
+	// Filter must cover both router port IP and router subnets (e.g. 10.244.0.0/24)
+	if !strings.Contains(started.title, "10.244.0.0/24") {
+		t.Errorf("gateway tcpdump filter must match attached subnet, got title: %s", started.title)
+	}
+}

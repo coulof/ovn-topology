@@ -209,6 +209,16 @@ func (m model) resolveLSP(t *diagTarget, n *xnode) {
 	case t.SrcIP == "":
 		t.disable("port has no IP address", actTrace)
 	}
+	if typ == "router" {
+		t.disable("router patch port in br-int (no host interface) — capture on the VM's switch port or gateway port", nodeActions...)
+		t.Warnings = append(t.Warnings, "Router-type switch ports are internal OpenFlow patch connections to the router. Use ovn-trace to test routing or capture on workload/gateway ports.")
+		return
+	}
+	if typ == "localnet" {
+		t.disable("localnet port: physical bridge uplink (no host interface) — capture on the gateway chassis bridge", nodeActions...)
+		t.Warnings = append(t.Warnings, "Localnet ports bridge traffic to physical network. Capture on the gateway chassis bridge.")
+		return
+	}
 	if infraPortTypes[typ] {
 		t.disable(fmt.Sprintf("%s port: no host interface — select a chassis for node diagnostics", typ), nodeActions...)
 		return
@@ -235,6 +245,16 @@ func (m model) resolveLRP(t *diagTarget, n *xnode) {
 	if t.SrcIP == "" || t.SrcMAC == "" {
 		t.disable("router port has no network/MAC in NB", actTrace)
 	}
+
+	// Collect all subnets of this router for traffic matching on shared gateway bridges
+	for _, conn := range m.routerPorts[c.RouterID] {
+		for _, cidr := range conn.Networks {
+			if _, ipn, err := net.ParseCIDR(cidr); err == nil {
+				t.Subnets = append(t.Subnets, ipn)
+			}
+		}
+	}
+
 	for _, r := range n.refs {
 		if strings.HasPrefix(r.label, "gateway") {
 			if ch := m.tree.byID[r.to]; ch != nil {
@@ -250,12 +270,32 @@ func (m model) resolveLRP(t *diagTarget, n *xnode) {
 		if t.SrcIP == "" {
 			t.disable("router port has no IP", actConntrack)
 		}
+		if !m.switchHasJoinPorts(c.SwitchID) {
+			t.disable("routed in-memory inside br-int (no host interface) — capture on the VM's switch port or gateway port", actTcpdump)
+			t.Warnings = append(t.Warnings, "Distributed LRPs are logical OpenFlow pipelines in br-int with no kernel netdevice. Use ovn-trace to test routing or capture on workload/gateway ports.")
+		}
 		return
 	}
 	t.Iface, t.IfaceNote = "br-external", "Kube-OVN default provider bridge on the gateway chassis (assumed)"
 	if t.SrcIP == "" {
 		t.disable("router port has no IP", actConntrack)
 	}
+}
+
+func (m model) switchHasJoinPorts(switchID string) bool {
+	if m.tree == nil {
+		return false
+	}
+	sw := m.tree.byID[switchID]
+	if sw == nil {
+		return false
+	}
+	for _, c := range sw.childrenOrNil() {
+		if c.kind == kLSP && strings.HasPrefix(c.name, "node-") {
+			return true
+		}
+	}
+	return false
 }
 
 // revalidateDiagTarget re-resolves the open modal's target by id after the tree
@@ -404,7 +444,9 @@ func (m model) withChassis(t diagTarget, ch *xnode) diagTarget {
 		}
 	}
 	if t.CapturePort == "" {
-		t.disable("routed inside OVS: no host interface — capture on a switch port", actTcpdump)
+		t.disable("routed in-memory inside br-int (no host interface) — capture on a switch port", actTcpdump)
+	} else if t.Disabled != nil {
+		delete(t.Disabled, actTcpdump)
 	}
 	return t
 }
