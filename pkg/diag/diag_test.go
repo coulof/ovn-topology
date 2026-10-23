@@ -157,6 +157,23 @@ func TestParseTraceOutput(t *testing.T) {
 	if dropRes.Verdict != "dropped" {
 		t.Errorf("expected verdict dropped, got %s", dropRes.Verdict)
 	}
+	if !strings.Contains(dropRes.Summary, "dropped by ACL") {
+		t.Errorf("expected ACL drop explanation, got %q", dropRes.Summary)
+	}
+
+	martianSample := `
+ingress(dp="lr", inport="lr-ext")
+---------------------------------
+ 3. lr_in_ip_input (northd.c:16921): ip4.src == {10.144.124.13, 10.144.124.31} && reg9[0] == 0, priority 100, uuid ae17e09d
+    drop;
+`
+	martianRes := ParseTraceOutput(martianSample, TraceExpect{})
+	if martianRes.Verdict != "dropped" {
+		t.Errorf("expected verdict dropped, got %s", martianRes.Verdict)
+	}
+	if !strings.Contains(martianRes.Summary, "Martian/spoofed packet") {
+		t.Errorf("expected Martian drop explanation, got %q", martianRes.Summary)
+	}
 }
 
 // A cross-switch trace in ovn-trace's detailed format: the packet crosses two patch

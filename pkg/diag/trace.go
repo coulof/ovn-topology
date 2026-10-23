@@ -177,6 +177,7 @@ func ParseTraceOutput(raw string, expect TraceExpect) TraceResult {
 	var hops []string
 	currentPipeline := "ingress"
 	var sawDrop, sawNoRoute bool
+	var lastDropStage *TraceStage
 
 	for _, line := range lines {
 		trimmed := strings.TrimSpace(line)
@@ -226,11 +227,15 @@ func ParseTraceOutput(raw string, expect TraceExpect) TraceResult {
 			res.Outputs = append(res.Outputs, TraceOutput{Port: m[1], Type: m[2]})
 		} else if strings.Contains(trimmed, "drop;") || strings.Contains(trimmed, "/* drop */") || strings.Contains(trimmed, "action=drop") {
 			sawDrop = true
+			if len(stages) > 0 {
+				st := stages[len(stages)-1]
+				lastDropStage = &st
+			}
 		} else if strings.Contains(trimmed, "No route") || strings.Contains(trimmed, "unroutable") {
 			sawNoRoute = true
 		}
 	}
-	res.judge(expect, sawDrop, sawNoRoute)
+	res.judge(expect, sawDrop, sawNoRoute, lastDropStage)
 
 	if res.FinalPort != "" {
 		hops = append(hops, fmt.Sprintf("Port '%s'", res.FinalPort))
@@ -244,7 +249,7 @@ func ParseTraceOutput(raw string, expect TraceExpect) TraceResult {
 }
 
 // judge sets the verdict from the terminal outputs (those that are not hops).
-func (res *TraceResult) judge(expect TraceExpect, sawDrop, sawNoRoute bool) {
+func (res *TraceResult) judge(expect TraceExpect, sawDrop, sawNoRoute bool, dropStage *TraceStage) {
 	var terminals []TraceOutput
 	for _, o := range res.Outputs {
 		if !transitTypes[o.Type] {
@@ -284,6 +289,20 @@ func (res *TraceResult) judge(expect TraceExpect, sawDrop, sawNoRoute bool) {
 	case sawNoRoute:
 		res.Verdict, res.Summary = "no-route", "Packet dropped: no route found"
 	case sawDrop:
-		res.Verdict, res.Summary = "dropped", "Packet dropped by rule or ACL"
+		res.Verdict = "dropped"
+		if dropStage != nil {
+			switch {
+			case dropStage.Name == "lr_in_ip_input" && strings.Contains(dropStage.Action, "ip4.src"):
+				res.Summary = fmt.Sprintf("Packet dropped in %s (table %d): source IP matches router interface IP (Martian/spoofed packet)", dropStage.Name, dropStage.Table)
+			case strings.Contains(dropStage.Name, "acl"):
+				res.Summary = fmt.Sprintf("Packet dropped by ACL in %s (table %d)", dropStage.Name, dropStage.Table)
+			case strings.Contains(dropStage.Name, "port_sec"):
+				res.Summary = fmt.Sprintf("Packet dropped by port security in %s (table %d)", dropStage.Name, dropStage.Table)
+			default:
+				res.Summary = fmt.Sprintf("Packet dropped in %s (table %d)", dropStage.Name, dropStage.Table)
+			}
+		} else {
+			res.Summary = "Packet dropped by rule or ACL"
+		}
 	}
 }

@@ -1105,7 +1105,18 @@ func (m model) renderDiagModal() string {
 	}
 
 	if m.diagStep == diagStepPickDest {
-		box.WriteString(m.styles.Header.Render("Choose Destination Target:") + "\n\n")
+		box.WriteString(m.styles.Header.Render("Choose Destination Target:") + "\n")
+		var flowBanner string
+		if t.Kind == kLRP {
+			if t.Iface != "" {
+				flowBanner = fmt.Sprintf("  Simulating Inbound via Gateway %s (router port %s)", t.Port, t.SrcIP)
+			} else {
+				flowBanner = fmt.Sprintf("  Simulating L3 Routing via %s (router port %s)", t.Port, t.SrcIP)
+			}
+		} else {
+			flowBanner = fmt.Sprintf("  Simulating Outbound from %s (IP: %s)", t.Label, t.SrcIP)
+		}
+		box.WriteString(m.styles.MutedText.Render(flowBanner) + "\n\n")
 
 		// 1. Search / Custom IP Input Bar
 		searchPrompt := "  Search / Custom IP: "
@@ -1276,8 +1287,14 @@ func (m model) renderDiagModal() string {
 
 			traceContent.WriteString("Pipeline Stages Evaluated:\n")
 			for _, st := range tr.Stages {
-				fmt.Fprintf(&traceContent, "  • [%s table %d] %-24s ➔ %s\n",
-					st.Pipeline, st.Table, st.Name, truncate(st.Action, 48))
+				action := st.Action
+				if strings.Contains(action, "drop") {
+					fmt.Fprintf(&traceContent, "  • [%s table %d] %-24s ➔ %s\n",
+						st.Pipeline, st.Table, st.Name, m.styles.BadgeUnbound.Render(action))
+				} else {
+					fmt.Fprintf(&traceContent, "  • [%s table %d] %-24s ➔ %s\n",
+						st.Pipeline, st.Table, st.Name, truncate(action, 80))
+				}
 			}
 			contentText = traceContent.String()
 		} else {
@@ -1317,8 +1334,16 @@ func (m model) renderDiagModal() string {
 	case t.Node == "":
 		on = ""
 	}
+	traceDesc := "ovn-trace            (microflow from " + firstNonEmpty(t.Port, "—") + " through the logical pipeline)"
+	if t.Kind == kLRP {
+		if t.Iface != "" {
+			traceDesc = "ovn-trace            (simulate inbound traffic via gateway " + firstNonEmpty(t.Port, "—") + ")"
+		} else {
+			traceDesc = "ovn-trace            (simulate L3 routing from " + firstNonEmpty(t.Port, "—") + ")"
+		}
+	}
 	menu := map[diagAction]string{
-		actTrace:     "ovn-trace            (microflow from " + firstNonEmpty(t.Port, "—") + " through the logical pipeline)",
+		actTrace:     traceDesc,
 		actTcpdump:   "Live tcpdump         (capture on this port's host interface" + on + ")",
 		actConntrack: "Filtered Conntrack   (flows for " + firstNonEmpty(t.SrcIP, "all IPs") + on + ")",
 		actOvsPort:   "Port OVS Interface   (link state, ofport, MTU, rx/tx of iface-id " + firstNonEmpty(t.Port, "—") + ")",

@@ -457,6 +457,9 @@ func TestRouterPortDiagnostics(t *testing.T) {
 	// 2. Gateway LRP (lrp-gw on node-1 via br-external)
 	mGW := press(selectRow(t, m, kLRP, "lrp-gw"), "x")
 	tgGW := mGW.diagTgt
+	tgGW.SrcIP = "172.16.0.1"
+	tgGW.SrcMAC = "00:00:00:77:88:99"
+	delete(tgGW.Disabled, actTrace)
 	if tgGW.Iface != "br-external" || tgGW.Node != "node-1" {
 		t.Fatalf("gateway LRP must target br-external on node-1, got iface=%q node=%q", tgGW.Iface, tgGW.Node)
 	}
@@ -471,5 +474,20 @@ func TestRouterPortDiagnostics(t *testing.T) {
 	// Filter must cover both router port IP and router subnets (e.g. 10.244.0.0/24)
 	if !strings.Contains(started.title, "10.244.0.0/24") {
 		t.Errorf("gateway tcpdump filter must match attached subnet, got title: %s", started.title)
+	}
+
+	// 3. Trace from Gateway LRP into a workload: must use an external client IP (not router's own IP)
+	req, err := mGW.traceRequest(tgGW, "10.244.0.10", "icmp", 0)
+	if err != nil {
+		t.Fatalf("traceRequest failed: %v", err)
+	}
+	if req.SrcIP == tgGW.SrcIP {
+		t.Errorf("gateway trace must not use router port's own IP as SrcIP (triggers Martian drop), got %s", req.SrcIP)
+	}
+	if req.DstMAC != tgGW.SrcMAC {
+		t.Errorf("gateway trace must set DstMAC to router port MAC, got %s want %s", req.DstMAC, tgGW.SrcMAC)
+	}
+	if req.SrcMAC == tgGW.SrcMAC {
+		t.Errorf("gateway trace must use external client MAC, got router MAC %s", req.SrcMAC)
 	}
 }

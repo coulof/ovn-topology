@@ -298,6 +298,38 @@ func (m model) switchHasJoinPorts(switchID string) bool {
 	return false
 }
 
+// hostInNetwork finds a valid client host IP in the subnet containing routerIP,
+// different from routerIP itself. This prevents OVN Martian drops in lr_in_ip_input.
+func hostInNetwork(routerIP string, subnets []*net.IPNet) string {
+	ip := net.ParseIP(routerIP)
+	if ip == nil {
+		return "10.0.0.2"
+	}
+	ip4 := ip.To4()
+	if ip4 == nil {
+		return "10.0.0.2"
+	}
+	for _, s := range subnets {
+		if s.Contains(ip) {
+			candidate := make(net.IP, len(ip4))
+			copy(candidate, s.IP.To4())
+			candidate[3]++
+			if candidate.Equal(ip4) {
+				candidate[3]++
+			}
+			return candidate.String()
+		}
+	}
+	candidate := make(net.IP, len(ip4))
+	copy(candidate, ip4)
+	if candidate[3] > 1 {
+		candidate[3] = 1
+	} else {
+		candidate[3] = 2
+	}
+	return candidate.String()
+}
+
 // revalidateDiagTarget re-resolves the open modal's target by id after the tree
 // was rebuilt (live update), so it can never silently follow the cursor elsewhere.
 func (m *model) revalidateDiagTarget() {
@@ -342,6 +374,13 @@ func (m model) traceRequest(t diagTarget, dstIP, proto string, dstPort int) (dia
 	}
 	if t.Kind == kLRP {
 		req.DstMAC = t.SrcMAC // lr_in_admission requires eth.dst == router port MAC
+		// A router port cannot receive packets from the outside sourced from its own IP/MAC
+		// (which OVN drops in lr_in_ip_input table 3 as a Martian/spoofed packet).
+		// Derive a valid client IP in the subnet attached to this port.
+		if req.SrcIP == t.SrcIP {
+			req.SrcIP = hostInNetwork(t.SrcIP, t.Subnets)
+			req.SrcMAC = "00:00:5e:00:53:01"
+		}
 		return req, nil
 	}
 	dst := net.ParseIP(dstIP)
