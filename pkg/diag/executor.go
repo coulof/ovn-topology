@@ -5,6 +5,7 @@ import (
 	"context"
 	"fmt"
 	"io"
+	"strings"
 
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/client-go/kubernetes"
@@ -125,11 +126,15 @@ func NewMockExecutor() *MockExecutor {
 func (m *MockExecutor) Exec(ctx context.Context, pod PodRef, cmd []string) ([]byte, []byte, error) {
 	m.Calls = append(m.Calls, MockExecCall{Pod: pod, Cmd: cmd})
 
+	fullKey := strings.Join(cmd, " ")
 	key := ""
 	if len(cmd) > 0 {
 		key = cmd[0]
 	}
 
+	if err, ok := m.ErrMap[fullKey]; ok && err != nil {
+		return nil, m.StderrMap[fullKey], err
+	}
 	if err, ok := m.ErrMap[key]; ok && err != nil {
 		return nil, m.StderrMap[key], err
 	}
@@ -138,12 +143,16 @@ func (m *MockExecutor) Exec(ctx context.Context, pod PodRef, cmd []string) ([]by
 	}
 
 	out := m.DefaultOut
-	if customOut, ok := m.StdoutMap[key]; ok {
+	if customOut, ok := m.StdoutMap[fullKey]; ok {
+		out = customOut
+	} else if customOut, ok := m.StdoutMap[key]; ok {
 		out = customOut
 	}
 
 	errOut := m.DefaultErr
-	if customErr, ok := m.StderrMap[key]; ok {
+	if customErr, ok := m.StderrMap[fullKey]; ok {
+		errOut = customErr
+	} else if customErr, ok := m.StderrMap[key]; ok {
 		errOut = customErr
 	}
 

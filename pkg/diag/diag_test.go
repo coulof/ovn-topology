@@ -331,9 +331,29 @@ statistics          : {rx_bytes=1000, rx_packets=10, tx_bytes=2000, tx_packets=2
 		t.Errorf("unexpected flowsCmd: %v, err=%v", flowsCmd, err)
 	}
 
+	filteredFlowsCmd, err := BuildOvsOfctlFilteredDumpFlows("br-int", "dl_dst=4a:73:ae:a4:54:b3")
+	if err != nil || len(filteredFlowsCmd) != 6 || filteredFlowsCmd[5] != "dl_dst=4a:73:ae:a4:54:b3" {
+		t.Errorf("unexpected filteredFlowsCmd: %v, err=%v", filteredFlowsCmd, err)
+	}
+
+	_, err = BuildOvsOfctlFilteredDumpFlows("br-int", "dl_dst=test; rm -rf /")
+	if err == nil {
+		t.Errorf("expected error on flow filter injection attempt")
+	}
+
 	_, err = BuildOvsOfctlDumpFlows("br-int; rm -rf /")
 	if err == nil {
 		t.Errorf("expected error on bridge injection attempt")
+	}
+
+	// Test OpenFlow formatter
+	rawOF := `OFPST_FLOW reply (OF1.3) (xid=0x6):
+ cookie=0xc04f547b, duration=696124.227s, table=8, n_packets=61254, n_bytes=5696576, priority=50,reg14=0x1,metadata=0x2,dl_dst=4a:73:ae:a4:54:b3 actions=load:0x4a73aea454b3->NXM_NX_XXREG0[64..111],resubmit(,9)
+ cookie=0x7258a7cb, duration=696124.227s, table=36, n_packets=54953, n_bytes=5431934, priority=50,metadata=0x7,dl_dst=4a:73:ae:a4:54:b3 actions=set_field:0x1->reg15,resubmit(,40)
+`
+	formattedOF := FormatOpenFlowDump(rawOF, "dl_dst=4a:73:ae:a4:54:b3")
+	if !strings.Contains(formattedOF, "61,254") || !strings.Contains(formattedOF, "5.4 MB") || !strings.Contains(formattedOF, "TABLE") {
+		t.Errorf("unexpected formatted OpenFlow output:\n%s", formattedOF)
 	}
 
 	// Test conntrack formatter

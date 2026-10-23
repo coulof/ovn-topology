@@ -2,6 +2,7 @@ package diag
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"strings"
@@ -206,6 +207,67 @@ func (l *PodLocator) FindOVSInterface(ctx context.Context, exec Executor, node s
 		}
 	}
 	return "", fmt.Errorf("port %s on node %s: %w", portName, node, ErrIfaceNotFound)
+}
+
+// FindBridgeUplink finds the physical/system uplink interface attached to an OVS bridge
+// (e.g. enp2s0 on br-external) on the given node. If no physical uplink is found, it falls
+// back to the bridge name itself.
+func (l *PodLocator) FindBridgeUplink(ctx context.Context, exec Executor, node string, bridge string) (string, error) {
+	if node == "" || bridge == "" {
+		return bridge, nil
+	}
+	ovsPod, err := l.FindNodeOVSPod(ctx, node)
+	if err != nil {
+		return bridge, nil
+	}
+
+	cmd, err := BuildListBridgePortsCommand(bridge)
+	if err != nil {
+		return bridge, nil
+	}
+
+	stdout, _, err := exec.Exec(ctx, ovsPod, cmd)
+	if err != nil {
+		return bridge, nil
+	}
+
+	var ports []string
+	for _, line := range strings.Split(strings.TrimSpace(string(stdout)), "\n") {
+		p := strings.TrimSpace(line)
+		if p != "" {
+			ports = append(ports, p)
+		}
+	}
+	if len(ports) == 0 {
+		return bridge, nil
+	}
+
+	typeCmd, err := BuildListInterfacesTypeCommand(ports...)
+	if err != nil {
+		return bridge, nil
+	}
+
+	stdout, _, err = exec.Exec(ctx, ovsPod, typeCmd)
+	if err != nil {
+		return bridge, nil
+	}
+
+	var resp struct {
+		Data [][]string `json:"data"`
+	}
+	if err := json.Unmarshal(stdout, &resp); err == nil {
+		for _, row := range resp.Data {
+			if len(row) >= 2 {
+				name, ifaceType := row[0], row[1]
+				// "" or "system" represents the real physical/system interface
+				if ifaceType == "" || ifaceType == "system" {
+					return name, nil
+				}
+			}
+		}
+	}
+
+	return bridge, nil
 }
 
 func firstNonEmpty(a, b string) string {

@@ -404,7 +404,7 @@ func (m model) updateDiagModal(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 		m.diagRunning = false
 		m.diagScrollOffset = 0
 		return m, nil
-	case "1", "2", "3", "4", "5", "6":
+	case "1", "2", "3", "4", "5", "6", "7":
 		return m.runDiagAction(diagActions[msg.String()[0]-'1'])
 	case "c":
 		if m.diagTgt.ChooseChassis {
@@ -835,6 +835,14 @@ func (m model) executeNodeDiag(action diagAction, t diagTarget) tea.Cmd {
 		case actLogs:
 			cmd = diag.BuildOvnControllerLogTail(50)
 			title = fmt.Sprintf("ovn-controller logs on node %s", t.Node)
+		case actFlows:
+			bridge := "br-int"
+			filter := t.FlowFilter
+			cmd, err = diag.BuildOvsOfctlFilteredDumpFlows(bridge, filter)
+			if err != nil {
+				return diagExecResultMsg{err: err}
+			}
+			title = fmt.Sprintf("OpenFlow flow counters on %s matching %q on node %s", bridge, filter, t.Node)
 		default:
 			return diagExecResultMsg{err: fmt.Errorf("unknown diagnostic action: %s", action)}
 		}
@@ -855,6 +863,8 @@ func (m model) executeNodeDiag(action diagAction, t diagTarget) tea.Cmd {
 			out = diag.FormatConntrackOutput(out, t.SrcIP)
 		case actOvsPort:
 			out = diag.FormatOvsIfaceOutput(out, iface)
+		case actFlows:
+			out = diag.FormatOpenFlowDump(out, t.FlowFilter)
 		}
 
 		return diagExecResultMsg{
@@ -906,6 +916,14 @@ func (m *model) executeTcpdumpStream(filter string, t diagTarget) tea.Cmd {
 				return tcpdumpStartedMsg{err: err}
 			}
 			iface, how = found, firstNonEmpty(t.IfaceNote, "OVS iface-id "+capture)
+		} else if strings.HasPrefix(iface, "br-") {
+			// For bridge interfaces (e.g. br-external on a gateway chassis), look up the physical uplink port (e.g. enp2s0)
+			// because OVS transit traffic flows directly between patch ports and physical uplinks, bypassing the internal bridge port.
+			uplink, err := loc.FindBridgeUplink(ctx, exec, t.Node, iface)
+			if err == nil && uplink != "" && uplink != iface {
+				how = fmt.Sprintf("physical uplink of %s on %s", iface, t.Node)
+				iface = uplink
+			}
 		}
 		effectiveFilter := filter
 		if t.Iface != "" && !strings.Contains(filter, "host") && !strings.Contains(filter, "net") {
@@ -1321,7 +1339,7 @@ func (m model) renderDiagModal() string {
 		displayedLines := lines[m.diagScrollOffset:endIdx]
 		box.WriteString("  " + strings.Join(displayedLines, "\n  ") + "\n\n")
 
-		scrollHint := fmt.Sprintf("  [Lines %d-%d of %d | ↑/↓ or j/k: scroll | o: toggle raw | 1-6: run action | Esc/x: close]",
+		scrollHint := fmt.Sprintf("  [Lines %d-%d of %d | ↑/↓ or j/k: scroll | o: toggle raw | 1-7: run action | Esc/x: close]",
 			m.diagScrollOffset+1, endIdx, len(lines))
 		box.WriteString(m.styles.MutedText.Render(scrollHint))
 		return m.styles.ModalBox.Render(box.String())
@@ -1346,6 +1364,7 @@ func (m model) renderDiagModal() string {
 		actTrace:     traceDesc,
 		actTcpdump:   "Live tcpdump         (capture on this port's host interface" + on + ")",
 		actConntrack: "Filtered Conntrack   (flows for " + firstNonEmpty(t.SrcIP, "all IPs") + on + ")",
+		actFlows:     "OpenFlow Flows       (live flow counters & matches on br-int" + on + ")",
 		actOvsPort:   "Port OVS Interface   (link state, ofport, MTU, rx/tx of iface-id " + firstNonEmpty(t.Port, "—") + ")",
 		actVsctl:     "Physical Bridges     (ovs-vsctl show" + on + ")",
 		actLogs:      "Controller Logs      (ovn-controller" + on + ")",
@@ -1358,9 +1377,9 @@ func (m model) renderDiagModal() string {
 			box.WriteString(m.styles.MutedText.Render(fmt.Sprintf("    [%d] %s — unavailable: %s", i+1, strings.SplitN(menu[a], "(", 2)[0], why)) + "\n")
 		}
 	}
-	hint := "  Press 1-6 to execute | Esc or x to cancel"
+	hint := "  Press 1-7 to execute | Esc or x to cancel"
 	if t.ChooseChassis {
-		hint = "  Press 1-6 to execute | c: choose chassis | Esc or x to cancel"
+		hint = "  Press 1-7 to execute | c: choose chassis | Esc or x to cancel"
 	}
 	box.WriteString("\n" + m.styles.MutedText.Render(hint))
 

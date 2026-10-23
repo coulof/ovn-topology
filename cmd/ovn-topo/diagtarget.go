@@ -19,6 +19,7 @@ type diagAction string
 const (
 	actTrace     diagAction = "trace"
 	actTcpdump   diagAction = "tcpdump"
+	actFlows     diagAction = "flows"
 	actConntrack diagAction = "conntrack"
 	actOvsPort   diagAction = "ovs-port"
 	actVsctl     diagAction = "ovs-iface"
@@ -26,9 +27,9 @@ const (
 )
 
 // diagActions is the menu order: key "1" runs diagActions[0], and so on.
-var diagActions = []diagAction{actTrace, actTcpdump, actConntrack, actOvsPort, actVsctl, actLogs}
+var diagActions = []diagAction{actTrace, actTcpdump, actConntrack, actFlows, actOvsPort, actVsctl, actLogs}
 
-var nodeActions = []diagAction{actTcpdump, actConntrack, actOvsPort, actVsctl, actLogs}
+var nodeActions = []diagAction{actTcpdump, actConntrack, actFlows, actOvsPort, actVsctl, actLogs}
 
 type diagTarget struct {
 	ID    string // xray node id the target was resolved from (revalidated by id on live updates)
@@ -53,6 +54,7 @@ type diagTarget struct {
 	// CapturePort is the logical port whose OVS interface tcpdump captures on, when it
 	// differs from Port (a distributed join LRP is captured on the chosen node's ovn0).
 	CapturePort string
+	FlowFilter  string // OpenFlow filter for actFlows (e.g. dl_dst=<mac> or dl_src=<mac>)
 
 	// ChooseChassis: the object exists on every chassis (distributed router port), so
 	// node-scoped actions first ask which chassis to run on. Chassis holds the choice.
@@ -174,6 +176,9 @@ func (m model) resolveLSP(t *diagTarget, n *xnode) {
 	typ := pstr(p, "type")
 	t.Port = n.name
 	t.SrcIP, t.SrcMAC = lspAddress(n.gn)
+	if t.SrcMAC != "" {
+		t.FlowFilter = "dl_src=" + t.SrcMAC
+	}
 	for _, r := range n.refs {
 		x := m.tree.byID[r.to]
 		if x == nil {
@@ -241,6 +246,9 @@ func (m model) resolveLRP(t *diagTarget, n *xnode) {
 	t.SrcMAC = extractCleanMAC(c.MAC)
 	if len(c.Networks) > 0 {
 		t.SrcIP = extractCleanIP(c.Networks[0])
+	}
+	if t.SrcMAC != "" {
+		t.FlowFilter = "dl_dst=" + t.SrcMAC
 	}
 	if t.SrcIP == "" || t.SrcMAC == "" {
 		t.disable("router port has no network/MAC in NB", actTrace)

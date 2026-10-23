@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"regexp"
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -42,6 +43,31 @@ func BuildFindIfaceByIfaceIDCommand(port string) ([]string, error) {
 	return []string{"ovs-vsctl", "--bare", "--columns=name", "find", "interface", "external_ids:iface-id=" + port}, nil
 }
 
+// BuildListBridgePortsCommand returns the typed command to list all ports on an OVS bridge.
+func BuildListBridgePortsCommand(bridge string) ([]string, error) {
+	if bridge == "" {
+		return nil, fmt.Errorf("bridge cannot be empty")
+	}
+	if !portNameRe.MatchString(bridge) {
+		return nil, fmt.Errorf("invalid bridge name: %q", bridge)
+	}
+	return []string{"ovs-vsctl", "list-ports", bridge}, nil
+}
+
+// BuildListInterfacesTypeCommand returns the typed command to inspect interface types for given port names.
+func BuildListInterfacesTypeCommand(ifaces ...string) ([]string, error) {
+	if len(ifaces) == 0 {
+		return nil, fmt.Errorf("at least one interface required")
+	}
+	for _, iface := range ifaces {
+		if !portNameRe.MatchString(iface) {
+			return nil, fmt.Errorf("invalid interface name: %q", iface)
+		}
+	}
+	cmd := []string{"ovs-vsctl", "--format=json", "--columns=name,type", "list", "interface"}
+	return append(cmd, ifaces...), nil
+}
+
 // BuildOvsVsctlShowCommand returns the typed command for ovs-vsctl show.
 func BuildOvsVsctlShowCommand() []string {
 	return []string{"ovs-vsctl", "show"}
@@ -62,13 +88,26 @@ func BuildConntrackDumpCommand(zone int) []string {
 
 // BuildOvsOfctlDumpFlows returns the typed command for inspecting OpenFlow flows.
 func BuildOvsOfctlDumpFlows(bridge string) ([]string, error) {
+	return BuildOvsOfctlFilteredDumpFlows(bridge, "")
+}
+
+// BuildOvsOfctlFilteredDumpFlows returns the typed command for inspecting OpenFlow flows with an optional match filter.
+func BuildOvsOfctlFilteredDumpFlows(bridge string, filter string) ([]string, error) {
 	if bridge == "" {
 		bridge = "br-int"
 	}
 	if invalidChars.MatchString(bridge) {
 		return nil, fmt.Errorf("invalid characters in bridge name: %q", bridge)
 	}
-	return []string{"ovs-ofctl", "-O", "OpenFlow13", "dump-flows", bridge}, nil
+	filter = strings.TrimSpace(filter)
+	if filter != "" && invalidChars.MatchString(filter) {
+		return nil, fmt.Errorf("invalid characters in filter: %q", filter)
+	}
+	cmd := []string{"ovs-ofctl", "-O", "OpenFlow13", "dump-flows", bridge}
+	if filter != "" {
+		cmd = append(cmd, filter)
+	}
+	return cmd, nil
 }
 
 // BuildOvnControllerLogTail returns the typed command for inspecting local ovn-controller logs.
@@ -258,4 +297,135 @@ func FormatOvsIfaceOutput(raw string, iface string) string {
 	}
 
 	return b.String()
+}
+
+var (
+	flowTableRegex    = regexp.MustCompile(`table=(\d+)`)
+	flowPacketsRegex  = regexp.MustCompile(`n_packets=(\d+)`)
+	flowBytesRegex    = regexp.MustCompile(`n_bytes=(\d+)`)
+	flowPriorityMatch = regexp.MustCompile(`(?:priority=\d+,)?(.*?)\s+actions=(.*)$`)
+)
+
+type openFlowRule struct {
+	table   int
+	packets int64
+	bytes   int64
+	match   string
+	actions string
+}
+
+// FormatOpenFlowDump formats raw ovs-ofctl dump-flows output into a clean, human-readable table.
+func FormatOpenFlowDump(raw string, filter string) string {
+	lines := strings.Split(raw, "\n")
+	var rules []openFlowRule
+	var totalPackets int64
+	var totalBytes int64
+
+	for _, line := range lines {
+		trimmed := strings.TrimSpace(line)
+		if trimmed == "" || strings.HasPrefix(trimmed, "OFPST_FLOW") || strings.HasPrefix(trimmed, "NXST_FLOW") {
+			continue
+		}
+
+		table := 0
+		if tm := flowTableRegex.FindStringSubmatch(trimmed); len(tm) > 1 {
+			table, _ = strconv.Atoi(tm[1])
+		}
+
+		var packets int64
+		if pm := flowPacketsRegex.FindStringSubmatch(trimmed); len(pm) > 1 {
+			packets, _ = strconv.ParseInt(pm[1], 10, 64)
+		}
+
+		var nbytes int64
+		if bm := flowBytesRegex.FindStringSubmatch(trimmed); len(bm) > 1 {
+			nbytes, _ = strconv.ParseInt(bm[1], 10, 64)
+		}
+
+		matchStr := ""
+		actionStr := ""
+		if sm := flowPriorityMatch.FindStringSubmatch(trimmed); len(sm) > 2 {
+			matchStr = strings.TrimSpace(sm[1])
+			actionStr = strings.TrimSpace(sm[2])
+		} else {
+			actionStr = trimmed
+		}
+
+		totalPackets += packets
+		totalBytes += nbytes
+
+		rules = append(rules, openFlowRule{
+			table:   table,
+			packets: packets,
+			bytes:   nbytes,
+			match:   matchStr,
+			actions: actionStr,
+		})
+	}
+
+	if len(rules) == 0 {
+		if filter != "" {
+			return fmt.Sprintf("No OpenFlow flows matched filter: %s", filter)
+		}
+		return "No OpenFlow flows found."
+	}
+
+	sort.Slice(rules, func(i, j int) bool {
+		if rules[i].table != rules[j].table {
+			return rules[i].table < rules[j].table
+		}
+		return rules[i].packets > rules[j].packets
+	})
+
+	var out strings.Builder
+	if filter != "" {
+		fmt.Fprintf(&out, "OpenFlow flows on br-int matching filter: %s\n", filter)
+	} else {
+		out.WriteString("OpenFlow flows on br-int:\n")
+	}
+	fmt.Fprintf(&out, "Total Activity: %s packets · %s across %d flow(s)\n\n",
+		formatCount(totalPackets), formatBytes(totalBytes), len(rules))
+
+	fmt.Fprintf(&out, "  %-6s  %-12s  %-10s  %s\n", "TABLE", "PACKETS", "BYTES", "MATCH ➔ ACTIONS")
+	out.WriteString("  " + strings.Repeat("─", 74) + "\n")
+
+	for _, r := range rules {
+		matchDisplay := r.match
+		if matchDisplay == "" {
+			matchDisplay = "(any)"
+		}
+		fmt.Fprintf(&out, "  %-6d  %-12s  %-10s  %s ➔ %s\n",
+			r.table, formatCount(r.packets), formatBytes(r.bytes), matchDisplay, r.actions)
+	}
+
+	return out.String()
+}
+
+func formatBytes(b int64) string {
+	const unit = 1024
+	if b < unit {
+		return fmt.Sprintf("%d B", b)
+	}
+	div, exp := int64(unit), 0
+	for n := b / unit; n >= unit; n /= unit {
+		div *= unit
+		exp++
+	}
+	return fmt.Sprintf("%.1f %cB", float64(b)/float64(div), "KMGTPE"[exp])
+}
+
+func formatCount(n int64) string {
+	s := strconv.FormatInt(n, 10)
+	if len(s) <= 3 {
+		return s
+	}
+	var parts []string
+	rem := len(s) % 3
+	if rem > 0 {
+		parts = append(parts, s[:rem])
+	}
+	for i := rem; i < len(s); i += 3 {
+		parts = append(parts, s[i:i+3])
+	}
+	return strings.Join(parts, ",")
 }

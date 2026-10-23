@@ -150,7 +150,7 @@ func TestDiagActionsExecuteOnTheSelectedPort(t *testing.T) {
 		}
 		return res
 	}
-	for _, key := range []string{"3", "4", "5", "6"} {
+	for _, key := range []string{"3", "4", "5", "6", "7"} {
 		res := run(key)
 		if c := lastCall(t, mock); c.Pod.Name != "ovs-ovn-node-2" {
 			t.Errorf("action %s ran in %s, want the OVS pod of node-2", key, c.Pod.Name)
@@ -452,6 +452,12 @@ func TestRouterPortDiagnostics(t *testing.T) {
 	}
 	if ok, _ := tgDist.can(actTrace); !ok {
 		t.Errorf("ovn-trace must remain available on internal LRP")
+	}
+	if ok, _ := tgDist.can(actFlows); !ok {
+		t.Errorf("OpenFlow flows action must be available on internal distributed LRP")
+	}
+	if tgDist.FlowFilter != "dl_dst="+tgDist.SrcMAC || tgDist.SrcMAC == "" {
+		t.Errorf("internal LRP must filter flows by router MAC dl_dst, got %q", tgDist.FlowFilter)
 	}
 
 	// 2. Gateway LRP (lrp-gw on node-1 via br-external)
